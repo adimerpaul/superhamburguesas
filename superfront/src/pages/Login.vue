@@ -83,12 +83,15 @@
 import { defineComponent, ref } from 'vue'
 import { useQuasar } from 'quasar'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'MainLayout',
   setup () {
     const $store = useStore()
     const $q = useQuasar()
+    const $router = useRouter()
+
     const email = ref("admin@test.com")
     const password = ref("admin")
     return {
@@ -98,16 +101,17 @@ export default defineComponent({
         $q.loading.show()
         // let email = this.email
         // let password = this.password
-        $store.dispatch('login', { email, password })
+        // console.log(email.value)
+        $store.dispatch('login', { email:email.value, password:password.value })
           .then(() =>{
             $q.loading.hide()
-            this.$router.push('/')
+            $router.push('/menu')
           })
           .catch(err => {
-            this.$q.loading.hide();
-            // console.log(err.response.data)
-            this.$q.notify({
-              message:err.response.data.res,
+            $q.loading.hide();
+            console.log(err)
+            $q.notify({
+              message:err,
               color:'red',
               icon:'error'
             })

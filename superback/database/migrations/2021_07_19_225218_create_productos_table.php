@@ -19,10 +19,15 @@ class CreateProductosTable extends Migration
             $table->string('descripcion');
             $table->double('precio',11,2);
             $table->integer('stock');
+            $table->boolean('extra')->default(false);
+            $table->boolean('postre')->default(false);
+            $table->boolean('acompanamiento')->default(false);
+            $table->boolean('gaseoso')->default(false);
             $table->string('tipo')->default('PRODUCTO');
             $table->string('codigo');
             $table->string('imagen');
-//            $table->unsignedBigInteger('rubro');
+            $table->unsignedBigInteger('rubro_id');
+            $table->foreign('rubro_id')->references('id')->on('rubros');
             $table->timestamps();
         });
     }

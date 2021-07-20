@@ -7,7 +7,8 @@ import axios from 'axios'
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-var api = axios.create({ baseURL: 'http://localhost:8000/api' })
+// console.log(process.env.API);
+var api = axios.create({ baseURL: process.env.API})
 const token = localStorage.getItem('token')
 if (token) {
   api.defaults.headers.common['Authorization'] = 'Bearer '+token
