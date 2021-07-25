@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        "nombre",
+        "descripcion",
+        "precio",
+        "stock",
+        "tipo",
+        "imagen",
+        "color",
+        "activo",
+        "rubro_id",
+    ];
+    protected $hidden = ["created_at", "updated_at"];
+    public function rubros(){
+        return $this->belongsTo(Rubro::class);
+    }
 }

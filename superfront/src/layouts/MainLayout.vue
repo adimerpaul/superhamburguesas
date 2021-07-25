@@ -51,6 +51,7 @@
             </q-item-label>
           </q-item-section>
         </q-item>
+
         <q-item
           v-if="!$store.getters.isLoggedIn"
           clickable
@@ -80,7 +81,7 @@
           <q-item-section
             avatar
           >
-            <q-icon name="person" />
+            <q-icon name="precision_manufacturing" />
           </q-item-section>
 
           <q-item-section>
@@ -90,6 +91,27 @@
             </q-item-label>
           </q-item-section>
         </q-item>
+
+
+        <q-item
+          clickable
+          to="/rubro"
+          exact         
+        >
+          <q-item-section
+            avatar
+          >
+            <q-icon name="precision_manufacturing" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Rubro</q-item-label>
+            <q-item-label caption>
+              Datos Rubro
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+
         <q-item
           v-if="$store.getters.isLoggedIn"
           clickable

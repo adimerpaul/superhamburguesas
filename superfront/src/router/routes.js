@@ -11,7 +11,7 @@ const routes = [
     children: [
       { path: '', component: Index },
       { path: '/login', component: Login },
-      { path: '/rubro', component: Rubro,meta: {requiresAuth: true} },
+      { path: '/rubro', component: Rubro },
     ]
   },
 

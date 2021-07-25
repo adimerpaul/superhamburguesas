@@ -15,6 +15,8 @@ class RubroController extends Controller
     public function index()
     {
         //
+        return Rubro::with('productos')->get();
+
     }
 
     /**
@@ -33,9 +35,27 @@ class RubroController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function upload(Request $request){
+        $this->validate($request, [
+            'imagen'=>'required'
+        ]);
+        if ($request->hasFile('imagen')) {
+            $file=$request->file('imagen');
+            $nombreArchivo = time().".".$file->getClientOriginalExtension();
+            $file->move(\public_path('imagenes'), $nombreArchivo);
+            return $nombreArchivo;
+        }
+
+    }
+
+
     public function store(Request $request)
     {
         //
+        $input=$request->all();
+        $rubro=Rubro::create($input);
+        return $rubro;
     }
 
     /**
@@ -70,6 +90,8 @@ class RubroController extends Controller
     public function update(Request $request, Rubro $rubro)
     {
         //
+        $rubro->update($request->all());
+        return $rubro;
     }
 
     /**
@@ -78,8 +100,11 @@ class RubroController extends Controller
      * @param  \App\Models\Rubro  $rubro
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rubro $rubro)
+    public function destroy($id)
     {
         //
+        $rubro=Rubro::find($id);
+        $rubro->delete();
+        return response()->json(['res'=>'Borrado exitoso'],200);
     }
 }

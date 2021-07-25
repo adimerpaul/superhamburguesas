@@ -25,6 +25,7 @@ class CreateProductosTable extends Migration
             $table->boolean('gaseoso')->default(false);
             $table->string('tipo')->default('PRODUCTO');
             $table->string('codigo');
+            $table->string('color');
             $table->string('imagen');
             $table->unsignedBigInteger('rubro_id');
             $table->foreign('rubro_id')->references('id')->on('rubros');
