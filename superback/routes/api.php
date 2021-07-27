@@ -19,10 +19,11 @@ use Illuminate\Support\Facades\Route;
 //});
 Route::post('login',[\App\Http\Controllers\UserController::class,'login']);
 Route::post('/upload',[\App\Http\Controllers\RubroController::class,'upload']);
-    Route::apiResource('/rubro',\App\Http\Controllers\RubroController::class);
+
 
 Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::post('/logout',[\App\Http\Controllers\UserController::class,'logout']);
+    Route::resource('/rubro',\App\Http\Controllers\RubroController::class);
     Route::post('/me',[\App\Http\Controllers\UserController::class,'me']);
 });
-    
+
