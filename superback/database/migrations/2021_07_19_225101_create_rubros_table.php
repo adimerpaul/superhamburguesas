@@ -18,9 +18,8 @@ class CreateRubrosTable extends Migration
             $table->string('nombre');
             $table->string('codigo')->default('');
             $table->boolean('activo')->default(true);
-            $table->string('color')->default('');
             $table->string('icono')->default('list');
-            $table->string('imagen')->default('');
+            $table->string('imagen')->default('a.jpg')->nullable();
             $table->timestamps();
         });
     }

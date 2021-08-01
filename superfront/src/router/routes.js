@@ -2,6 +2,7 @@ import Index from 'pages/Index'
 import Login from "pages/Login";
 import MainLayout from "layouts/MainLayout";
 import Rubro from "pages/Rubro";
+import Producto from "pages/Producto";
 import Venta from "layouts/Venta";
 const routes = [
   {path: '/',component: Venta},
@@ -12,6 +13,7 @@ const routes = [
       { path: '', component: Index },
       { path: '/login', component: Login },
       { path: '/rubro', component: Rubro },
+      { path: '/producto', component: Producto },
     ]
   },
 

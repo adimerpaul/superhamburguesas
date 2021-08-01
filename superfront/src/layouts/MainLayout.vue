@@ -111,6 +111,25 @@
             </q-item-label>
           </q-item-section>
         </q-item>
+        
+        <q-item
+          clickable
+          to="/producto"
+          exact         
+        >
+          <q-item-section
+            avatar
+          >
+            <q-icon name="precision_manufacturing" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Producto</q-item-label>
+            <q-item-label caption>
+              Datos Producto
+            </q-item-label>
+          </q-item-section>
+        </q-item>
 
         <q-item
           v-if="$store.getters.isLoggedIn"

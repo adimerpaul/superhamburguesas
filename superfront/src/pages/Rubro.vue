@@ -21,20 +21,6 @@
               :rules="[ val => val && val.length > 0 || 'Por favor ingresa datos']"
             />
 
-            <q-input
-              filled
-              v-model="dato.color"
-              class="my-input"
-            >
-              <template v-slot:append>
-                <q-icon name="colorize" class="cursor-pointer">
-                  <q-popup-proxy transition-show="scale" transition-hide="scale">
-                    <q-color v-model="dato.color" />
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
-
             <q-uploader
               style="max-width: 300px"
               label="Main Image"
@@ -111,19 +97,6 @@
               :rules="[ val => val && val.length > 0 || 'Por favor ingresa datos']"
             />
 
-            <q-input
-              filled
-              v-model="dato2.color"
-              class="my-input"
-            >
-              <template v-slot:append>
-                <q-icon name="colorize" class="cursor-pointer">
-                  <q-popup-proxy transition-show="scale" transition-hide="scale">
-                    <q-color v-model="dato2.color" />
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
             <div>
               <q-btn label="Modificar" type="submit" color="warning" icon="edit"/>
                 <q-btn  label="Cancelar" icon="delete" color="negative" v-close-popup />
@@ -202,8 +175,7 @@ export default {
           field: row => row.nombre,
           sortable: true
         },
-        { name: 'imagen', align: 'center', label: 'Color', field: 'color', sortable: true },
-        // { name: 'color', align: 'center', label: 'Imagen', field: 'imagen', sortable: true },
+        { name: 'imagen', align: 'center', label: 'imagen', field: 'imagen', sortable: true },
         { name: 'opcion', label: 'Opcion', field:'action',  sortable: false },
 
       ],
