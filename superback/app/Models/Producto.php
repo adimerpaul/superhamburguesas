@@ -19,11 +19,11 @@ class Producto extends Model
         "rubro_id",
     ];
     protected $hidden = ["created_at", "updated_at"];
-    public function rubros(){
+    public function rubro(){
         return $this->belongsTo(Rubro::class);
     }
 
-    public function incluye(){
-        return $this->hashMany(Incluye::class);
+    public function incluyes(){
+        return $this->hasMany(Incluye::class);
     }
 }

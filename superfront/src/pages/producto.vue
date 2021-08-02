@@ -74,7 +74,9 @@
                     {{props.pageIndex}}
                     </td>
                     <td key="nombre" :props="props">
-                        <input type="text" v-model="props.row.nombre">
+                        <input type="text" v-model="props.row.nombre"
+                        lazy-rules
+                        :rules="[ val => val && val.length > 0 || 'Por favor ingresa datos']">
                     </td>
                 <q-td key="opcion" :props="props">
                     <q-btn dense round flat color="green"  @click="mas" icon="add"></q-btn>
@@ -100,7 +102,7 @@
     </q-dialog>
     <q-table
       title="Productos"
-      :data="data"
+      :rows="data"
       :columns="columns"
       row-key="name"
     >
@@ -110,13 +112,11 @@
             {{ props.row.nombre }}
           </q-td>
           <q-td key="imagen" :props="props"  width='200'>
-            <div :style="'background: '+props.row.color" style="border-radius: 25px;">
               <img :src="url+'/../imagenes/'+props.row.imagen"  width="100" height="100">
-            </div>
 
           </q-td>
-          <q-td key="cantidad" :props="props">
-            {{ props.row.cantidad }}
+          <q-td key="stock" :props="props">
+            {{ props.row.stock }}
           </q-td>
           <q-td key="precio" :props="props">
             {{ props.row.precio }}
@@ -125,12 +125,12 @@
             <div class="text-h6">{{ props.row.rubro.nombre }}</div>
           </q-td>
           <q-td key="opcion" :props="props">
-            <q-btn v-if="$store.state.modificarproducto" dense round flat color="green" @click="addRow(props)" icon="add"></q-btn>
-            <q-btn v-if="$store.state.modificarproducto" dense round flat color="red" @click="substractRow(props)" icon="remove"></q-btn>
+            <q-btn dense round flat color="green" @click="addRow(props)" icon="add"></q-btn>
+            <q-btn dense round flat color="red" @click="substractRow(props)" icon="remove"></q-btn>
             <q-btn dense round flat color="yellow" @click="verRow(props)" icon="list"></q-btn>
-            <q-btn v-if="$store.state.modificarproducto" dense round flat color="yellow" @click="editRow(props)" icon="edit"></q-btn>
-            <q-btn v-if="$store.state.modificarproducto" dense round flat color="ingo" @click="editImg(props)" icon="photo"></q-btn>
-            <q-btn v-if="$store.state.eliminarproducto" dense round flat color="red" @click="deleteRow(props)" icon="delete"></q-btn>
+            <q-btn dense round flat color="yellow" @click="editRow(props)" icon="edit"></q-btn>
+            <q-btn dense round flat color="ingo" @click="editImg(props)" icon="photo"></q-btn>
+            <q-btn dense round flat color="red" @click="deleteRow(props)" icon="delete"></q-btn>
           </q-td>
         </q-tr>
       </template>
@@ -175,12 +175,18 @@
             />
             <q-input
               filled
-              v-model="dato2.cantidad"
+              v-model="dato2.stock"
               label="Cantidad"
               type="number"
               hint="Cantidad de platos"
               lazy-rules
               :rules="[ val => val>0 && val < 500 || 'Por favor Valor']"
+            />
+                 <q-select
+              v-model="dato2.tipo"
+              label="Tipo"
+              :options="['PRODUCTO','COMBO']"
+              emit-value
             />
             <q-select
               v-model="dato2.rubro_id"
@@ -188,21 +194,31 @@
               :options="options"
               emit-value
             />
+            <q-table
+                title="Detalle"
+                :columns="detalle2"
+                :rows="dato2.detalle"
+                
+                >
+                <template v-slot:body="props">
+                <q-tr :props="props">
+                    <td key='index' :props="props">
+                    {{props.pageIndex}}
+                    </td>
+                    <td key="nombre" :props="props">
+                        <input type="text" v-model="props.row.nombre"
+                        lazy-rules
+                        :rules="[ val => val && val.length > 0 || 'Por favor ingresa datos']">
+                    </td>
+                <q-td key="opcion" :props="props">
+                    <q-btn dense round flat color="green"  @click="mas" icon="add"></q-btn>
+                    <q-btn dense round flat color="red" @click="menos(props.pageIndex)" icon="remove"></q-btn>
+                </q-td>
+                </q-tr>
+            </template>
 
-            <q-input
-              filled
-              v-model="dato2.color"
-              class="my-input"
-            >
-              <template v-slot:append>
-                <q-icon name="colorize" class="cursor-pointer">
-                  <q-popup-proxy transition-show="scale" transition-hide="scale">
-                    <q-color v-model="dato2.color" />
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
 
+                </q-table>
 
             <div>
               <q-btn label="Modificar" type="submit" color="positive" icon="add_circle"/>
@@ -430,8 +446,8 @@ export default {
           // format: val => `${val}`,
           sortable: true
         },
-        { name: 'imagen', align: 'center', label: 'Imagen', field: 'color', sortable: true },
-        { name: 'cantidad', align: 'right', label: 'Stock', field: 'cantidad', sortable: true },
+        { name: 'imagen', align: 'center', label: 'Imagen', field: 'imagen', sortable: true },
+        { name: 'stock', align: 'right', label: 'Stock', field: 'stock', sortable: true },
         { name: 'precio', align: 'right', label: 'Precio', field: 'precio', sortable: true },
         { name: 'rubro', align: 'center', label: 'Rubro', field: 'rubro', sortable: true },
         { name: 'opcion', label: 'Opcion', field:'action',  sortable: false },
@@ -443,7 +459,7 @@ export default {
           required: true,
           label: 'cantidad',
           align: 'left',
-          field: row => row.cantidad,
+          field: row => row.stock,
           // format: val => `${val}`,
           sortable: true
         },
@@ -466,9 +482,13 @@ export default {
   methods:{
                   mas(){
                 this.dato.detalle.push({nombre:''});
+                this.dato2.detalle.push({nombre:''});
             },
             menos(index){
+                if(index > 0)
                 this.dato.detalle.splice(index, 1);
+                if(index > 0)
+                this.dato2.detalle.splice(index, 1);
             },
     uploadFile(files) {
       this.file_path = files[0]
@@ -530,6 +550,7 @@ export default {
     misdatos(){
       this.$q.loading.show();
       this.$axios.get(process.env.API+'/producto').then(res=>{
+          console.log(res.data);
         this.data=res.data;
         this.$q.loading.hide();
       })
@@ -543,8 +564,11 @@ export default {
         })
     },
     editRow(producto){
-        // console.log(producto.row);
+        console.log(producto.row);
         this.dato2= producto.row;
+        this.dato2.detalle=producto.row.incluyes;
+        if(this.dato2.detalle==[])
+        this.dato2.detalle=[{nombre:''}];
         this.dialog_mod=true;
     },
     editImg(producto){
@@ -577,7 +601,7 @@ export default {
     },
     onSubmit () {
       this.$q.loading.show();
-        console.log(this.dato);
+        console.log(this.dato.detalle);
       this.$axios.post(process.env.API+'/producto', this.dato).then(res=>{
         this.$q.notify({
           color: 'green-4',
@@ -618,7 +642,7 @@ export default {
     },
     onAdd(){
         this.$q.loading.show();
-        this.modprod={id:this.dato2.id,cantidad:this.agregar}
+        this.modprod={id:this.dato2.id,stock:this.agregar}
         this.$axios.post(process.env.API+'/productadd',this.modprod).then(res=>{
          this.$q.notify({
           color: 'green-4',
@@ -634,7 +658,7 @@ export default {
 
 onSub(){
         this.$q.loading.show();
-        this.modprod={id:this.dato2.id,cantidad:this.disminuir};
+        this.modprod={id:this.dato2.id,stock:this.disminuir};
         this.$axios.post(process.env.API+'/productsub',this.modprod).then(res=>{
          this.$q.notify({
           color: 'green-4',
