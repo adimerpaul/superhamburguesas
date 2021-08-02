@@ -31,45 +31,101 @@
     >
       <q-scroll-area style="height: calc(100% - 174px); margin-top: 174px; border-right: 1px solid #ddd">
         <q-list padding>
-          <q-item clickable v-ripple>
-            <q-item-section avatar>
-              <q-icon name="inbox" />
+          <q-item
+            v-if="!$store.getters['showcase/isLoggedIn']"
+            clickable
+            exact
+            to="/login"
+          >
+            <q-item-section
+              avatar
+            >
+              <q-icon name="login" />
             </q-item-section>
 
             <q-item-section>
-              Inbox
+              <q-item-label>Login</q-item-label>
+              <q-item-label caption>
+                Ingreso al sistema
+              </q-item-label>
             </q-item-section>
           </q-item>
-
-          <q-item active clickable v-ripple>
-            <q-item-section avatar>
-              <q-icon name="star" />
-            </q-item-section>
-
-            <q-item-section>
-              Star
-            </q-item-section>
-          </q-item>
-
-          <q-item clickable v-ripple>
-            <q-item-section avatar>
+          <q-item
+            clickable
+            exact
+            to="rubro"
+          >
+            <q-item-section
+              avatar
+            >
               <q-icon name="send" />
             </q-item-section>
 
             <q-item-section>
-              Send
+              <q-item-label>Rubro</q-item-label>
+              <q-item-label caption>
+                Rubros
+              </q-item-label>
             </q-item-section>
           </q-item>
-
-          <q-item clickable v-ripple>
-            <q-item-section avatar>
-              <q-icon name="drafts" />
+          <q-item
+            v-if="$store.getters['showcase/isLoggedIn']"
+            clickable
+            @click="logout"
+          >
+            <q-item-section
+              avatar
+            >
+              <q-icon name="logout" />
             </q-item-section>
 
             <q-item-section>
-              Drafts
+              <q-item-label>Salir</q-item-label>
+              <q-item-label caption>
+                Salir del sistema
+              </q-item-label>
             </q-item-section>
           </q-item>
+
+<!--          <q-item clickable v-ripple>-->
+<!--            <q-item-section avatar>-->
+<!--              <q-icon name="inbox" />-->
+<!--            </q-item-section>-->
+
+<!--            <q-item-section>-->
+<!--              Inbox-->
+<!--            </q-item-section>-->
+<!--          </q-item>-->
+
+<!--          <q-item active clickable v-ripple>-->
+<!--            <q-item-section avatar>-->
+<!--              <q-icon name="star" />-->
+<!--            </q-item-section>-->
+
+<!--            <q-item-section>-->
+<!--              Star-->
+<!--            </q-item-section>-->
+<!--          </q-item>-->
+
+<!--          <q-item clickable v-ripple>-->
+<!--            <q-item-section avatar>-->
+<!--              <q-icon name="send" />-->
+<!--            </q-item-section>-->
+
+<!--            <q-item-section>-->
+<!--              Send-->
+<!--            </q-item-section>-->
+<!--          </q-item>-->
+
+<!--          <q-item clickable v-ripple>-->
+<!--            <q-item-section avatar>-->
+<!--              <q-icon name="drafts" />-->
+<!--            </q-item-section>-->
+
+<!--            <q-item-section>-->
+<!--              Drafts-->
+<!--            </q-item-section>-->
+<!--          </q-item>-->
         </q-list>
       </q-scroll-area>
 
@@ -189,40 +245,70 @@ import { useRouter } from 'vue-router'
 import {date} from 'quasar'
 export default defineComponent({
   name: 'Venta',
-
   components: {
     // EssentialLink
   },
-
-  setup () {
-    const $store = useStore()
-    const $q = useQuasar()
-    const $router = useRouter()
-    const leftDrawerOpen = ref(false)
-    const timeStamp = Date.now()
-    const now =date.formatDate(timeStamp, 'dddd D  MMMM', {
-      days: ['Domingo', 'Lunes','Martes','Miercoles','Jueves','Viernes','Sabado' /* and all the rest of days - remember starting with Sunday */],
-      daysShort: ['Dum', 'Lun', /* and all the rest of days - remember starting with Sunday */],
-      months: ['Enero', 'Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre' /* and all the rest of months */],
-      monthsShort: ['Ian', 'Feb', /* and all the rest of months */]
-    })
-    return {
-      // essentialLinks: linksList,
-      now,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      },
-      logout () {
-        $q.loading.show()
-        $store.dispatch('logout')
-          .then(() => {
-            $q.loading.hide()
-            $router.push('/login')
-          })
-      }
+  data(){
+    return{
+        $store : useStore(),
+        $q : useQuasar(),
+        $router : useRouter(),
+        leftDrawerOpen : ref(false),
+        // timeStamp : Date.now(),
+        now :date.formatDate(Date.now(), 'dddd D  MMMM', {
+          days: ['Domingo', 'Lunes','Martes','Miercoles','Jueves','Viernes','Sabado' /* and all the rest of days - remember starting with Sunday */],
+          daysShort: ['Dum', 'Lun', /* and all the rest of days - remember starting with Sunday */],
+          months: ['Enero', 'Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre' /* and all the rest of months */],
+          monthsShort: ['Ian', 'Feb', /* and all the rest of months */]
+        })
     }
+  },
+  created() {
+    // console.log(this.$store)
+  },
+  methods:{
+        toggleLeftDrawer () {
+          this.leftDrawerOpen.value = !this.leftDrawerOpen.value
+        },
+        logout () {
+          this.$q.loading.show()
+          this.$store.dispatch('showcase/logout')
+            .then(() => {
+              this.$q.loading.hide()
+              this.$router.push('/login')
+            })
+        }
   }
+
+  // setup () {
+  //   const $store = useStore()
+  //   const $q = useQuasar()
+  //   const $router = useRouter()
+  //   const leftDrawerOpen = ref(false)
+  //   const timeStamp = Date.now()
+  //   const now =date.formatDate(timeStamp, 'dddd D  MMMM', {
+  //     days: ['Domingo', 'Lunes','Martes','Miercoles','Jueves','Viernes','Sabado' /* and all the rest of days - remember starting with Sunday */],
+  //     daysShort: ['Dum', 'Lun', /* and all the rest of days - remember starting with Sunday */],
+  //     months: ['Enero', 'Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre' /* and all the rest of months */],
+  //     monthsShort: ['Ian', 'Feb', /* and all the rest of months */]
+  //   })
+  //   return {
+  //     // essentialLinks: linksList,
+  //     now,
+  //     leftDrawerOpen,
+  //     toggleLeftDrawer () {
+  //       leftDrawerOpen.value = !leftDrawerOpen.value
+  //     },
+  //     logout () {
+  //       $q.loading.show()
+  //       $store.dispatch('logout')
+  //         .then(() => {
+  //           $q.loading.hide()
+  //           $router.push('/login')
+  //         })
+  //     }
+  //   }
+  // }
 })
 </script>
 <style lang="scss">

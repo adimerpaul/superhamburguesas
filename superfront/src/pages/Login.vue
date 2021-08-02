@@ -102,14 +102,14 @@ export default defineComponent({
         // let email = this.email
         // let password = this.password
         // console.log(email.value)
-        $store.dispatch('login', { email:email.value, password:password.value })
+        $store.dispatch('showcase/login', { email:email.value, password:password.value })
           .then(() =>{
             $q.loading.hide()
-            $router.push('/menu')
+            $router.push('/')
           })
           .catch(err => {
             $q.loading.hide();
-            console.log(err)
+            // console.log(err)
             $q.notify({
               message:err,
               color:'red',
