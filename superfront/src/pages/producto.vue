@@ -237,7 +237,7 @@
         </q-card-section>
         <q-card-section class="q-pt-xs">
           <q-form
-            @submit="onMod"
+            @submit="onModimg"
             class="q-gutter-md"
           >
             <q-uploader
@@ -618,6 +618,19 @@ export default {
     onMod(){
         this.$q.loading.show();
         this.$axios.put(process.env.API+'/producto/'+this.dato2.id,this.dato2).then(res=>{
+         this.$q.notify({
+          color: 'green-4',
+          textColor: 'white',
+          icon: 'cloud_done',
+          message: 'Modificado correctamente'
+        });
+        this.dialog_mod=false;
+          this.dialog_img=false;
+        this.misdatos();})
+    },
+        onModimg(){
+        this.$q.loading.show();
+        this.$axios.put(process.env.API+'/updateimg/'+this.dato2.id,this.dato2).then(res=>{
          this.$q.notify({
           color: 'green-4',
           textColor: 'white',

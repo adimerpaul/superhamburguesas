@@ -90,6 +90,19 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
+
+    public function upload(Request $request){
+        $this->validate($request, [
+            'imagen'=>'required'
+        ]);
+        if ($request->hasFile('imagen')) {
+            $file=$request->file('imagen');
+            $nombreArchivo = time().".".$file->getClientOriginalExtension();
+            $file->move(\public_path('imagenes'), $nombreArchivo);
+            return $nombreArchivo;
+        }
+
+    }
     public function update(Request $request, Producto $producto)
     {
         //
@@ -112,6 +125,14 @@ class ProductoController extends Controller
         return true;
     }
 
+    public function updateimg(Request $request, Producto $producto)
+    {
+        //
+        $producto = Producto::find($producto->id);
+        $producto->save();
+
+        return true;
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -123,5 +144,22 @@ class ProductoController extends Controller
         //
         DB::table('incluyes')->where('producto_id',$producto->id)->delete();
         return DB::table('productos')->where('id',$producto->id)->delete();
+    }
+    public function productadd(Request $request){
+
+        $product=Producto::find($request->id);
+        $product->stock+=$request->stock;
+        return $product->save();
+    }
+
+    public function productsub(Request $request){
+
+
+        $product=Producto::find($request->id);
+        if($product->stock < $request->stock)
+            $product->stock=0;
+        else
+            $product->stock-=$request->stock;
+        return $product->save();
     }
 }
