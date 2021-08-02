@@ -55,7 +55,7 @@
 
           <q-td key="imagen" :props="props"  width='200'>
             <!--            <q-badge color="purple">-->
-            <div :style="'background: '+props.row.color" style="border-radius: 25px;">
+            <div :style="'background: '+props.row.color" style="border-radius: 25px;" v-if="props.row.imagen!=''">
               <img :src="url+'/../imagenes/'+props.row.imagen"  width="100" height="100">
             </div>
 <!--            </q-badge>-->
@@ -154,7 +154,6 @@ export default {
   data () {
     return {
       alert: false,
-
       url: process.env.API,
       file_path : null,
       name: null,
@@ -191,6 +190,19 @@ export default {
   },
   created() {
     this.misdatos();
+    // this.$q.notify({
+    //   color: 'green-4',
+    //   textColor: 'white',
+    //   icon: 'cloud_done',
+    //   message: 'Imagen subido correctamente!'
+    // });
+    // this.$router.push('login')
+  },
+  preFetch ({ store, redirect }) {
+    if (!store.getters['showcase/isLoggedIn']) {
+      redirect({ path: '/login' })
+    }
+    // console.log(store.getters['showcase/isLoggedIn'])
   },
   methods:{
     uploadFile(files) {
@@ -258,7 +270,7 @@ export default {
     misdatos(){
       this.$q.loading.show();
       this.$axios.get(process.env.API+'/rubro').then(res=>{
-         console.log(res.data)
+         // console.log(res.data)
         this.data=res.data;
         this.$q.loading.hide();
       })

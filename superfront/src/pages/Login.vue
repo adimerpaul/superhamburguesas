@@ -91,7 +91,6 @@ export default defineComponent({
     const $store = useStore()
     const $q = useQuasar()
     const $router = useRouter()
-
     const email = ref("admin@test.com")
     const password = ref("admin")
     return {

@@ -5,10 +5,10 @@ import Rubro from "pages/Rubro";
 import Producto from "pages/Producto";
 import Venta from "layouts/Venta";
 const routes = [
-  {path: '/',component: Venta},
+  // {path: '/',component: Venta},
   {
-    path: '/menu',
-    component: MainLayout,
+    path: '/',
+    component: Venta,
     children: [
       { path: '', component: Index },
       { path: '/login', component: Login },
