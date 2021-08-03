@@ -16,7 +16,7 @@ module.exports = configure(function (ctx) {
     supportTS: false,
 
     // https://v2.quasar.dev/quasar-cli/prefetch-feature
-    // preFetch: true,
+    preFetch: true,
 
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -70,6 +70,9 @@ module.exports = configure(function (ctx) {
         chain.plugin('eslint-webpack-plugin')
           .use(ESLintPlugin, [{ extensions: [ 'js', 'vue' ] }])
       },
+      env: {
+        API: ctx.dev ? 'http://localhost:8000/api' : 'https://prod.api.com'
+      }
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
@@ -94,7 +97,10 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Loading',
+        'Notify'
+      ]
     },
 
     // animations: 'all', // --- includes all animations
@@ -138,9 +144,9 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: `Quasar App`,
-        short_name: `Quasar App`,
-        description: `A Quasar Framework app`,
+        name: `Super Hamburguesas`,
+        short_name: `Super Hamburguesas`,
+        description: `Pedidos super hamburguesas`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
@@ -205,7 +211,7 @@ module.exports = configure(function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'superfront'
+        appId: 'superhamburguesas'
       },
 
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain

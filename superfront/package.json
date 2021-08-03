@@ -1,9 +1,9 @@
 {
-  "name": "superfront",
+  "name": "superhamburguesas",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
-  "author": "adimerpaul <adimer101@gmail.com>",
+  "description": "Pedidos super hamburguesas",
+  "productName": "Super Hamburguesas",
+  "author": "adimerpaul <adimer101@email.com>",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
