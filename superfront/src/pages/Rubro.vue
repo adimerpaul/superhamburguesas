@@ -198,12 +198,12 @@ export default {
     // });
     // this.$router.push('login')
   },
-  preFetch ({ store, redirect }) {
-    if (!store.getters['showcase/isLoggedIn']) {
-      redirect({ path: '/login' })
-    }
-    // console.log(store.getters['showcase/isLoggedIn'])
-  },
+  // preFetch ({ store, redirect }) {
+  //   if (!store.getters['showcase/isLoggedIn']) {
+  //     redirect({ path: '/login' })
+  //   }
+  //   // console.log(store.getters['showcase/isLoggedIn'])
+  // },
   methods:{
     uploadFile(files) {
       this.file_path = files[0]

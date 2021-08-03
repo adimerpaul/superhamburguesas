@@ -17,7 +17,7 @@
 
         <div>Pedidos {{ 0 }}</div>
       </q-toolbar>
-      <div class="q-px-lg q-pt-xl q-mb-md">
+      <div class="q-px-lg q-pt-xs q-mb-md">
         <div class="text-h5 text-bold">Super Hamburguesas</div>
         <div class="text-subtitle1">{{ now }}</div>
       </div>
@@ -29,8 +29,26 @@
           :width="250"
           :breakpoint="600"
     >
-      <q-scroll-area style="height: calc(100% - 174px); margin-top: 174px; border-right: 1px solid #ddd">
+      <q-scroll-area style="height: calc(100% - 130px); margin-top: 130px; border-right: 1px solid #ddd">
         <q-list padding>
+          <q-item
+            clickable
+            exact
+            to="/"
+          >
+            <q-item-section
+              avatar
+            >
+              <q-icon name="home" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>Principal</q-item-label>
+              <q-item-label caption>
+                Pagina principal
+              </q-item-label>
+            </q-item-section>
+          </q-item>
           <q-item
             v-if="!$store.getters['showcase/isLoggedIn']"
             clickable
@@ -54,6 +72,7 @@
             clickable
             exact
             to="rubro"
+            v-if="$store.getters['showcase/isLoggedIn']"
           >
             <q-item-section
               avatar
@@ -64,10 +83,49 @@
             <q-item-section>
               <q-item-label>Rubro</q-item-label>
               <q-item-label caption>
-                Rubros
+                Administrar rubros
               </q-item-label>
             </q-item-section>
           </q-item>
+          <q-item
+            clickable
+            exact
+            to="producto"
+            v-if="$store.getters['showcase/isLoggedIn']"
+          >
+            <q-item-section
+              avatar
+            >
+              <q-icon name="category" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>Producto</q-item-label>
+              <q-item-label caption>
+                Administrar productos
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item
+            v-if="$store.getters['showcase/isLoggedIn']"
+            clickable
+            exact
+            to="pedido"
+          >
+            <q-item-section
+              avatar
+            >
+              <q-icon name="shopping_cart" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>Pedidos</q-item-label>
+              <q-item-label caption>
+                Productos para la venta
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+
           <q-item
             v-if="$store.getters['showcase/isLoggedIn']"
             clickable
@@ -129,7 +187,7 @@
         </q-list>
       </q-scroll-area>
 
-      <q-img class="absolute-top" src="img/super.jpg" style="height: 174px">
+      <q-img class="absolute-top" src="img/super.jpg" style="height: 130px">
         <div class="absolute-bottom bg-transparent ">
 <!--          <q-avatar size="56px" class="q-mb-sm">-->
 <!--            <img src="https://cdn.quasar.dev/img/boy-avatar.png">-->
@@ -253,7 +311,7 @@ export default defineComponent({
         $store : useStore(),
         $q : useQuasar(),
         $router : useRouter(),
-        leftDrawerOpen : ref(false),
+        leftDrawerOpen : false,
         // timeStamp : Date.now(),
         now :date.formatDate(Date.now(), 'dddd D  MMMM', {
           days: ['Domingo', 'Lunes','Martes','Miercoles','Jueves','Viernes','Sabado' /* and all the rest of days - remember starting with Sunday */],
@@ -268,7 +326,7 @@ export default defineComponent({
   },
   methods:{
         toggleLeftDrawer () {
-          this.leftDrawerOpen.value = !this.leftDrawerOpen.value
+          this.leftDrawerOpen = !this.leftDrawerOpen
         },
         logout () {
           this.$q.loading.show()

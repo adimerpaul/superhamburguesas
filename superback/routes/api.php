@@ -18,16 +18,14 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 Route::post('login',[\App\Http\Controllers\UserController::class,'login']);
-Route::post('/upload',[\App\Http\Controllers\RubroController::class,'upload']);
-Route::post('/updateimg',[\App\Http\Controllers\ProductoController::class,'updateimg']);
-Route::resource('/rubro',\App\Http\Controllers\RubroController::class);
-Route::resource('/producto',\App\Http\Controllers\ProductoController::class);
-Route::post('/productadd',[\App\Http\Controllers\ProductoController ::class,'productadd']);
-Route::post('/productsub',[\App\Http\Controllers\ProductoController ::class,'productsub']);
-
 Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::post('/logout',[\App\Http\Controllers\UserController::class,'logout']);
-
     Route::post('/me',[\App\Http\Controllers\UserController::class,'me']);
+    Route::post('/upload',[\App\Http\Controllers\RubroController::class,'upload']);
+    Route::post('/updateimg',[\App\Http\Controllers\ProductoController::class,'updateimg']);
+    Route::resource('/rubro',\App\Http\Controllers\RubroController::class);
+    Route::resource('/producto',\App\Http\Controllers\ProductoController::class);
+    Route::post('/productadd',[\App\Http\Controllers\ProductoController ::class,'productadd']);
+    Route::post('/productsub',[\App\Http\Controllers\ProductoController ::class,'productsub']);
 });
 

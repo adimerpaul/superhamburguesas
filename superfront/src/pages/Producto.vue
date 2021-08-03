@@ -61,12 +61,12 @@
               accept=".jpg,.png, image/*"
             />
 
-            
+
                 <q-table
                 title="Detalle"
                 :columns="detalle2"
                 :rows="dato.detalle"
-                
+
                 >
                 <template v-slot:body="props">
                 <q-tr :props="props">
@@ -88,7 +88,7 @@
 
                 </q-table>
 
-            
+
 
             <div>
               <q-btn label="Crear" type="submit" color="positive" icon="add_circle"/>
@@ -198,7 +198,7 @@
                 title="Detalle"
                 :columns="detalle2"
                 :rows="dato2.detalle"
-                
+
                 >
                 <template v-slot:body="props">
                 <q-tr :props="props">
@@ -414,7 +414,7 @@ export default {
       props:[],
       agregar:0,
       disminuir:0,
-     
+
       detalle2 : [
             {
             name: 'index',
@@ -564,35 +564,35 @@ export default {
         })
     },
     editRow(producto){
-        console.log(producto.row);
-        this.dato2= producto.row;
-        this.dato2.detalle=producto.row.incluyes;
+        console.log(Producto.row);
+        this.dato2= Producto.row;
+        this.dato2.detalle=Producto.row.incluyes;
         if(this.dato2.detalle==[])
         this.dato2.detalle=[{nombre:''}];
         this.dialog_mod=true;
     },
     editImg(producto){
       // console.log(producto.row);
-      this.dato2= producto.row;
+      this.dato2= Producto.row;
       this.dialog_img=true;
     },
     deleteRow(producto){
         // console.log(producto.row);
-        this.dato2= producto.row;
+        this.dato2= Producto.row;
         this.dialog_del=true;
     },
 
     addRow(producto){
         // console.log(producto.row);
-        this.dato2= producto.row;
+        this.dato2= Producto.row;
         this.dialog_add=true;
     },
     substractRow(producto){
-        this.dato2= producto.row;
+        this.dato2= Producto.row;
         this.dialog_sub=true;
     },
     verRow(producto){
-        this.dato2= producto.row;
+        this.dato2= Producto.row;
         this.$axios.post(process.env.API+'/verdatos',this.dato2).then(res=>{
           console.log(res.data);
           this.prod2=res.data;
