@@ -1,6 +1,6 @@
-# Super Hamburguesas (superhamburguesas)
+# Quasar App (superfront)
 
-Pedidos super hamburguesas
+A Quasar Framework app
 
 ## Install the dependencies
 ```bash

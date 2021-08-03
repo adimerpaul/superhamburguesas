@@ -1,3 +1,2 @@
-export function someAction () {
-
+export function someAction (/* context */) {
 }
