@@ -72,7 +72,7 @@
             clickable
             exact
             to="rubro"
-            v-if="$store.getters['showcase/isLoggedIn']"
+
           >
             <q-item-section
               avatar
