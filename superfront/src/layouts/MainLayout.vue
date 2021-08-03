@@ -33,122 +33,11 @@
           Essential Links
         </q-item-label>
 
-        <q-item
-          clickable
-          to="/menu"
-          exact
-        >
-          <q-item-section
-            avatar
-          >
-            <q-icon name="home" />
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>Home</q-item-label>
-            <q-item-label caption>
-              Ingreso al sistema
-            </q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item
-          v-if="!$store.getters.isLoggedIn"
-          clickable
-          exact
-          to="/login"
-        >
-          <q-item-section
-            avatar
-          >
-            <q-icon name="login" />
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>Login</q-item-label>
-            <q-item-label caption>
-              Ingreso al sistema
-            </q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item
-          clickable
-          to="/cliente"
-          exact
-          v-if="$store.state.boolcontribuyente"
-        >
-          <q-item-section
-            avatar
-          >
-            <q-icon name="precision_manufacturing" />
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>Contribuyente</q-item-label>
-            <q-item-label caption>
-              Datos Contribuyente
-            </q-item-label>
-          </q-item-section>
-        </q-item>
-
-
-        <q-item
-          clickable
-          to="/rubro"
-          exact         
-        >
-          <q-item-section
-            avatar
-          >
-            <q-icon name="precision_manufacturing" />
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>Rubro</q-item-label>
-            <q-item-label caption>
-              Datos Rubro
-            </q-item-label>
-          </q-item-section>
-        </q-item>
-        
-        <q-item
-          clickable
-          to="/producto"
-          exact         
-        >
-          <q-item-section
-            avatar
-          >
-            <q-icon name="precision_manufacturing" />
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>Producto</q-item-label>
-            <q-item-label caption>
-              Datos Producto
-            </q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item
-          v-if="$store.getters.isLoggedIn"
-          clickable
-          @click="logout"
-        >
-          <q-item-section
-            avatar
-          >
-            <q-icon name="logout" />
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>Salir</q-item-label>
-            <q-item-label caption>
-              Salir del sistema
-            </q-item-label>
-          </q-item-section>
-        </q-item>
+        <EssentialLink
+          v-for="link in essentialLinks"
+          :key="link.title"
+          v-bind="link"
+        />
       </q-list>
     </q-drawer>
 
@@ -159,37 +48,70 @@
 </template>
 
 <script>
+import EssentialLink from 'components/EssentialLink.vue'
+
+const linksList = [
+  {
+    title: 'Docs',
+    caption: 'quasar.dev',
+    icon: 'school',
+    link: 'https://quasar.dev'
+  },
+  {
+    title: 'Github',
+    caption: 'github.com/quasarframework',
+    icon: 'code',
+    link: 'https://github.com/quasarframework'
+  },
+  {
+    title: 'Discord Chat Channel',
+    caption: 'chat.quasar.dev',
+    icon: 'chat',
+    link: 'https://chat.quasar.dev'
+  },
+  {
+    title: 'Forum',
+    caption: 'forum.quasar.dev',
+    icon: 'record_voice_over',
+    link: 'https://forum.quasar.dev'
+  },
+  {
+    title: 'Twitter',
+    caption: '@quasarframework',
+    icon: 'rss_feed',
+    link: 'https://twitter.quasar.dev'
+  },
+  {
+    title: 'Facebook',
+    caption: '@QuasarFramework',
+    icon: 'public',
+    link: 'https://facebook.quasar.dev'
+  },
+  {
+    title: 'Quasar Awesome',
+    caption: 'Community Quasar projects',
+    icon: 'favorite',
+    link: 'https://awesome.quasar.dev'
+  }
+];
+
 import { defineComponent, ref } from 'vue'
-import { useQuasar } from 'quasar'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    // EssentialLink
+    EssentialLink
   },
 
   setup () {
-    const $store = useStore()
-    const $q = useQuasar()
-    const $router = useRouter()
     const leftDrawerOpen = ref(false)
 
     return {
-      // essentialLinks: linksList,
+      essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
-      },
-      logout () {
-        $q.loading.show()
-        $store.dispatch('logout')
-          .then(() => {
-            $q.loading.hide()
-            $router.push('/login')
-          })
       }
     }
   }
