@@ -39,19 +39,25 @@
           <q-avatar icon="fastfood" color="primary" text-color="white" />
           <span class="q-ml-sm">{{prod.nombre}}</span>
         </q-card-section>        
-        <q-card-section class="row items-center">
           
           <span class="q-ml-sm">{{prod}}</span>
+        <q-card-section class="row items-center" horizontal>
           
-          <q-img :src="url+'/../imagenes/'+prod.imagen" spinner-color="white" style="height: 140px; max-width: 150px; width:30%" />
-          <q-input type="number" label="Cantidad" style="width:50%" min="1" v-model="cant"/><br>
-          <q-input type="text" readonly label="Precio" v-model="prod.precio" style="width:50%"/>
+          <q-img :src="url+'/../imagenes/'+prod.imagen" class="col-5" spinner-color="white" style="height: 140px; max-width: 150px;" />
+          <q-card-section>
+          <q-input type="number" label="Cantidad" min="1" v-model="cant"/><br>
+          <q-input type="text" readonly label="Precio" v-model="prod.precio" />
+          <q-input type="text" readonly label="Subtotal" v-model="subtotal" />
+        </q-card-section>
 
+        </q-card-section>
+        <q-card-section v-if="prod.tipo=='COMBO'">
+          <q-checkbox v-model="right" label="Label on Right" />
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn flat label="Cancel" color="primary" v-close-popup />
-          <q-btn flat label="Turn on Wifi" color="primary" v-close-popup />
+          <q-btn flat label="Cancelar" color="primary" v-close-popup />
+          <q-btn flat label="Agregar a Pedido" color="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
