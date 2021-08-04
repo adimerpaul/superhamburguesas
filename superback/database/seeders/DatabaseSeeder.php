@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             AgenciaSeeder::class,
            UserSeeder::class,
             RubroSeeder::class,
-            ProductoSeeder::class,
+            ProductoSeeder::class
         ]);
     }
 }

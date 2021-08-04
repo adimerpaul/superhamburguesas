@@ -24,7 +24,7 @@
                 <q-card-section class="q-pa-none q-pl-xs" style="width: 100%">
                   <div>{{producto.nombre}}</div>
                   <div class="text-bold text-red-7">Bs. {{producto.precio}}</div>
-                  <div class="text-bold text-red-8 float-right">
+                  <div class="text-bold text-red-8 float-right" @click="registro(producto)">
                     <q-icon name="control_point" size="md"/>
                   </div>
                 </q-card-section>
@@ -33,6 +33,28 @@
             </q-card>
           </div>
         </div>
+    <q-dialog v-model="confirm" transition-show="scale" transition-hide="scale">
+      <q-card >
+        <q-card-section class="bg-teal text-white" >
+          <q-avatar icon="fastfood" color="primary" text-color="white" />
+          <span class="q-ml-sm">{{prod.nombre}}</span>
+        </q-card-section>        
+        <q-card-section class="row items-center">
+          
+          <span class="q-ml-sm">{{prod}}</span>
+          
+          <q-img :src="url+'/../imagenes/'+prod.imagen" spinner-color="white" style="height: 140px; max-width: 150px; width:30%" />
+          <q-input type="number" label="Cantidad" style="width:50%" min="1" v-model="cant"/><br>
+          <q-input type="text" readonly label="Precio" v-model="prod.precio" style="width:50%"/>
+
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" color="primary" v-close-popup />
+          <q-btn flat label="Turn on Wifi" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
       </div>
     </template>
 
@@ -46,7 +68,9 @@ export default {
   data(){
     return{
       url:process.env.API,
-      rubros:[]
+      rubros:[],
+      confirm:false,
+      prod:{}
     }
   },
   created() {
@@ -57,7 +81,13 @@ export default {
       // console.log(res.data)
       this.$q.loading.hide()
     })
-  }
+  },
+  methods: {
+    registro(producto){
+      this.prod=producto;
+      this.confirm=true;
+    }
+  },
 }
 </script>
 
