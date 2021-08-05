@@ -16,12 +16,12 @@ class RubroSeeder extends Seeder
     {
         DB::table('rubros')->insert([
             ["nombre"=>"PANES"],
-            ["nombre"=>"BEBIDAS"],
+            ["nombre"=>"BEBIDAS"],//2
             ["nombre"=>"MASAS DULCES"],
             ["nombre"=>"MASAS SALADAS"],
             ["nombre"=>"TORTAS"],
-            ["nombre"=>"JUGOS"],
-            ["nombre"=>"GASEOSAS"],
+            ["nombre"=>"JUGOS"],//6
+            ["nombre"=>"GASEOSAS"],//7
             ["nombre"=>"HAMBURGUESAS"],
             ["nombre"=>"POLLOS"],
             ["nombre"=>"AGVARIOS"],

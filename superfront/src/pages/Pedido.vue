@@ -45,7 +45,7 @@
           
           <q-img :src="url+'/../imagenes/'+prod.imagen" class="col-5" spinner-color="white" style="height: 140px; max-width: 150px;" />
           <q-card-section>
-          <q-input type="number" label="Cantidad" min="1" v-model="cant"/><br>
+          <q-input type="number" label="Cantidad" min="1" v-model="detalle.cant"/><br>
           <q-input type="text" readonly label="Precio" v-model="prod.precio" />
           <q-input type="text" readonly label="Subtotal" v-model="subtotal" />
         </q-card-section>
@@ -76,7 +76,9 @@ export default {
       url:process.env.API,
       rubros:[],
       confirm:false,
-      prod:{}
+      prod:{},
+      detalle:[],
+      pedido:{}
     }
   },
   created() {
