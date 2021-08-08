@@ -15,20 +15,39 @@ class RubroSeeder extends Seeder
     public function run()
     {
         DB::table('rubros')->insert([
-            ["nombre"=>"PANES"],
-            ["nombre"=>"BEBIDAS"],//2
+            ["nombre"=>"BEBIDAS"],
+            ["nombre"=>"CAFE CALIENTE"],
+            ["nombre"=>"CAFE FRIO"],
+            ["nombre"=>"CAFE CON LICOR"],
+
+            ["nombre"=>"JUGOS"],
+            ["nombre"=>"JARRA"],
+            ["nombre"=>"GASEOSAS"],
+
+            ["nombre"=>"DESAYUNOS"],
+            ["nombre"=>"OMELETTES"],
+            ["nombre"=>"HELADOS"],
+            ["nombre"=>"HELADO CLASICO"],
+            ["nombre"=>"CHOCOMANIA"],
+            ["nombre"=>"ICE BRINDYS"],
+            ["nombre"=>"HELADO SABORES"],
+
+            ["nombre"=>"COMIDA RAPIDA"],
+            ["nombre"=>"PIZZAS"],
+            ["nombre"=>"GRILL"],
+            ["nombre"=>"HAMBURGUESAS"],
+            ["nombre"=>"PLATOS"],
+            ["nombre"=>"ENSALADAS"],
+            ["nombre"=>"SANDWICHS"],
+
             ["nombre"=>"MASAS DULCES"],
             ["nombre"=>"MASAS SALADAS"],
+
             ["nombre"=>"TORTAS"],
-            ["nombre"=>"JUGOS"],//6
-            ["nombre"=>"GASEOSAS"],//7
-            ["nombre"=>"HAMBURGUESAS"],
-            ["nombre"=>"POLLOS"],
-            ["nombre"=>"AGVARIOS"],
-            ["nombre"=>"HELADOS"],
-            ["nombre"=>"FLANES O GELATINAS"],
-            ["nombre"=>"COMIDA RAPIDA"],
+            ["nombre"=>"POSTRES"],
+
             ["nombre"=>"ALMUERZO"],
+
             ["nombre"=>"JUGUETES"],
         ]);
     }
