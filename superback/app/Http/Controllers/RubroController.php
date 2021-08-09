@@ -64,10 +64,13 @@ class RubroController extends Controller
      * @param  \App\Models\Rubro  $rubro
      * @return \Illuminate\Http\Response
      */
-    public function show(Rubro $rubro)
+    public function show($id)
     {
         //
+
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

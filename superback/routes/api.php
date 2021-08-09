@@ -27,5 +27,6 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::resource('/producto',\App\Http\Controllers\ProductoController::class);
     Route::post('/productadd',[\App\Http\Controllers\ProductoController ::class,'productadd']);
     Route::post('/productsub',[\App\Http\Controllers\ProductoController ::class,'productsub']);
+    Route::post('/grupo/{id}',[\App\Http\Controllers\ProductoController ::class,'grupo']);
 });
 

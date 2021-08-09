@@ -40,19 +40,24 @@
           <span class="q-ml-sm">{{prod.nombre}}</span>
         </q-card-section>        
           
-          <span class="q-ml-sm">{{prod}}</span>
+          <span class="q-ml-sm">{{prod.descripcion}}</span>
         <q-card-section class="row items-center" horizontal>
           
           <q-img :src="url+'/../imagenes/'+prod.imagen" class="col-5" spinner-color="white" style="height: 140px; max-width: 150px;" />
           <q-card-section>
-          <q-input type="number" label="Cantidad" min="1" v-model="detalle.cant"/><br>
-          <q-input type="text" readonly label="Precio" v-model="prod.precio" />
-          <q-input type="text" readonly label="Subtotal" v-model="subtotal" />
+          <q-input type="number" label="Cantidad" min="1" v-model="cantidad" @change="calcular"/><br>
+          <q-input type="number" readonly label="Precio" v-model="prod.precio" />
+          <q-input type="number" readonly label="Subtotal" v-model="detalle.subtotal" />
         </q-card-section>
 
         </q-card-section>
         <q-card-section v-if="prod.tipo=='COMBO'">
-          <q-checkbox v-model="right" label="Label on Right" />
+          <div v-for="(bebida,index) in jugo" :key="index" class=" col-6 col-md-3">
+            <q-card-section class="row items-center" horizontal>
+            <label for="">{{bebida.nombre}}</label>
+              <q-input style="width:20%;" :dense='true' v-model='detalle.subdetalle.cantidad'  type="number" min="0" />
+            </q-card-section>  
+          </div>
         </q-card-section>
 
         <q-card-actions align="right">
@@ -77,25 +82,44 @@ export default {
       rubros:[],
       confirm:false,
       prod:{},
-      detalle:[],
-      pedido:{}
+      cantidad:0,
+      detalle:{},
+      pedido:[],
+      jugo:[]
     }
   },
   created() {
     // console.log(process.env.API)
-    this.$q.loading.show()
+    this.$q.loading.show();
     this.$axios.get(process.env.API+'/rubro').then(res=>{
       this.rubros=res.data
       // console.log(res.data)
-      this.$q.loading.hide()
-    })
+      this.$q.loading.hide();
+    });
   },
   methods: {
+    cargar(){
+      this.$axios.post(process.env.API+'/grupo/5').then(res=>{
+        this.jugo=res.data;
+      });
+
+    },
     registro(producto){
+      this.detalle={};
       this.prod=producto;
+      if(this.prod.tipo=='COMBO'){
+        this.cargar();
+        console.log(this.jugo);}
       this.confirm=true;
+    },
+    calcular(){
+      console.log(parseFloat (this.cantidad));
+      this.detalle.subtotal= (this.prod.precio * this.cantidad);
     }
+
   },
+
+  
 }
 </script>
 

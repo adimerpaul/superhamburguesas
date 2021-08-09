@@ -162,4 +162,11 @@ class ProductoController extends Controller
             $product->stock-=$request->stock;
         return $product->save();
     }
+
+    public function grupo($id)
+    {
+        //
+        return Producto::where('rubro_id',$id)->get();
+
+    }
 }
