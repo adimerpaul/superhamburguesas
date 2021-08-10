@@ -19,7 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->date('fechalimite');
+            $table->string('celular')->unique();
+            $table->date('fechalimite')->default('9999/01/01');
+            $table->string('tipo')->default('ADMIN');
             $table->unsignedBigInteger('agencia_id')->default(1);
             $table->foreign('agencia_id')->references('id')->on('agencias');
             $table->rememberToken();

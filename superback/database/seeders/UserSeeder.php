@@ -20,7 +20,8 @@ class UserSeeder extends Seeder
                'email'=>'admin@test.com',
                'name'=>'admin',
                'password'=>Hash::make('admin'),
-               'fechalimite'=>'2021-12-31'
+               'fechalimite'=>'2021-12-31',
+               'celular'=>'69603027'
            ]
         ]);
     }

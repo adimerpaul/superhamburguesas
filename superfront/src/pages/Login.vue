@@ -9,7 +9,9 @@
               <q-icon name="login" />
               Ingreso al sistemas
             </div>
-            <div class="text-subtitle2">ingresar nombre y contraseña</div>
+            <div class="text-subtitle2">
+              <a href="">Olvide mi contraseña</a>
+            </div>
           </q-card-section>
           <q-card-section>
             <q-form
@@ -19,11 +21,12 @@
             >
               <q-input
                 filled
-                v-model="email"
-                label="Ingresa tu email *"
+                v-model="celular"
+                label="Ingresa tu celular *"
                 hint="Email de ingreso"
                 lazy-rules
-                :rules="[ val => val && val.length > 0 || 'Please type something']"
+                type="number"
+                :rules="[ val => val && val.length > 0 || 'Porfavor ingresar dato']"
               />
               <q-input
                 autocomplete="on"
@@ -33,7 +36,7 @@
                 label="Password *"
                 hint="Contraseña "
                 lazy-rules
-                :rules="[ val => val && val.length > 0 || 'Please type something']"
+                :rules="[ val => val && val.length > 0 || 'Porfavor ingresar dato']"
               />
 
               <!--              <q-input-->
@@ -69,7 +72,7 @@
   <!--    <form class="login" @submit.prevent="login">-->
   <!--      <h1>Sign in</h1>-->
   <!--      <label>Email</label>-->
-  <!--      <input required v-model="email" type="email" placeholder="Name"/>-->
+  <!--      <input required v-model="celular" type="celular" placeholder="Name"/>-->
   <!--      <label>Password</label>-->
   <!--      <input required v-model="password" type="password" placeholder="Password"/>-->
   <!--      <hr/>-->
@@ -91,17 +94,17 @@ export default defineComponent({
     const $store = useStore()
     const $q = useQuasar()
     const $router = useRouter()
-    const email = ref("admin@test.com")
+    const celular = ref("69603027")
     const password = ref("admin")
     return {
-      email,
+      celular,
       password,
       login () {
         $q.loading.show()
-        // let email = this.email
+        // let celular = this.celular
         // let password = this.password
-        // console.log(email.value)
-        $store.dispatch('showcase/login', { email:email.value, password:password.value })
+        // console.log(celular.value)
+        $store.dispatch('showcase/login', { celular:celular.value, password:password.value })
           .then(() =>{
             $q.loading.hide()
             $router.push('/')
@@ -117,7 +120,7 @@ export default defineComponent({
           })
       },
       onReset(){
-        this.email=null;
+        this.celular=null;
         this.password=null;
       }
     }
@@ -127,16 +130,16 @@ export default defineComponent({
 // export default {
 //   data(){
 //     return {
-//       email : "admin@test.com",
+//       celular : "admin@test.com",
 //       password : "admin"
 //     }
 //   },
 //   methods: {
 //     login: function () {
 //       this.$q.loading.show()
-//       let email = this.email
+//       let celular = this.celular
 //       let password = this.password
-//       this.$store.dispatch('login', { email, password })
+//       this.$store.dispatch('login', { celular, password })
 //         .then(() =>{
 //           this.$q.loading.hide()
 //           this.$router.push('/')
@@ -152,7 +155,7 @@ export default defineComponent({
 //         })
 //     },
 //     onReset(){
-//       this.email=null;
+//       this.celular=null;
 //       this.password=null;
 //     }
 //   },

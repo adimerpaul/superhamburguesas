@@ -21,6 +21,8 @@ class CreateClientesTable extends Migration
             $table->string('direccion');
             $table->string('lat');
             $table->string('lng');
+            $table->unsignedBigInteger('user_id')->default(NULL)->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
