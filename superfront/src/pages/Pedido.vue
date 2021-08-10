@@ -1,30 +1,37 @@
 <template>
-<!--<q-page class="q-pa-xs">-->
-  <div class="q-pa-xs row ">
+  <!--<q-page class="q-pa-xs">-->
+  <div class=" row ">
+    <div v-for="(rubro,index) in rubros" :key="index"  class="col-4 col-sm-3 q-pa-xs" >
+      <q-btn color="primary"  class="full-width" @click="scrollMeTo(rubro.nombre)"  :label="rubro.nombre" :icon="rubro.icono"/>
+    </div>
+  </div>
+  <div class="q-pa-xs row">
     <template v-for="(rubro,index) in rubros" :key="index">
       <div  class="col-12 flex flex-center q-gutter-md" >
-        <q-btn color="deep-orange" size="md" class="q-mb-xs"  style="width: 250px">
-          <q-icon left :name="rubro.icono" />
-          <div class="text-center">
-            {{ rubro.nombre }}
-          </div>
-        </q-btn>
+<!--        <q-btn :ref="rubro.nombre" color="deep-orange"  class="q-mb-none " style="width: 250px" size="sm" :label="rubro.nombre" :icon="rubro.icono">-->
+          <!--          <q-icon left :name="rubro.icono" />-->
+          <!--          <div class="text-center">-->
+          <!--            {{ rubro.nombre }}-->
+          <!--          </div>-->
+<!--        </q-btn>-->
+        <button :ref="rubro.nombre" style="width: 100%;background: #F2C037;border: 0px;color: white"><q-icon :name="rubro.icono" size="sm"/> {{ rubro.nombre }}</button>
+<!--        <q-btn :name="rubro.nombre">{{ rubro.nombre }}</q-btn>-->
       </div>
       <div class="col-12">
         <div class="row">
           <div v-for="(producto,index) in rubro.productos" :key="index" class=" col-6 col-md-3">
-            <q-card   bordered style="" >
+            <q-card   bordered class="q-ma-xs" >
               <q-card-section horizontal>
-<!--                <q-card-section>-->
-                  <q-img
-                    style="max-width: 100px"
-                    :src="url+'/../imagenes/'+producto.imagen"
-                  />
-<!--                </q-card-section>-->
+                <!--                <q-card-section>-->
+                <q-img
+                  style="max-width: 100px"
+                  :src="url+'/../imagenes/'+producto.imagen"
+                />
+                <!--                </q-card-section>-->
                 <q-card-section class="q-pa-none q-pl-xs" style="width: 100%">
                   <div>{{producto.nombre}}</div>
                   <div class="text-bold text-red-7">Bs. {{producto.precio}}</div>
-                  <div class="text-bold text-red-8 float-right" @click="registro(producto)">
+                  <div class="text-bold text-red-8 float-right">
                     <q-icon name="control_point" size="md"/>
                   </div>
                 </q-card-section>
@@ -33,44 +40,17 @@
             </q-card>
           </div>
         </div>
-    <q-dialog v-model="confirm" transition-show="scale" transition-hide="scale">
-      <q-card >
-        <q-card-section class="bg-teal text-white" >
-          <q-avatar icon="fastfood" color="primary" text-color="white" />
-          <span class="q-ml-sm">{{prod.nombre}}</span>
-        </q-card-section>        
-          
-          <span class="q-ml-sm">{{prod.descripcion}}</span>
-        <q-card-section class="row items-center" horizontal>
-          
-          <q-img :src="url+'/../imagenes/'+prod.imagen" class="col-5" spinner-color="white" style="height: 140px; max-width: 150px;" />
-          <q-card-section>
-          <q-input type="number" label="Cantidad" min="1" v-model="cantidad" @change="calcular"/><br>
-          <q-input type="number" readonly label="Precio" v-model="prod.precio" />
-          <q-input type="number" readonly label="Subtotal" v-model="detalle.subtotal" />
-        </q-card-section>
-
-        </q-card-section>
-        <q-card-section v-if="prod.tipo=='COMBO'">
-          <div v-for="(bebida,index) in jugo" :key="index" class=" col-6 col-md-3">
-            <q-card-section class="row items-center" horizontal>
-            <label for="">{{bebida.nombre}}</label>
-              <q-input style="width:20%;" :dense='true' v-model='detalle.subdetalle.cantidad'  type="number" min="0" />
-            </q-card-section>  
-          </div>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn flat label="Cancelar" color="primary" v-close-popup />
-          <q-btn flat label="Agregar a Pedido" color="primary" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
       </div>
     </template>
 
   </div>
-<!--</q-page>-->
+
+  <q-page-sticky position="bottom-right" :offset="[15, 15]">
+    <q-btn fab icon="keyboard_arrow_up" color="primary" @click="subir"/>
+  </q-page-sticky>
+
+
+  <!--</q-page>-->
 </template>
 
 <script>
@@ -79,47 +59,30 @@ export default {
   data(){
     return{
       url:process.env.API,
-      rubros:[],
-      confirm:false,
-      prod:{},
-      cantidad:0,
-      detalle:{},
-      pedido:[],
-      jugo:[]
+      rubros:[]
     }
   },
   created() {
     // console.log(process.env.API)
-    this.$q.loading.show();
+    this.$q.loading.show()
     this.$axios.get(process.env.API+'/rubro').then(res=>{
       this.rubros=res.data
       // console.log(res.data)
-      this.$q.loading.hide();
-    });
+      this.$q.loading.hide()
+    })
   },
-  methods: {
-    cargar(){
-      this.$axios.post(process.env.API+'/grupo/5').then(res=>{
-        this.jugo=res.data;
-      });
-
+  methods:{
+    scrollMeTo(refName){
+      // console.log(rubro)
+      var element = this.$refs[refName];
+      var top = element.offsetTop;
+      console.log(top)
+      window.scrollTo(0, top-130);
     },
-    registro(producto){
-      this.detalle={};
-      this.prod=producto;
-      if(this.prod.tipo=='COMBO'){
-        this.cargar();
-        console.log(this.jugo);}
-      this.confirm=true;
-    },
-    calcular(){
-      console.log(parseFloat (this.cantidad));
-      this.detalle.subtotal= (this.prod.precio * this.cantidad);
+    subir(){
+      window.scrollTo(0, 0);
     }
-
-  },
-
-  
+  }
 }
 </script>
 
