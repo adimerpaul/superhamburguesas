@@ -16,4 +16,7 @@ class Pedido extends Model
         'user_id',
         'cliente_id',
     ];
+    public function incluyes(){
+        return $this->hasMany(Incluye::class);
+    }
 }
