@@ -25,6 +25,7 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::post('/updateimg',[\App\Http\Controllers\ProductoController::class,'updateimg']);
     Route::resource('/rubro',\App\Http\Controllers\RubroController::class);
     Route::resource('/producto',\App\Http\Controllers\ProductoController::class);
+    Route::resource('/grupoingrediente',\App\Http\Controllers\GrupoingredienteController::class);
     Route::post('/productadd',[\App\Http\Controllers\ProductoController ::class,'productadd']);
     Route::post('/productsub',[\App\Http\Controllers\ProductoController ::class,'productsub']);
     Route::post('/grupo/{id}',[\App\Http\Controllers\ProductoController ::class,'grupo']);

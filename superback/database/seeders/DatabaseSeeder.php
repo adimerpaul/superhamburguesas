@@ -18,7 +18,11 @@ class DatabaseSeeder extends Seeder
             AgenciaSeeder::class,
            UserSeeder::class,
             RubroSeeder::class,
-            ProductoSeeder::class
+            ProductoSeeder::class,
+            GrupoingredienteSeeder::class,
+            IngredienteSeeder::class,
+            ProductogrupoSeeder::class
+
         ]);
     }
 }

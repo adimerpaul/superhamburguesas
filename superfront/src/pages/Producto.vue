@@ -7,11 +7,27 @@
           <div class="text-h6">Crear</div>
         </q-card-section>
         <q-card-section class="q-pt-xs">
+        <q-tabs
+          v-model="tab"
+          dense
+          class="text-grey"
+          active-color="primary"
+          indicator-color="primary"
+          align="justify"
+          narrow-indicator
+        >
+          <q-tab name="Datos" label="Datos" />
+          <q-tab name="Descripcion" label="Descripcion" />
+          <q-tab name="Ingrediente" label="Ingrediente" />
+        </q-tabs>
+
           <q-form
             @submit="onSubmit"
             @reset="onReset"
             class="q-gutter-md"
           >
+        <q-tab-panels v-model="tab" animated>
+          <q-tab-panel name="Datos">
             <q-input
               filled
               v-model="dato.nombre"
@@ -60,8 +76,8 @@
               max-files="1"
               accept=".jpg,.png, image/*"
             />
-
-
+            </q-tab-panel>
+            <q-tab-panel name="Descripcion">
                 <q-table
                 title="Detalle"
                 :columns="detalle2"
@@ -87,13 +103,22 @@
 
 
                 </q-table>
+            </q-tab-panel>
 
 
-
+            <q-tab-panel name="Ingrediente">
+                <q-select
+                  v-model="ingred.grupo_id"
+                  label="Grupo"
+                  :options="opgrupo"
+                  emit-value
+                />
             <div>
               <q-btn label="Crear" type="submit" color="positive" icon="add_circle"/>
                 <q-btn  label="Cancelar" icon="delete" color="negative" v-close-popup />
             </div>
+            </q-tab-panel>
+            </q-tab-panels>
           </q-form>
         </q-card-section>
 
@@ -404,6 +429,7 @@ export default {
       dialog_add:false,
       dialog_sub:false,
       dialog_ver:false,
+      tab:'Datos',
       name: null,
       age: null,
       accept: false,
@@ -411,10 +437,11 @@ export default {
       dato2:{},
       modprod:{},
       options:[],
+      opgrupo:[],
       props:[],
       agregar:0,
       disminuir:0,
-
+      ingred:{},
       detalle2 : [
             {
             name: 'index',
@@ -477,10 +504,12 @@ export default {
   created() {
     this.misdatos();
     this.misrubros();
-    this.dato.detalle=[{nombre:'12345'},{nombre:'999'}];
+    this.misgrupos();
+    this.dato.detalle=[{nombre:''}];
+    this.dato.ingrediente=[];
   },
   methods:{
-                  mas(){
+             mas(){
                 this.dato.detalle.push({nombre:''});
                 this.dato2.detalle.push({nombre:''});
             },
@@ -563,36 +592,45 @@ export default {
             });
         })
     },
+    misgrupos(){
+        this.options=[];
+        this.$axios.get(process.env.API+'/grupoingrediente').then(res=>{
+          console.log(res.data);
+            res.data.forEach(row => {
+                this.opgrupo.push({label:row.nombre,value:row.id});
+            });
+        })
+    },
     editRow(producto){
-        console.log(Producto.row);
-        this.dato2= Producto.row;
-        this.dato2.detalle=Producto.row.incluyes;
+        console.log(producto.row);
+        this.dato2= producto.row;
+        this.dato2.detalle=producto.row.incluyes;
         if(this.dato2.detalle==[])
         this.dato2.detalle=[{nombre:''}];
         this.dialog_mod=true;
     },
     editImg(producto){
       // console.log(producto.row);
-      this.dato2= Producto.row;
+      this.dato2= producto.row;
       this.dialog_img=true;
     },
     deleteRow(producto){
         // console.log(producto.row);
-        this.dato2= Producto.row;
+        this.dato2= producto.row;
         this.dialog_del=true;
     },
 
     addRow(producto){
         // console.log(producto.row);
-        this.dato2= Producto.row;
+        this.dato2= producto.row;
         this.dialog_add=true;
     },
     substractRow(producto){
-        this.dato2= Producto.row;
+        this.dato2= producto.row;
         this.dialog_sub=true;
     },
     verRow(producto){
-        this.dato2= Producto.row;
+        this.dato2= producto.row;
         this.$axios.post(process.env.API+'/verdatos',this.dato2).then(res=>{
           console.log(res.data);
           this.prod2=res.data;
@@ -602,6 +640,7 @@ export default {
     onSubmit () {
       this.$q.loading.show();
         console.log(this.dato.detalle);
+      if (this.dato.detalle[0]=={nombre:''})this.dato.detalle=[];
       this.$axios.post(process.env.API+'/producto', this.dato).then(res=>{
         this.$q.notify({
           color: 'green-4',

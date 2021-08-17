@@ -55,6 +55,12 @@ class ProductoController extends Controller
             $incluye->save();
 
         }
+
+        foreach ($request->ingrediente as $ing){
+            $productoingrediente=new ProductoIngrediente;
+            $productoingrediente->cantidad=$ing->cantidad;
+        }
+
         return true;
     }
 

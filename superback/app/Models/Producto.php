@@ -26,4 +26,6 @@ class Producto extends Model
     public function incluyes(){
         return $this->hasMany(Incluye::class);
     }
+
+
 }
