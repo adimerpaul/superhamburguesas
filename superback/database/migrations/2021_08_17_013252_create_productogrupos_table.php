@@ -18,8 +18,8 @@ class CreateProductogruposTable extends Migration
             $table->integer('cantidad');
             $table->unsignedBigInteger('producto_id');
             $table->foreign('producto_id')->references('id')->on('productos');
-            $table->unsignedBigInteger('grupoingrediente_id');
-            $table->foreign('grupoingrediente_id')->references('id')->on('grupoingredientes');
+            $table->unsignedBigInteger('grupo_id');
+            $table->foreign('grupo_id')->references('id')->on('grupos');
             $table->timestamps();
         });
     }

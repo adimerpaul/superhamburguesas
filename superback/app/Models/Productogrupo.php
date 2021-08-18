@@ -10,7 +10,7 @@ class Productogrupo extends Model
     use HasFactory;
     protected $fillable=[
         "cantidad",
-        "productogrupo_id",
+        "grupo_id",
         "producto_id",
     ];
     protected $hidden = ["created_at", "updated_at"];

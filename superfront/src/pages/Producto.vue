@@ -107,12 +107,47 @@
 
 
             <q-tab-panel name="Ingrediente">
+              <div class="row">
                 <q-select
-                  v-model="ingred.grupo_id"
+                  v-model="ingred.grupo"
                   label="Grupo"
                   :options="opgrupo"
-                  emit-value
+                  style="width:100px"
                 />
+                <q-input
+                label="Cantidad"
+                v-model="ingred.cantidad"
+                type="number"
+                 min=1
+                />
+                <q-btn dense round flat color="green"  @click="agregaring" icon="add" label="Agregar"></q-btn>
+                </div>
+
+               <q-table
+                title="Ingredientes"
+                :columns="columns3"
+                :rows="dato.ingrediente"
+
+                >
+                <template v-slot:body="props">
+                <q-tr :props="props">
+                    <td key='index' :props="props">
+                    {{props.pageIndex}}
+                    </td>
+                    <td key="grupo" :props="props">
+                    {{props.grupo}}
+                    </td>
+                    <td key="cantidad" :props="props">
+                    {{props.cantidad}}
+                    </td>
+                <q-td key="opcion" :props="props">
+                    <q-btn dense round flat color="red" @click="quitar(props.pageIndex)" icon="remove"></q-btn>
+                </q-td>
+                </q-tr>
+            </template>
+
+
+                </q-table>
             <div>
               <q-btn label="Crear" type="submit" color="positive" icon="add_circle"/>
                 <q-btn  label="Cancelar" icon="delete" color="negative" v-close-popup />
@@ -236,8 +271,8 @@
                         :rules="[ val => val && val.length > 0 || 'Por favor ingresa datos']">
                     </td>
                 <q-td key="opcion" :props="props">
-                    <q-btn dense round flat color="green"  @click="mas" icon="add"></q-btn>
-                    <q-btn dense round flat color="red" @click="menos(props.pageIndex)" icon="remove"></q-btn>
+                    <q-btn dense round flat color="green"  @click="mas1" icon="add"></q-btn>
+                    <q-btn dense round flat color="red" @click="menos1(props.pageIndex)" icon="remove"></q-btn>
                 </q-td>
                 </q-tr>
             </template>
@@ -441,6 +476,9 @@ export default {
       props:[],
       agregar:0,
       disminuir:0,
+      grupo_id:'',
+      cantidad:0,
+      grupo:'',
       ingred:{},
       detalle2 : [
             {
@@ -495,29 +533,71 @@ export default {
         { name: 'nombre', align: 'right', label: 'nombre', field: 'name', sortable: true },
 
       ],
+      columns3:[
+              
+            {
+            name: 'index',
+            label: '#',
+            field: 'index'
+        },
+        {
+            name: 'grupo',
+            label: 'Grupo',
+            align: 'center',
+            field: 'grupo',
+        },
+        {
+            name: 'cantidad',
+            label: 'Cantidad',
+            align: 'center',
+            field: 'cantidad',
+        },
+        {
+            name: 'opcion',
+            required: true,
+            label: 'opcion',
+            align: 'center',
+            field: 'action',
+        }
+        
+      ],
       data: [
       ],
       prod2: [
-      ]
+      ],
     }
   },
   created() {
     this.misdatos();
     this.misrubros();
     this.misgrupos();
-    this.dato.detalle=[{nombre:''}];
-    this.dato.ingrediente=[];
+    this.dato={detalle:[{nombre:''}],ingrediente:[]};
   },
   methods:{
+    agregaring(){
+      console.log(this.ingred.grupo['value']);
+      this.grupo_id=this.ingred.grupo['value'];
+      this.grupo=this.ingred.grupo['label'];
+      this.cantidad=this.ingred.cantidad;
+      this.dato.ingrediente.push({grupo_id:this.grupo_id,grupo:this.grupo,cantidad:this.cantidad});
+      console.log(this.dato);
+    },
              mas(){
                 this.dato.detalle.push({nombre:''});
-                this.dato2.detalle.push({nombre:''});
             },
             menos(index){
                 if(index > 0)
                 this.dato.detalle.splice(index, 1);
+            },
+           mas1(){
+                this.dato2.detalle.push({nombre:''});
+            },
+            menos2(index){
                 if(index > 0)
                 this.dato2.detalle.splice(index, 1);
+            },
+            quitar(index){
+                this.dato.ingrediente.splice(index, 1);
             },
     uploadFile(files) {
       this.file_path = files[0]
