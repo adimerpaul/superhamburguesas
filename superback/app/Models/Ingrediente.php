@@ -10,7 +10,7 @@ class Ingrediente extends Model
     use HasFactory;
     protected $fillable=[
         "nombre",
-        "grupo",
+        "grupo_id",
     ];
     protected $hidden = ["created_at", "updated_at"];
 }

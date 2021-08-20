@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Grupoingrediente;
+use App\Models\Grupo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class GrupoingredienteFactory extends Factory
+class GrupoFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Grupoingrediente::class;
+    protected $model = Grupo::class;
 
     /**
      * Define the model's default state.

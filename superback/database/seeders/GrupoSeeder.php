@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class GrupoingredienteSeeder extends Seeder
+class GrupoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class GrupoingredienteSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('grupoingredientes')->insert([
+        DB::table('grupos')->insert([
             ["nombre"=>"POLLO"],
             ["nombre"=>"HELADO"],
             ["nombre"=>"GRILL"],
