@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
-use App\Models\Productogrupo;
+use App\Models\Productoingrediente;
 use App\Models\Incluye;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -58,11 +58,11 @@ class ProductoController extends Controller
         }
 
         foreach ($request->ingrediente as $ing){
-            $productogrupo=new Productogrupo;
-            $productogrupo->grupo_id=$ing['grupo_id'];
-            $productogrupo->cantidad=$ing['cantidad'];
-            $productogrupo->producto_id=$producto->id;
-            $productogrupo->save();
+            $productoingrediente=new Productoingrediente;
+            $productoingrediente->ingrediente_id=$ing['ingrediente_id'];
+            $productoingrediente->cantidad=$ing['cantidad'];
+            $productoingrediente->producto_id=$producto->id;
+            $productoingrediente->save();
         }
 
         return true;

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Productogrupo;
+use App\Models\Productoingrediente;
 use Illuminate\Http\Request;
 
-class ProductogrupoController extends Controller
+class ProductoingredienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ProductogrupoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Productogrupo  $productogrupo
+     * @param  \App\Models\Productoingrediente  $productoingrediente
      * @return \Illuminate\Http\Response
      */
-    public function show(Productogrupo $productogrupo)
+    public function show(Productoingrediente $productoingrediente)
     {
         //
     }
@@ -52,10 +52,10 @@ class ProductogrupoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Productogrupo  $productogrupo
+     * @param  \App\Models\Productoingrediente  $productoingrediente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Productogrupo $productogrupo)
+    public function edit(Productoingrediente $productoingrediente)
     {
         //
     }
@@ -64,10 +64,10 @@ class ProductogrupoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Productogrupo  $productogrupo
+     * @param  \App\Models\Productoingrediente  $productoingrediente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Productogrupo $productogrupo)
+    public function update(Request $request, Productoingrediente $productoingrediente)
     {
         //
     }
@@ -75,10 +75,10 @@ class ProductogrupoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Productogrupo  $productogrupo
+     * @param  \App\Models\Productoingrediente  $productoingrediente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Productogrupo $productogrupo)
+    public function destroy(Productoingrediente $productoingrediente)
     {
         //
     }

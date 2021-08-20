@@ -15,6 +15,7 @@ class IngredienteController extends Controller
     public function index()
     {
         //
+        return Ingrediente::all();
     }
 
     /**

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Grupoingrediente;
+use App\Models\Grupo;
 use Illuminate\Http\Request;
 
-class GrupoingredienteController extends Controller
+class GrupoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class GrupoingredienteController extends Controller
     public function index()
     {
         //
-        return Grupoingrediente::all();
+        return Grupo::all();
     }
 
     /**
@@ -42,10 +42,10 @@ class GrupoingredienteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Grupoingrediente  $grupoingrediente
+     * @param  \App\Models\Grupo  $grupo
      * @return \Illuminate\Http\Response
      */
-    public function show(Grupoingrediente $grupoingrediente)
+    public function show(Grupo $grupo)
     {
         //
     }
@@ -53,10 +53,10 @@ class GrupoingredienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Grupoingrediente  $grupoingrediente
+     * @param  \App\Models\Grupo  $grupo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Grupoingrediente $grupoingrediente)
+    public function edit(Grupo $grupo)
     {
         //
     }
@@ -65,10 +65,10 @@ class GrupoingredienteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Grupoingrediente  $grupoingrediente
+     * @param  \App\Models\Grupo  $grupo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Grupoingrediente $grupoingrediente)
+    public function update(Request $request, Grupo $grupo)
     {
         //
     }
@@ -76,10 +76,10 @@ class GrupoingredienteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Grupoingrediente  $grupoingrediente
+     * @param  \App\Models\Grupo  $grupo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Grupoingrediente $grupoingrediente)
+    public function destroy(Grupo $grupo)
     {
         //
     }

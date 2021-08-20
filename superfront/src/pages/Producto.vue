@@ -109,9 +109,9 @@
             <q-tab-panel name="Ingrediente">
               <div class="row">
                 <q-select
-                  v-model="ingred.grupo"
-                  label="Grupo"
-                  :options="opgrupo"
+                  v-model="ingred.ingrediente"
+                  label="Ingrediente"
+                  :options="opingrediente"
                   style="width:100px"
                 />
                 <q-input
@@ -127,6 +127,7 @@
                 title="Ingredientes"
                 :columns="columns3"
                 :rows="dato.ingrediente"
+                row-key="ingrediente"
 
                 >
                 <template v-slot:body="props">
@@ -134,8 +135,8 @@
                     <td key='index' :props="props">
                     {{props.pageIndex}}
                     </td>
-                    <td key="grupo" :props="props">
-                    {{props.grupo}}
+                    <td key="ingrediente" :props="props">
+                    {{props.ingrediente}}
                     </td>
                     <td key="cantidad" :props="props">
                     {{props.cantidad}}
@@ -472,13 +473,13 @@ export default {
       dato2:{},
       modprod:{},
       options:[],
-      opgrupo:[],
+      opingrediente:[],
       props:[],
       agregar:0,
       disminuir:0,
-      grupo_id:'',
+      ingrediente_id:'',
       cantidad:0,
-      grupo:'',
+      ingrediente:'',
       ingred:{},
       detalle2 : [
             {
@@ -541,14 +542,16 @@ export default {
             field: 'index'
         },
         {
-            name: 'grupo',
-            label: 'Grupo',
+            name: 'ingrediente',
+            label: 'Ingrediente',
             align: 'center',
-            field: 'grupo',
+            required: true,
+            field: 'ingrediente',
         },
         {
             name: 'cantidad',
             label: 'Cantidad',
+            required: true,
             align: 'center',
             field: 'cantidad',
         },
@@ -570,16 +573,16 @@ export default {
   created() {
     this.misdatos();
     this.misrubros();
-    this.misgrupos();
+    this.misingredientes();
     this.dato={detalle:[{nombre:''}],ingrediente:[]};
   },
   methods:{
     agregaring(){
-      console.log(this.ingred.grupo['value']);
-      this.grupo_id=this.ingred.grupo['value'];
-      this.grupo=this.ingred.grupo['label'];
+      console.log(this.ingred.ingrediente['value']);
+      this.ingrediente_id=this.ingred.ingrediente['value'];
+      this.ingrediente=this.ingred.ingrediente['label'];
       this.cantidad=this.ingred.cantidad;
-      this.dato.ingrediente.push({grupo_id:this.grupo_id,grupo:this.grupo,cantidad:this.cantidad});
+      this.dato.ingrediente.push({ingrediente_id:this.ingrediente_id,ingrediente:this.ingrediente,cantidad:this.cantidad});
       console.log(this.dato);
     },
              mas(){
@@ -672,12 +675,12 @@ export default {
             });
         })
     },
-    misgrupos(){
+    misingredientes(){
         this.options=[];
-        this.$axios.get(process.env.API+'/grupoingrediente').then(res=>{
+        this.$axios.get(process.env.API+'/ingrediente').then(res=>{
           console.log(res.data);
             res.data.forEach(row => {
-                this.opgrupo.push({label:row.nombre,value:row.id});
+                this.opingrediente.push({label:row.nombre,value:row.id});
             });
         })
     },

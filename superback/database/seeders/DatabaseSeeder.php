@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
            UserSeeder::class,
             RubroSeeder::class,
             ProductoSeeder::class,
-            GrupoingredienteSeeder::class,
+            GrupoSeeder::class,
             IngredienteSeeder::class,
-            ProductogrupoSeeder::class
+            ProductoingredienteSeeder::class
 
         ]);
     }
