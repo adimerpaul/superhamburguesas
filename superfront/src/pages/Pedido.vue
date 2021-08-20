@@ -2,7 +2,7 @@
   <!--<q-page class="q-pa-xs">-->
   <div class=" row ">
     <div v-for="(rubro,index) in rubros" :key="index"  class="col-4 col-sm-2 q-pa-xs" >
-      <q-btn color="primary"  class="full-width" @click="scrollMeTo(rubro.nombre)"  :label="rubro.nombre" :icon="rubro.icono"/>
+      <q-btn color="primary"  class="full-width q-pa-none q-ma-none" @click="scrollMeTo(rubro.nombre)"  :label="rubro.nombre" :icon="rubro.icono" size="md"/>
     </div>
   </div>
   <div class="q-pa-xs row">
@@ -61,6 +61,9 @@
               <div class="row  items-center q-pa-md">
                   <div class="col-12 text-h6 ">
                     {{ producto.descripcion }} {{ producto.precio }} Bs.
+                    <q-toolbar-title>
+                      <!--          Quasar App-->
+                    </q-toolbar-title>
                     <q-card-section class="q-pt-none">
                       <div class="text-subtitle1">
                       </div>
