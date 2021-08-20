@@ -22,7 +22,7 @@
             <q-tab-panel name="login">
               <div class="text-h6">Ingresar al sistemas</div>
               Por favor colocar Tu celular y contraseña
-              <q-form>
+              <q-form @submit.prevent="ingreso">
                 <div class="row">
                   <div class="col-12">
 <!--                    color="purple-12"-->
@@ -48,7 +48,7 @@
                     </q-input>
                   </div>
                   <div class="col-12 q-py-md">
-                    <q-btn label="INGRESAR" color="primary" icon="login" class="full-width"/>
+                    <q-btn label="INGRESAR" color="primary" icon="login" class="full-width" type="submit"/>
                     <q-btn label="Registrate" color="secondary" icon="how_to_reg" @click="tab='registro'" class="full-width q-mt-xs" />
                     <div class="text-caption q-py-xs">
                       <a href="#">Olvidate tu contraseña?</a>
@@ -324,7 +324,7 @@ export default {
       iconHeight: 40,
       celular:'69603027',
       password:'admin',
-      tab:'registro',
+      tab:'login',
       user:{},
       isPwd:true,
     }
@@ -349,6 +349,26 @@ export default {
   methods: {
     onReady (mapObject) {
       mapObject.locate();
+    },
+    ingreso () {
+      // console.log('a')
+      this.$q.loading.show()
+      let celular = this.celular
+      let password = this.password
+      this.$store.dispatch('showcase/login', { celular, password })
+        .then(() =>{
+          this.$q.loading.hide()
+          this.$router.push('/')
+        })
+        .catch(err => {
+          this.$q.loading.hide();
+          // console.log(err.response.data)
+          this.$q.notify({
+            message:err.response.data.res,
+            color:'red',
+            icon:'error'
+          })
+        })
     },
     onLocationFound(location){
       console.log(location)

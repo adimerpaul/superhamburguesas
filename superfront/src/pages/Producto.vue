@@ -128,18 +128,17 @@
                 :columns="columns3"
                 :rows="dato.ingrediente"
                 row-key="ingrediente"
-
                 >
                 <template v-slot:body="props">
                 <q-tr :props="props">
                     <td key='index' :props="props">
-                    {{props.pageIndex}}
+                    {{props.pageIndex+1}}
                     </td>
                     <td key="ingrediente" :props="props">
-                    {{props.ingrediente}}
+                    {{props.row.ingrediente}}
                     </td>
                     <td key="cantidad" :props="props">
-                    {{props.cantidad}}
+                    {{props.row.cantidad}}
                     </td>
                 <q-td key="opcion" :props="props">
                     <q-btn dense round flat color="red" @click="quitar(props.pageIndex)" icon="remove"></q-btn>
@@ -291,7 +290,7 @@
 
       </q-card>
     </q-dialog>
-    
+
     <q-dialog v-model="dialog_img">
       <q-card>
         <q-card-section class="bg-amber-14 text-white">
@@ -481,7 +480,7 @@ export default {
       ingrediente_id:'',
       cantidad:0,
       ingrediente:'',
-      ingred:{},
+      ingred:{cantidad:1},
       detalle2 : [
             {
             name: 'index',
@@ -536,7 +535,7 @@ export default {
 
       ],
       columns3:[
-              
+
             {
             name: 'index',
             label: '#',
@@ -563,7 +562,7 @@ export default {
             align: 'center',
             field: 'action',
         }
-        
+
       ],
       data: [
       ],
