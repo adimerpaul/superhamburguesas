@@ -77,7 +77,7 @@ class ProductoController extends Controller
     public function show(Producto $producto)
     {
         //
-        return Producto::with('incluyes')->with('rubro')->where('id',$producto->$id)->get();
+        return Producto::with('incluyes')->with('rubro')->with('ingrediente')->where('id',$producto->$id)->get();
 
     }
 

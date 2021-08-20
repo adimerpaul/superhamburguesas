@@ -291,6 +291,7 @@
 
       </q-card>
     </q-dialog>
+    
     <q-dialog v-model="dialog_img">
       <q-card>
         <q-card-section class="bg-amber-14 text-white">
