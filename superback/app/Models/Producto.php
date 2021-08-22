@@ -16,6 +16,7 @@ class Producto extends Model
         "tipo",
         "imagen",
         "activo",
+        "agencia_id",
         "rubro_id",
     ];
     protected $hidden = ["created_at", "updated_at"];

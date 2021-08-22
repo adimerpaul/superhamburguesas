@@ -15,6 +15,7 @@ class AgenciaController extends Controller
     public function index()
     {
         //
+        return Agencia::all();
     }
 
     /**

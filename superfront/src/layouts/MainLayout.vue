@@ -179,6 +179,7 @@ export default defineComponent({
 
     return {
       // essentialLinks: linksList,
+      agen:[],
       leftDrawerOpen,
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
@@ -190,7 +191,8 @@ export default defineComponent({
             $q.loading.hide()
             $router.push('/login')
           })
-      }
+      },
+
     }
   }
 })

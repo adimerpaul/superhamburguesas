@@ -30,6 +30,8 @@ class CreateProductosTable extends Migration
 //            $table->string('imagen2');
             $table->unsignedBigInteger('rubro_id')->default(1);
             $table->foreign('rubro_id')->references('id')->on('rubros');
+            $table->unsignedBigInteger('agencia_id')->default(1);
+            $table->foreign('agencia_id')->references('id')->on('agencias');
             $table->timestamps();
         });
     }

@@ -1,6 +1,7 @@
 <template>
   <!--<q-page class="q-pa-xs">-->
   <div class=" row ">
+    <h5>SUCURSAL {{agencianombre}}</h5>
     <div v-for="(rubro,index) in rubros" :key="index"  class="col-4 col-sm-2 q-pa-xs" >
       <q-btn color="primary"  class="full-width q-pa-none q-ma-none" @click="scrollMeTo(rubro.nombre)"  :label="rubro.nombre" :icon="rubro.icono" size="md"/>
     </div>

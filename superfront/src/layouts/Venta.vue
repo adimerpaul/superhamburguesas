@@ -106,25 +106,28 @@
               </q-item-label>
             </q-item-section>
           </q-item>
+ 
+                         <div v-for="agencias in agen" :key="agencias">
           <q-item
             v-if="$store.getters['showcase/isLoggedIn']"
             clickable
             exact
-            to="pedido"
-          >
+            to="pedido,params:{agencianombre:'preuba'}"
+            @click="pedidoagencia(agencias.id)"
+             >
             <q-item-section
-              avatar
-            >
+              avatar >
               <q-icon name="shopping_cart" />
             </q-item-section>
 
             <q-item-section>
-              <q-item-label>Pedidos</q-item-label>
+              <q-item-label>Pedido {{agencias.nombre}}</q-item-label>
               <q-item-label caption>
-                Productos para la venta
+                Productos para la venta.
               </q-item-label>
             </q-item-section>
           </q-item>
+          </div>
 
           <q-item
             v-if="$store.getters['showcase/isLoggedIn']"
@@ -311,6 +314,8 @@ export default defineComponent({
         $store : useStore(),
         $q : useQuasar(),
         $router : useRouter(),
+        $agencia:0,
+        agen:[],
         leftDrawerOpen : false,
         // timeStamp : Date.now(),
         now :date.formatDate(Date.now(), 'dddd D  MMMM', {
@@ -323,6 +328,7 @@ export default defineComponent({
   },
   created() {
     // console.log(this.$store)
+    this.agencia();
   },
   methods:{
         toggleLeftDrawer () {
@@ -335,7 +341,17 @@ export default defineComponent({
               this.$q.loading.hide()
               this.$router.push('/login')
             })
-        }
+        },
+      agencia(){
+        this.$axios.get(process.env.API+'/agencia').then(res=>{
+          console.log(res.data);
+          this.agen=res.data;
+        })
+
+      },
+      pedidoagencia(id){
+        this.$agencia=id;
+      }
   }
 
   // setup () {
