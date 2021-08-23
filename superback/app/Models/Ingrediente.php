@@ -13,4 +13,9 @@ class Ingrediente extends Model
         "grupo_id",
     ];
     protected $hidden = ["created_at", "updated_at"];
+
+    public function productoingrediente(){
+        return $this->belongsTo(Productoingrediente::class);
+    }
+
 }

@@ -202,7 +202,25 @@
           <div class="text-h6">Modificar</div>
         </q-card-section>
         <q-card-section class="q-pt-xs">
-          <q-form
+
+        <q-tabs
+          v-model="tab"
+          dense
+          class="text-grey"
+          active-color="primary"
+          indicator-color="primary"
+          align="justify"
+          narrow-indicator
+        >
+          <q-tab name="Datos" label="Datos" />
+          <q-tab name="Descripcion" label="Descripcion" />
+          <q-tab name="Ingrediente" label="Ingrediente" />
+        </q-tabs>
+
+
+        <q-tab-panels v-model="tab" animated>
+          <q-tab-panel name="Datos">
+            <q-form
             @submit="onMod"
             class="q-gutter-md"
           >
@@ -233,16 +251,7 @@
               lazy-rules
               :rules="[ val => val>0 && val < 500 || 'Por favor Valor']"
             />
-            <q-input
-              filled
-              v-model="dato2.stock"
-              label="Cantidad"
-              type="number"
-              hint="Cantidad de platos"
-              lazy-rules
-              :rules="[ val => val>0 && val < 500 || 'Por favor Valor']"
-            />
-                 <q-select
+            <q-select
               v-model="dato2.tipo"
               label="Tipo"
               :options="['PRODUCTO','COMBO']"
@@ -254,11 +263,22 @@
               :options="options"
               emit-value
             />
-            <q-table
+
+            <q-select
+              v-model="dato2.agencia_id"
+              label="Sucursal"
+              :options="sucursal"
+              emit-value
+            />
+              <q-btn label="Modificar" type="submit" color="positive" icon="add_circle"/>
+            </q-form>
+             </q-tab-panel>
+            <q-tab-panel name="Descripcion">
+
+             <q-table
                 title="Detalle"
                 :columns="detalle2"
                 :rows="dato2.detalle"
-
                 >
                 <template v-slot:body="props">
                 <q-tr :props="props">
@@ -271,20 +291,66 @@
                         :rules="[ val => val && val.length > 0 || 'Por favor ingresa datos']">
                     </td>
                 <q-td key="opcion" :props="props">
-                    <q-btn dense round flat color="green"  @click="mas1" icon="add"></q-btn>
-                    <q-btn dense round flat color="red" @click="menos1(props.pageIndex)" icon="remove"></q-btn>
+                    <q-btn dense round flat color="green"  @click="mas2" icon="add"></q-btn>
+                    <q-btn dense round flat color="red" @click="menos2(props.pageIndex)" icon="remove"></q-btn>
+                </q-td>
+                </q-tr>
+            </template>
+                </q-table>
+              <q-btn label="Modificar" type="button" color="positive" icon="add_circle" @click="onModdetalle"/>
+
+            </q-tab-panel>
+
+            <q-tab-panel name="Ingrediente">
+              <div class="row">
+                <q-select
+                  v-model="ingred.ingrediente"
+                  label="Ingrediente"
+                  :options="opingrediente"
+                  style="width:100px"
+                />
+                <q-input
+                label="Cantidad"
+                v-model="ingred.cantidad"
+                type="number"
+                 min=1
+                />
+                <q-btn dense round flat color="green"  @click="agregaring2" icon="add" label="Agregar"></q-btn>
+                </div>
+
+               <q-table
+                title="Ingredientes"
+                :columns="columns3"
+                :rows="dato2.ingrediente"
+                row-key="ingrediente"
+                >
+                <template v-slot:body="props">
+                <q-tr :props="props">
+                    <td key='index' :props="props">
+                    {{props.pageIndex+1}}
+                    </td>
+                    <td key="ingrediente" :props="props">
+                    {{props.row.ingrediente}}
+                    </td>
+                    <td key="cantidad" :props="props">
+                    {{props.row.cantidad}}
+                    </td>
+                <q-td key="opcion" :props="props">
+                    <q-btn dense round flat color="red" @click="quitar(props.pageIndex)" icon="remove"></q-btn>
                 </q-td>
                 </q-tr>
             </template>
 
 
                 </q-table>
+            <div>
+              <q-btn label="Modificar" type="button" color="positive" icon="add_circle" @click="onModingrediente"/>
+            </div>
+            </q-tab-panel>
+            </q-tab-panels>
 
             <div>
-              <q-btn label="Modificar" type="submit" color="positive" icon="add_circle"/>
-                <q-btn  label="Cancelar" icon="delete" color="negative" v-close-popup />
             </div>
-          </q-form>
         </q-card-section>
 
 
@@ -298,7 +364,7 @@
         </q-card-section>
         <q-card-section class="q-pt-xs">
           <q-form
-            @submit="onModimg"
+            @submit="onMod"
             class="q-gutter-md"
           >
             <q-uploader
@@ -568,12 +634,14 @@ export default {
       ],
       prod2: [
       ],
+      sucursal:[]
     }
   },
   created() {
     this.misdatos();
     this.misrubros();
     this.misingredientes();
+    this.misagencias();
     this.dato={detalle:[{nombre:''}],ingrediente:[]};
   },
   methods:{
@@ -583,7 +651,13 @@ export default {
       this.ingrediente=this.ingred.ingrediente['label'];
       this.cantidad=this.ingred.cantidad;
       this.dato.ingrediente.push({ingrediente_id:this.ingrediente_id,ingrediente:this.ingrediente,cantidad:this.cantidad});
-      console.log(this.dato);
+    },
+    agregaring2(){
+      console.log(this.ingred.ingrediente['value']);
+      this.ingrediente_id=this.ingred.ingrediente['value'];
+      this.ingrediente=this.ingred.ingrediente['label'];
+      this.cantidad=this.ingred.cantidad;
+      this.dato2.ingrediente.push({ingrediente_id:this.ingrediente_id,ingrediente:this.ingrediente,cantidad:this.cantidad});
     },
              mas(){
                 this.dato.detalle.push({nombre:''});
@@ -592,7 +666,7 @@ export default {
                 if(index > 0)
                 this.dato.detalle.splice(index, 1);
             },
-           mas1(){
+           mas2(){
                 this.dato2.detalle.push({nombre:''});
             },
             menos2(index){
@@ -601,6 +675,9 @@ export default {
             },
             quitar(index){
                 this.dato.ingrediente.splice(index, 1);
+            },
+            quitar2(index){
+                this.dato2.ingrediente.splice(index, 1);
             },
     uploadFile(files) {
       this.file_path = files[0]
@@ -665,6 +742,16 @@ export default {
           console.log(res.data);
         this.data=res.data;
         this.$q.loading.hide();
+      })
+    },    
+    misagencias(){
+      this.sucursal=[];
+      this.$axios.get(process.env.API+'/agencia').then(res=>{
+        console.log(res.data);
+        res.data.forEach(row=>{
+          this.sucursal.push({label:row.nombre,value:row.id});
+
+        })
       })
     },
     misrubros(){
@@ -750,6 +837,33 @@ export default {
           this.dialog_img=false;
         this.misdatos();})
     },
+    onModdetalle(){
+        this.$q.loading.show();
+        this.$axios.post(process.env.API+'/upincluye',this.dato2).then(res=>{
+         this.$q.notify({
+          color: 'green-4',
+          textColor: 'white',
+          icon: 'cloud_done',
+          message: 'Modificado correctamente'
+        });
+        this.dialog_mod=false;
+          this.dialog_img=false;
+        this.misdatos();})
+    },
+        onModingrediente(){
+        this.$q.loading.show();
+        this.$axios.post(process.env.API+'/upingrediente',this.dato2).then(res=>{
+         this.$q.notify({
+          color: 'green-4',
+          textColor: 'white',
+          icon: 'cloud_done',
+          message: 'Modificado correctamente'
+        });
+        this.dialog_mod=false;
+          this.dialog_img=false;
+        this.misdatos();})
+    },
+
         onModimg(){
         this.$q.loading.show();
         this.$axios.put(process.env.API+'/updateimg/'+this.dato2.id,this.dato2).then(res=>{

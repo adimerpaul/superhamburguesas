@@ -18,7 +18,13 @@ class ProductoController extends Controller
     public function index()
     {
         //
-        return Producto::with('incluyes')->with('rubro')->get();
+        return Producto::with('incluyes')->with('rubro')->with('productoingredientes')->get();
+
+        //return DB::table('productos')
+        //->join('rubros','productos.rubro_id','=','rubros.id')
+        //->join('incluyes','productos.incluye_id','=','incluyes.id')
+        //->join('productoingrediente','productos._id','=','productoingrediente.id')
+
     }
 
     /**
@@ -116,13 +122,14 @@ class ProductoController extends Controller
     public function update(Request $request, Producto $producto)
     {
         //
-        $producto = Producto::find($producto->id);
-        $producto->nombre=$request->nombre;
-        $producto->descripcion=$request->descripcion;
-        $producto->precio=$request->precio;
-        $producto->tipo=$request->tipo;
-        $producto->rubro_id=$request->rubro_id;
-        $producto->save();
+        $producto->update($request->all());
+        return $producto;
+    }
+
+    public function upincluye(Request $request)
+    {
+        //
+        $producto = Producto::find($request->id);
 
         DB::table('incluyes')->where('producto_id',$producto->id)->delete();
         foreach ($request->detalle as $k ) {
@@ -130,6 +137,23 @@ class ProductoController extends Controller
             $incluye->nombre=$k['nombre'];
             $incluye->producto_id=$producto->id;
             $incluye->save();
+
+        }
+        return true;
+    }
+
+    public function upingrediente(Request $request)
+    {
+        //
+        $producto = Producto::find($request->id);
+
+        DB::table('productoingrediente')->where('producto_id',$producto->id)->delete();
+        foreach ($request->ingrediente as $k ) {
+            $productoingrediente = new Productoingrediente;
+            $productoingrediente->nombre=$k['cantidad'];
+            $productoingrediente->ingrediente_id=$k['ingredienteid'];
+            $productoingrediente->producto_id=$producto->id;
+            $productoingrediente->save();
 
         }
         return true;
@@ -179,4 +203,36 @@ class ProductoController extends Controller
         return Producto::where('rubro_id',$id)->get();
 
     }
+
+    public function clonar(Request $request)
+    {
+        //
+        $producto = new Producto;
+        $producto->nombre=$request->nombre;
+        $producto->descripcion=$request->descripcion;
+        $producto->precio=$request->precio;
+        $producto->tipo=$request->tipo;
+        $producto->imagen=$request->imagen;
+        $producto->rubro_id=$request->rubro_id;
+        $producto->save();
+
+        foreach ($request->detalle as $k ) {
+            $incluye = new Incluye;
+            $incluye->nombre=$k['nombre'];
+            $incluye->producto_id=$producto->id;
+            $incluye->save();
+
+        }
+
+        foreach ($request->ingrediente as $ing){
+            $productoingrediente=new Productoingrediente;
+            $productoingrediente->ingrediente_id=$ing['ingrediente_id'];
+            $productoingrediente->cantidad=$ing['cantidad'];
+            $productoingrediente->producto_id=$producto->id;
+            $productoingrediente->save();
+        }
+
+        return true;
+    }
+
 }
