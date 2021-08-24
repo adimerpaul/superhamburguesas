@@ -13,3 +13,4 @@ export function isLoggedIn (state) {
 export function authStatus (state) {
   return state.status
 }
+

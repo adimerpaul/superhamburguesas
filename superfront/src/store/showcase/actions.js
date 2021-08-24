@@ -39,6 +39,11 @@ export function logout({commit}){
   })
 }
 
+export function menu( agencia){
+
+    localStorage.setItem('menuagencia', agencia)
+}
+
 // import {api} from "boot/axios"
 // const api=require('../../boot/axios')
 // module.exports= {

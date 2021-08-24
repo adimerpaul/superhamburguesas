@@ -3,6 +3,7 @@ export default function () {
     status: '',
     token: localStorage.getItem('tokensu') || '',
     user : {},
-    pedido:[]
+    pedido:[],
+    menuagencia:{},
   }
 }

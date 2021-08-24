@@ -1,7 +1,7 @@
 <template>
   <!--<q-page class="q-pa-xs">-->
   <div class=" row ">
-    <h5>SUCURSAL {{agencianombre}}</h5>
+    <h5>SUCURSAL {{menusucursal.nombre}}</h5>
     <div v-for="(rubro,index) in rubros" :key="index"  class="col-4 col-sm-2 q-pa-xs" >
       <q-btn color="primary"  class="full-width q-pa-none q-ma-none" @click="scrollMeTo(rubro.nombre)"  :label="rubro.nombre" :icon="rubro.icono" size="md"/>
     </div>
@@ -130,21 +130,25 @@
 </template>
 
 <script>
+import { useQuasar } from 'quasar'
 export default {
   name: "Pedido",
   data(){
     return{
+      $q : useQuasar(),
       url:process.env.API,
       rubros:[],
       card:false,
       stars:3,
       producto:{},
       cantidad:1,
-      cantidades:[]
+      cantidades:[],
+      menusucursal:{},
     }
   },
   created() {
     // console.log(process.env.API)
+    this.menusucursal=this.$q.localStorage.getItem('menuagencia');
     this.$q.loading.show()
     this.$axios.get(process.env.API+'/rubro').then(res=>{
       this.rubros=res.data

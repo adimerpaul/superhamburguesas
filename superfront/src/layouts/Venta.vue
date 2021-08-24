@@ -112,8 +112,8 @@
             v-if="$store.getters['showcase/isLoggedIn']"
             clickable
             exact
-            to="pedido,params:{agencianombre:'preuba'}"
-            @click="pedidoagencia(agencias.id)"
+            to="pedido"
+            @click="pedidoagencia(agencias)"
              >
             <q-item-section
               avatar >
@@ -304,6 +304,7 @@ import { useQuasar } from 'quasar'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import {date} from 'quasar'
+
 export default defineComponent({
   name: 'Venta',
   components: {
@@ -314,7 +315,7 @@ export default defineComponent({
         $store : useStore(),
         $q : useQuasar(),
         $router : useRouter(),
-        $agencia:0,
+        //$agencia:0,
         agen:[],
         leftDrawerOpen : false,
         // timeStamp : Date.now(),
@@ -349,8 +350,16 @@ export default defineComponent({
         })
 
       },
-      pedidoagencia(id){
-        this.$agencia=id;
+      pedidoagencia(agencia){
+        console.log(agencia);
+        //this.$store.dispatch('showcase/menu',agencia);
+        this.$q.localStorage.remove('menuagencia');
+        this.$q.localStorage.set('menuagencia',agencia);
+        console.log(this.$q.localStorage.getItem('menuagencia'));
+        this.$router.go();
+
+        //this.store.state.menuagencia=agencia;
+      
       }
   }
 
