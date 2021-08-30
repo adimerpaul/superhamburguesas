@@ -356,7 +356,7 @@ export default defineComponent({
         this.$q.localStorage.remove('menuagencia');
         this.$q.localStorage.set('menuagencia',agencia);
         console.log(this.$q.localStorage.getItem('menuagencia'));
-        this.$router.go();
+        //this.$router.go();
 
         //this.store.state.menuagencia=agencia;
       

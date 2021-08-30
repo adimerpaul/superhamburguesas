@@ -1,7 +1,7 @@
 <template>
   <!--<q-page class="q-pa-xs">-->
   <div class=" row ">
-    <h5>SUCURSAL {{menusucursal.nombre}}</h5>
+    <div class="col-12" style="text-align:center"><h5>SUCURSAL {{menusucursal.nombre}}</h5></div>
     <div v-for="(rubro,index) in rubros" :key="index"  class="col-4 col-sm-2 q-pa-xs" >
       <q-btn color="primary"  class="full-width q-pa-none q-ma-none" @click="scrollMeTo(rubro.nombre)"  :label="rubro.nombre" :icon="rubro.icono" size="md"/>
     </div>
@@ -150,7 +150,8 @@ export default {
     // console.log(process.env.API)
     this.menusucursal=this.$q.localStorage.getItem('menuagencia');
     this.$q.loading.show()
-    this.$axios.get(process.env.API+'/rubro').then(res=>{
+    this.$axios.get(process.env.API+'/rubro',this.menusucursal).then(res=>{
+      console.log(res.data);  
       this.rubros=res.data
       // console.log(res.data)
       this.$q.loading.hide()

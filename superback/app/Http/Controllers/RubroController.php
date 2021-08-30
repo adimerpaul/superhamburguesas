@@ -17,6 +17,7 @@ class RubroController extends Controller
         //
         return Rubro::with('productos')->get();
 
+
     }
 
     /**
@@ -64,9 +65,12 @@ class RubroController extends Controller
      * @param  \App\Models\Rubro  $rubro
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
         //
+        return Rubro::leftJoin('productos','productos.rubro_id','=','rubro.id')
+        ->where('productos.agencia',$request->id)->get();
+
 
     }
 
