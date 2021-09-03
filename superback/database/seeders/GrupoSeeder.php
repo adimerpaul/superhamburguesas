@@ -20,6 +20,7 @@ class GrupoSeeder extends Seeder
             ["nombre"=>"HELADO"],
             ["nombre"=>"GRILL"],
             ["nombre"=>"DESAYUNO"],
+            ["nombre"=>"BEBIDA"],
         ]);
         
     }

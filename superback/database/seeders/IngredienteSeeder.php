@@ -56,6 +56,32 @@ class IngredienteSeeder extends Seeder
             ["nombre"=>"TE c/LECHE","grupo_id"=>"4"],
             ["nombre"=>"CAFE c/LECHE","grupo_id"=>"4"],
             ["nombre"=>"JUGO","grupo_id"=>"4"],
+            
+            ["nombre"=>"LIMON C/AGUA","grupo_id"=>'5'],
+            ["nombre"=>"LIMON C/LECHE","grupo_id"=>'5'],
+            ["nombre"=>"FRUTILLA C/AGUA","grupo_id"=>'5'],
+            ["nombre"=>"FRUTILLA C/LECHE","grupo_id"=>'5'],
+            ["nombre"=>"DURAZNO C/AGUA","grupo_id"=>'5'],
+            ["nombre"=>"DURAZNO C/LECHE","grupo_id"=>'5'],
+            ["nombre"=>"PAPAYA C/AGUA","grupo_id"=>'5'],
+            ["nombre"=>"PAPAYA C/LECHE","grupo_id"=>'5'],
+            ["nombre"=>"PLATANO C/AGUA","grupo_id"=>'5'],
+            ["nombre"=>"PLATANO C/LECHE","grupo_id"=>'5'],
+            ["nombre"=>"PIÑA C/AGUA","grupo_id"=>'5'],
+            ["nombre"=>"PIÑA C/LECHE","grupo_id"=>'5'],
+            ["nombre"=>"NARANJA C/AGUA","grupo_id"=>'5'],
+            ["nombre"=>"NARANJA C/LECHE","grupo_id"=>'5'],
+            ["nombre"=>"LIMA C/AGUA","grupo_id"=>'5'],
+            ["nombre"=>"LIMA C/LECHE","grupo_id"=>'5'],
+            ["nombre"=>"MANZANA C/AGUA","grupo_id"=>'5'],
+            ["nombre"=>"MANZANA C/LECHE","grupo_id"=>'5'],
+            ["nombre"=>"TUMBO C/AGUA","grupo_id"=>'5'],
+            ["nombre"=>"TUMBO C/LECHE","grupo_id"=>'5'],
+            ["nombre"=>"MARACUYA C/AGUA","grupo_id"=>'5'],
+            ["nombre"=>"MARACUYA C/LECHE","grupo_id"=>'5'],
+            ["nombre"=>"UVA C/AGUA","grupo_id"=>'5'],
+            ["nombre"=>"UVA C/LECHE","grupo_id"=>'5'],
+            
         ]);
     }
 }

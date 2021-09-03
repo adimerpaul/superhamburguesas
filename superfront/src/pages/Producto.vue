@@ -304,14 +304,14 @@
             <q-tab-panel name="Ingrediente">
               <div class="row">
                 <q-select
-                  v-model="ingred.ingrediente"
+                  v-model="ingred2.ingrediente"
                   label="Ingrediente"
                   :options="opingrediente"
                   style="width:100px"
                 />
                 <q-input
                 label="Cantidad"
-                v-model="ingred.cantidad"
+                v-model="ingred2.cantidad"
                 type="number"
                  min=1
                 />
@@ -336,7 +336,7 @@
                     {{props.row.cantidad}}
                     </td>
                 <q-td key="opcion" :props="props">
-                    <q-btn dense round flat color="red" @click="quitar(props.pageIndex)" icon="remove"></q-btn>
+                    <q-btn dense round flat color="red" @click="quitar2(props.pageIndex)" icon="remove"></q-btn>
                 </q-td>
                 </q-tr>
             </template>
@@ -547,6 +547,7 @@ export default {
       cantidad:0,
       ingrediente:'',
       ingred:{cantidad:1},
+      ingred2:{cantidad:1},
       detalle2 : [
             {
             name: 'index',
@@ -653,10 +654,10 @@ export default {
       this.dato.ingrediente.push({ingrediente_id:this.ingrediente_id,ingrediente:this.ingrediente,cantidad:this.cantidad});
     },
     agregaring2(){
-      console.log(this.ingred.ingrediente['value']);
-      this.ingrediente_id=this.ingred.ingrediente['value'];
-      this.ingrediente=this.ingred.ingrediente['label'];
-      this.cantidad=this.ingred.cantidad;
+      console.log(this.ingred2.ingrediente['value']);
+      this.ingrediente_id=this.ingred2.ingrediente['value'];
+      this.ingrediente=this.ingred2.ingrediente['label'];
+      this.cantidad=this.ingred2.cantidad;
       this.dato2.ingrediente.push({ingrediente_id:this.ingrediente_id,ingrediente:this.ingrediente,cantidad:this.cantidad});
     },
              mas(){
@@ -774,9 +775,11 @@ export default {
     editRow(producto){
         console.log(producto.row);
         this.dato2= producto.row;
+        console.log(this.dato2);
         this.dato2.detalle=producto.row.incluyes;
-        if(this.dato2.detalle==[])
+        if(this.dato2.incluyes==[])
         this.dato2.detalle=[{nombre:''}];
+
         this.dialog_mod=true;
     },
     editImg(producto){

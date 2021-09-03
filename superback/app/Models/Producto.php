@@ -31,5 +31,8 @@ class Producto extends Model
     public function productoingredientes(){
         return $this->hasMany(Productoingrediente::class);
     }
+    public function ingredientes(){
+        return $this->belongsToMany(Ingrediente::class);
+    }
 
 }
