@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\IngredienteProducto;
 
 class Producto extends Model
 {
@@ -20,6 +21,7 @@ class Producto extends Model
         "rubro_id",
     ];
     protected $hidden = ["created_at", "updated_at"];
+
     public function rubro(){
         return $this->belongsTo(Rubro::class);
     }
@@ -28,11 +30,12 @@ class Producto extends Model
         return $this->hasMany(Incluye::class);
     }
 
-    public function productoingredientes(){
-        return $this->hasMany(Productoingrediente::class);
+    public function ingredienteproducto(){
+        return $this->belongsTo(IngredienteProducto::class);
     }
+
     public function ingredientes(){
-        return $this->belongsToMany(Ingrediente::class);
+        return $this->belongsToMany(Ingrediente::class)->withPivot('cantidad');
     }
 
 }

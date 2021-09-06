@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Productoingrediente;
+use App\Models\IngredienteProducto;
 use Illuminate\Http\Request;
 
-class ProductoingredienteController extends Controller
+class IngredienteProductoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ProductoingredienteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Productoingrediente  $productoingrediente
+     * @param  \App\Models\IngredienteProducto  $ingredienteProducto
      * @return \Illuminate\Http\Response
      */
-    public function show(Productoingrediente $productoingrediente)
+    public function show(IngredienteProducto $ingredienteProducto)
     {
         //
     }
@@ -52,10 +52,10 @@ class ProductoingredienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Productoingrediente  $productoingrediente
+     * @param  \App\Models\IngredienteProducto  $ingredienteProducto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Productoingrediente $productoingrediente)
+    public function edit(IngredienteProducto $ingredienteProducto)
     {
         //
     }
@@ -64,10 +64,10 @@ class ProductoingredienteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Productoingrediente  $productoingrediente
+     * @param  \App\Models\IngredienteProducto  $ingredienteProducto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Productoingrediente $productoingrediente)
+    public function update(Request $request, IngredienteProducto $ingredienteProducto)
     {
         //
     }
@@ -75,10 +75,10 @@ class ProductoingredienteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Productoingrediente  $productoingrediente
+     * @param  \App\Models\IngredienteProducto  $ingredienteProducto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Productoingrediente $productoingrediente)
+    public function destroy(IngredienteProducto $ingredienteProducto)
     {
         //
     }

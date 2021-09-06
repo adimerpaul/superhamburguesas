@@ -776,9 +776,18 @@ export default {
         console.log(producto.row);
         this.dato2= producto.row;
         console.log(this.dato2);
-        this.dato2.detalle=producto.row.incluyes;
-        if(this.dato2.incluyes==[])
+        if(producto.row.incluyes.length==0)
         this.dato2.detalle=[{nombre:''}];
+        else
+        this.dato2.detalle=producto.row.incluyes;
+        if(producto.row.ingredientes.length==0)
+        this.dato2.ingrediente=[];
+        else{
+          this.dato2.ingrediente=[];
+        producto.row.ingredientes.forEach(element => {
+        this.dato2.ingrediente.push({cantidad:element.pivot.cantidad,ingrediente:element.nombre,ingrediente_id:element.ingrediente_id});
+          
+        })}
 
         this.dialog_mod=true;
     },

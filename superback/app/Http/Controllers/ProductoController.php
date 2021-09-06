@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
-use App\Models\Productoingrediente;
+use App\Models\IngredienteProducto;
 use App\Models\Incluye;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,12 +18,12 @@ class ProductoController extends Controller
     public function index()
     {
         //
-        return Producto::with('incluyes')->with('rubro')->with('productoingredientes')->get();
+        return Producto::with('incluyes')->with('rubro')->with('ingredientes')->get();
 
         //return DB::table('productos')
         //->join('rubros','productos.rubro_id','=','rubros.id')
         //->join('incluyes','productos.incluye_id','=','incluyes.id')
-        //->join('productoingrediente','productos._id','=','productoingrediente.id')
+        //->join('','productos._id','=','.id')
 
     }
 
@@ -64,11 +64,10 @@ class ProductoController extends Controller
         }
 
         foreach ($request->ingrediente as $ing){
-            $productoingrediente=new Productoingrediente;
-            $productoingrediente->ingrediente_id=$ing['ingrediente_id'];
-            $productoingrediente->cantidad=$ing['cantidad'];
-            $productoingrediente->producto_id=$producto->id;
-            $productoingrediente->save();
+                DB::table('ingrediente_producto')->insert([
+                'cantidad'=>$ing['cantidad'],
+                'ingrediente_id'=>$ing['ingrediente_id'],
+                'producto_id'=>$producto->id]);
         }
 
         return true;
@@ -147,14 +146,12 @@ class ProductoController extends Controller
         //
         $producto = Producto::find($request->id);
 
-        DB::table('productoingrediente')->where('producto_id',$producto->id)->delete();
+        DB::table('ingrediente_producto')->where('producto_id',$producto->id)->delete();
         foreach ($request->ingrediente as $k ) {
-            $productoingrediente = new Productoingrediente;
-            $productoingrediente->nombre=$k['cantidad'];
-            $productoingrediente->ingrediente_id=$k['ingredienteid'];
-            $productoingrediente->producto_id=$producto->id;
-            $productoingrediente->save();
-
+            DB::table('ingrediente_producto')->insert([
+            'cantidad'=>$k['cantidad'],
+            'ingrediente_id'=>$k['ingrediente_id'],
+            'producto_id'=>$producto->id]);
         }
         return true;
     }
@@ -225,11 +222,11 @@ class ProductoController extends Controller
         }
 
         foreach ($request->ingrediente as $ing){
-            $productoingrediente=new Productoingrediente;
-            $productoingrediente->ingrediente_id=$ing['ingrediente_id'];
-            $productoingrediente->cantidad=$ing['cantidad'];
-            $productoingrediente->producto_id=$producto->id;
-            $productoingrediente->save();
+            $ingredienteproducto=new Productoingrediente;
+            $ingredienteproducto->ingrediente_id=$ing['ingrediente_id'];
+            $ingredienteproducto->cantidad=$ing['cantidad'];
+            $ingredienteproducto->producto_id=$producto->id;
+            $ingredienteproducto->save();
         }
 
         return true;
