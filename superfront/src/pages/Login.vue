@@ -15,18 +15,18 @@
           >
             <q-tab name="login" label="Ingresar" />
             <q-tab name="registro" label="Registrarse" />
-<!--            <q-tab name="movies" label="Movies" />-->
+            <!--            <q-tab name="movies" label="Movies" />-->
           </q-tabs>
           <q-separator />
           <q-tab-panels v-model="tab" animated>
             <q-tab-panel name="login">
               <div class="text-h6">Ingresar al sistemas</div>
               Por favor colocar Tu celular y contraseña
-              <q-form @submit.prevent="ingreso">
+              <q-form @submit.prevent="login">
                 <div class="row">
                   <div class="col-12">
-<!--                    color="purple-12"-->
-                    <q-input outlined v-model="celular" label="Celular*" hint="Porfavor ingresar celular">
+                    <!--                    color="purple-12"-->
+                    <q-input outlined v-model="celular" label="Celular*" hint="Porfavor ingresar celular" :rules="rule">
                       <template v-slot:prepend>
                         <q-icon name="phone" />
                       </template>
@@ -34,7 +34,7 @@
                   </div>
                   <div class="col-12">
                     <!--                    color="purple-12"-->
-                    <q-input outlined v-model="password" label="Password*" :type="isPwd ? 'password' : 'text'" hint="Porfavor ingresar contraseña">
+                    <q-input outlined v-model="password" label="Password*" :type="isPwd ? 'password' : 'text'" hint="Porfavor ingresar contraseña" :rules="rule">
                       <template v-slot:prepend>
                         <q-icon name="lock" />
                       </template>
@@ -62,110 +62,39 @@
             <q-tab-panel name="registro">
               <div class="text-h6">Registrate </div>
               podras realizar tu pedidos
-              <q-form>
+              <q-form @submit.prevent="registrar">
                 <div class="row">
                   <div class="col-12">
                     <!--                    color="purple-12"-->
-                    <q-input outlined v-model="user.email" label="Email*" hint="Porfavor ingresar email">
+                    <q-input outlined v-model="user.email" label="Email*" hint="Porfavor ingresar email" :rules="rule" >
                       <template v-slot:prepend>
                         <q-icon name="email" />
                       </template>
                     </q-input>
                   </div>
                   <div class="col-12">
-                    <q-input outlined v-model="user.celular" label="Celular*" hint="Porfavor ingresar celular">
+                    <q-input outlined v-model="user.celular" label="Celular*" hint="Porfavor ingresar celular" :rules="rule">
                       <template v-slot:prepend>
                         <q-icon name="phone" />
                       </template>
                     </q-input>
                   </div>
                   <div class="col-12">
-                    <q-input outlined v-model="user.cinit" label="Carnet o NIT*" hint="Porfavor ingresar carnet o nit">
+                    <q-input outlined v-model="user.cinit" label="Carnet o NIT*" hint="Porfavor ingresar carnet o nit" :rules="rule">
                       <template v-slot:prepend>
                         <q-icon name="credit_card" />
                       </template>
                     </q-input>
                   </div>
                   <div class="col-12">
-                    <div style="height: 50vh;">
-                      <l-map
-                        @ready="onReady"
-                        @locationfound="onLocationFound"
-                        v-model="zoom"
-                        v-model:zoom="zoom"
-                        :center="center"
-                        @click="ubicacion"
-
-                      >
-<!--                        @move="log('move')"-->
-                        <l-tile-layer
-                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        ></l-tile-layer>
-                        <l-control-layers />
-<!--                        <l-marker :lat-lng="[0, 0]" draggable @moveend="log('moveend')">-->
-<!--                          <l-tooltip>-->
-<!--                            lol-->
-<!--                          </l-tooltip>-->
-<!--                        </l-marker>-->
-
-<!--                        <l-marker :lat-lng="[47.41322, -1.219482]">-->
-<!--                          <l-icon :icon-url="iconUrl" :icon-size="iconSize" />-->
-<!--                        </l-marker>-->
-
-                        <l-marker :lat-lng="center" draggable @moveend="log">
-                          <l-popup>
-                            lol
-                          </l-popup>
-                        </l-marker>
-
-<!--                        <l-polyline-->
-<!--                          :lat-lngs="[-->
-<!--          [47.334852, -1.509485],-->
-<!--          [47.342596, -1.328731],-->
-<!--          [47.241487, -1.190568],-->
-<!--          [47.234787, -1.358337],-->
-<!--        ]"-->
-<!--                          color="green"-->
-<!--                        ></l-polyline>-->
-<!--                        <l-polygon-->
-<!--                          :lat-lngs="[-->
-<!--          [46.334852, -1.509485],-->
-<!--          [46.342596, -1.328731],-->
-<!--          [46.241487, -1.190568],-->
-<!--          [46.234787, -1.358337],-->
-<!--        ]"-->
-<!--                          color="#41b782"-->
-<!--                          :fill="true"-->
-<!--                          :fillOpacity="0.5"-->
-<!--                          fillColor="#41b782"-->
-<!--                        />-->
-<!--                        <l-rectangle-->
-<!--                          :lat-lngs="[-->
-<!--          [46.334852, -1.509485],-->
-<!--          [46.342596, -1.328731],-->
-<!--          [46.241487, -1.190568],-->
-<!--          [46.234787, -1.358337],-->
-<!--        ]"-->
-<!--                          :fill="true"-->
-<!--                          color="#35495d"-->
-<!--                        />-->
-<!--                        <l-rectangle-->
-<!--                          :bounds="[-->
-<!--          [46.334852, -1.190568],-->
-<!--          [46.241487, -1.090357],-->
-<!--        ]"-->
-<!--                        >-->
-<!--                          <l-popup>-->
-<!--                            lol-->
-<!--                          </l-popup>-->
-<!--                        </l-rectangle>-->
-                      </l-map>
-<!--                      <button @click.prevent="changeIcon">New kitten icon</button>-->
-
-                    </div>
+                    <q-input outlined v-model="user.name" label="Nombre completo*" hint="Porfavor ingresar nombre completo" :rules="rule">
+                      <template v-slot:prepend>
+                        <q-icon name="people" />
+                      </template>
+                    </q-input>
                   </div>
                   <div class="col-12">
-                    <q-input outlined v-model="user.password" label="Password*" :type="isPwd ? 'password' : 'text'" hint="Porfavor ingresar contraseña">
+                    <q-input outlined v-model="user.password" label="Password*" :type="isPwd ? 'password' : 'text'" hint="Porfavor ingresar contraseña" :rules="rule">
                       <template v-slot:prepend>
                         <q-icon name="lock" />
                       </template>
@@ -178,9 +107,95 @@
                       </template>
                     </q-input>
                   </div>
+                  <div class="col-12">
+                    <q-input outlined v-model="user.direccion" label="Direccion*" hint="Direccion de donde vives" :rules="rule">
+                      <template v-slot:prepend>
+                        <q-icon name="home" />
+                      </template>
+                    </q-input>
+                  </div>
+                  <div class="col-12">
+                    <div style="height: 35vh;">
+                      <l-map
+                        @ready="onReady"
+                        @locationfound="onLocationFound"
+                        v-model="zoom"
+                        v-model:zoom="zoom"
+                        :center="center"
+                        @click="ubicacion"
+
+                      >
+                        <!--                        @move="log('move')"-->
+                        <l-tile-layer
+                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        ></l-tile-layer>
+                        <l-control-layers />
+                        <!--                        <l-marker :lat-lng="[0, 0]" draggable @moveend="log('moveend')">-->
+                        <!--                          <l-tooltip>-->
+                        <!--                            lol-->
+                        <!--                          </l-tooltip>-->
+                        <!--                        </l-marker>-->
+
+                        <!--                        <l-marker :lat-lng="[47.41322, -1.219482]">-->
+                        <!--                          <l-icon :icon-url="iconUrl" :icon-size="iconSize" />-->
+                        <!--                        </l-marker>-->
+
+                        <l-marker :lat-lng="center" draggable @moveend="log">
+                          <l-popup>
+                            lol
+                          </l-popup>
+                        </l-marker>
+
+                        <!--                        <l-polyline-->
+                        <!--                          :lat-lngs="[-->
+                        <!--          [47.334852, -1.509485],-->
+                        <!--          [47.342596, -1.328731],-->
+                        <!--          [47.241487, -1.190568],-->
+                        <!--          [47.234787, -1.358337],-->
+                        <!--        ]"-->
+                        <!--                          color="green"-->
+                        <!--                        ></l-polyline>-->
+                        <!--                        <l-polygon-->
+                        <!--                          :lat-lngs="[-->
+                        <!--          [46.334852, -1.509485],-->
+                        <!--          [46.342596, -1.328731],-->
+                        <!--          [46.241487, -1.190568],-->
+                        <!--          [46.234787, -1.358337],-->
+                        <!--        ]"-->
+                        <!--                          color="#41b782"-->
+                        <!--                          :fill="true"-->
+                        <!--                          :fillOpacity="0.5"-->
+                        <!--                          fillColor="#41b782"-->
+                        <!--                        />-->
+                        <!--                        <l-rectangle-->
+                        <!--                          :lat-lngs="[-->
+                        <!--          [46.334852, -1.509485],-->
+                        <!--          [46.342596, -1.328731],-->
+                        <!--          [46.241487, -1.190568],-->
+                        <!--          [46.234787, -1.358337],-->
+                        <!--        ]"-->
+                        <!--                          :fill="true"-->
+                        <!--                          color="#35495d"-->
+                        <!--                        />-->
+                        <!--                        <l-rectangle-->
+                        <!--                          :bounds="[-->
+                        <!--          [46.334852, -1.190568],-->
+                        <!--          [46.241487, -1.090357],-->
+                        <!--        ]"-->
+                        <!--                        >-->
+                        <!--                          <l-popup>-->
+                        <!--                            lol-->
+                        <!--                          </l-popup>-->
+                        <!--                        </l-rectangle>-->
+                      </l-map>
+                      <!--                      <button @click.prevent="changeIcon">New kitten icon</button>-->
+
+                    </div>
+                  </div>
+
                   <div class="col-12 q-py-md">
-                    <q-btn label="INGRESAR" color="primary" icon="login" class="full-width"/>
-                    <q-btn label="Registrate" color="secondary" icon="how_to_reg" @click="tab='registro'" class="full-width q-mt-xs" />
+                    <q-btn label="Crea tu cuenta" color="primary" icon="login" class="full-width" type="submit"/>
+                    <q-btn label="Ingresa" color="secondary" icon="how_to_reg" @click="tab='login'" class="full-width q-mt-xs" />
                     <div class="text-caption q-py-xs">
                       <a href="#">Olvidate tu contraseña?</a>
                     </div>
@@ -189,74 +204,74 @@
               </q-form>
             </q-tab-panel>
 
-<!--            <q-tab-panel name="movies">-->
-<!--              <div class="text-h6">Movies</div>-->
-<!--              Lorem ipsum dolor sit amet consectetur adipisicing elit.-->
-<!--            </q-tab-panel>-->
+            <!--            <q-tab-panel name="movies">-->
+            <!--              <div class="text-h6">Movies</div>-->
+            <!--              Lorem ipsum dolor sit amet consectetur adipisicing elit.-->
+            <!--            </q-tab-panel>-->
           </q-tab-panels>
         </q-card>
 
-<!--        <q-card class="">-->
-<!--          <q-card-section class="bg-secondary text-white">-->
-<!--            <div class="text-h6">-->
-<!--              <q-icon name="login" />-->
-<!--              Ingreso al sistemas-->
-<!--            </div>-->
-<!--            <div class="text-subtitle2">-->
-<!--              <a href="">Olvide mi contraseña</a>-->
-<!--            </div>-->
-<!--          </q-card-section>-->
-<!--          <q-card-section>-->
-<!--            <q-form-->
-<!--              @submit="login"-->
-<!--              @reset="onReset"-->
-<!--              class="q-gutter-md"-->
-<!--            >-->
-<!--              <q-input-->
-<!--                filled-->
-<!--                v-model="celular"-->
-<!--                label="Ingresa tu celular *"-->
-<!--                hint="Email de ingreso"-->
-<!--                lazy-rules-->
-<!--                type="number"-->
-<!--                :rules="[ val => val && val.length > 0 || 'Porfavor ingresar dato']"-->
-<!--              />-->
-<!--              <q-input-->
-<!--                autocomplete="on"-->
-<!--                type="password"-->
-<!--                filled-->
-<!--                v-model="password"-->
-<!--                label="Password *"-->
-<!--                hint="Contraseña "-->
-<!--                lazy-rules-->
-<!--                :rules="[ val => val && val.length > 0 || 'Porfavor ingresar dato']"-->
-<!--              />-->
+        <!--        <q-card class="">-->
+        <!--          <q-card-section class="bg-secondary text-white">-->
+        <!--            <div class="text-h6">-->
+        <!--              <q-icon name="login" />-->
+        <!--              Ingreso al sistemas-->
+        <!--            </div>-->
+        <!--            <div class="text-subtitle2">-->
+        <!--              <a href="">Olvide mi contraseña</a>-->
+        <!--            </div>-->
+        <!--          </q-card-section>-->
+        <!--          <q-card-section>-->
+        <!--            <q-form-->
+        <!--              @submit="login"-->
+        <!--              @reset="onReset"-->
+        <!--              class="q-gutter-md"-->
+        <!--            >-->
+        <!--              <q-input-->
+        <!--                filled-->
+        <!--                v-model="celular"-->
+        <!--                label="Ingresa tu celular *"-->
+        <!--                hint="Email de ingreso"-->
+        <!--                lazy-rules-->
+        <!--                type="number"-->
+        <!--                :rules="[ val => val && val.length > 0 || 'Porfavor ingresar dato']"-->
+        <!--              />-->
+        <!--              <q-input-->
+        <!--                autocomplete="on"-->
+        <!--                type="password"-->
+        <!--                filled-->
+        <!--                v-model="password"-->
+        <!--                label="Password *"-->
+        <!--                hint="Contraseña "-->
+        <!--                lazy-rules-->
+        <!--                :rules="[ val => val && val.length > 0 || 'Porfavor ingresar dato']"-->
+        <!--              />-->
 
-<!--              &lt;!&ndash;              <q-input&ndash;&gt;-->
-<!--              &lt;!&ndash;                filled&ndash;&gt;-->
-<!--              &lt;!&ndash;                type="number"&ndash;&gt;-->
-<!--              &lt;!&ndash;                v-model="age"&ndash;&gt;-->
-<!--              &lt;!&ndash;                label="Your age *"&ndash;&gt;-->
-<!--              &lt;!&ndash;                lazy-rules&ndash;&gt;-->
-<!--              &lt;!&ndash;                :rules="[&ndash;&gt;-->
-<!--              &lt;!&ndash;          val => val !== null && val !== '' || 'Please type your age',&ndash;&gt;-->
-<!--              &lt;!&ndash;          val => val > 0 && val < 100 || 'Please type a real age'&ndash;&gt;-->
-<!--              &lt;!&ndash;        ]"&ndash;&gt;-->
-<!--              &lt;!&ndash;              />&ndash;&gt;-->
-<!--              &lt;!&ndash;              <q-toggle v-model="accept" label="I accept the license and terms" />&ndash;&gt;-->
-<!--              <div>-->
-<!--                <q-btn label="Ingresar" type="submit" icon="login" color="positive"/>-->
-<!--                <q-btn label="Reset" type="reset" icon="restart_alt" color="negative" class="q-ml-sm" />-->
-<!--              </div>-->
-<!--            </q-form>-->
+        <!--              &lt;!&ndash;              <q-input&ndash;&gt;-->
+        <!--              &lt;!&ndash;                filled&ndash;&gt;-->
+        <!--              &lt;!&ndash;                type="number"&ndash;&gt;-->
+        <!--              &lt;!&ndash;                v-model="age"&ndash;&gt;-->
+        <!--              &lt;!&ndash;                label="Your age *"&ndash;&gt;-->
+        <!--              &lt;!&ndash;                lazy-rules&ndash;&gt;-->
+        <!--              &lt;!&ndash;                :rules="[&ndash;&gt;-->
+        <!--              &lt;!&ndash;          val => val !== null && val !== '' || 'Please type your age',&ndash;&gt;-->
+        <!--              &lt;!&ndash;          val => val > 0 && val < 100 || 'Please type a real age'&ndash;&gt;-->
+        <!--              &lt;!&ndash;        ]"&ndash;&gt;-->
+        <!--              &lt;!&ndash;              />&ndash;&gt;-->
+        <!--              &lt;!&ndash;              <q-toggle v-model="accept" label="I accept the license and terms" />&ndash;&gt;-->
+        <!--              <div>-->
+        <!--                <q-btn label="Ingresar" type="submit" icon="login" color="positive"/>-->
+        <!--                <q-btn label="Reset" type="reset" icon="restart_alt" color="negative" class="q-ml-sm" />-->
+        <!--              </div>-->
+        <!--            </q-form>-->
 
-<!--          </q-card-section>-->
-<!--          <q-separator dark />-->
-<!--          &lt;!&ndash;          <q-card-actions>&ndash;&gt;-->
-<!--          &lt;!&ndash;            <q-btn flat>Action 1</q-btn>&ndash;&gt;-->
-<!--          &lt;!&ndash;            <q-btn flat>Action 2</q-btn>&ndash;&gt;-->
-<!--          &lt;!&ndash;          </q-card-actions>&ndash;&gt;-->
-<!--        </q-card>-->
+        <!--          </q-card-section>-->
+        <!--          <q-separator dark />-->
+        <!--          &lt;!&ndash;          <q-card-actions>&ndash;&gt;-->
+        <!--          &lt;!&ndash;            <q-btn flat>Action 1</q-btn>&ndash;&gt;-->
+        <!--          &lt;!&ndash;            <q-btn flat>Action 2</q-btn>&ndash;&gt;-->
+        <!--          &lt;!&ndash;          </q-card-actions>&ndash;&gt;-->
+        <!--        </q-card>-->
       </div>
       <div class="col-12 col-md-2">
 
@@ -318,7 +333,10 @@ export default {
   },
   data(){
     return{
-      zoom: 13,
+      rule:[
+        val => (val && val.length > 0) || 'Porfavor ingresar dato'
+      ],
+      zoom: 14,
       center:[-17.970371, -67.112303],
       iconWidth: 25,
       iconHeight: 40,
@@ -347,39 +365,85 @@ export default {
     },
   },
   methods: {
-    onReady (mapObject) {
-      mapObject.locate();
-    },
-    ingreso () {
-      // console.log('a')
+    registrar(){
+
       this.$q.loading.show()
-      let celular = this.celular
-      let password = this.password
-      this.$store.dispatch('showcase/login', { celular, password })
-        .then(() =>{
-          this.$q.loading.hide()
-          this.$router.push('/')
-        })
+      // let celular = this.celular
+      // let password = this.password
+      console.log(this.user)
+      this.user.lat=this.center[0]
+      this.user.lng=this.center[1]
+      this.$store.dispatch('showcase/register', this.user).then(() =>{
+        this.$q.loading.hide()
+        this.$router.push('/')
+      })
         .catch(err => {
           this.$q.loading.hide();
-          // console.log(err.response.data)
+          console.log(err.response.data.errors)
+          let text=''
+          Object.entries(err.response.data.errors).forEach(([key, value]) => {
+            // console.log(`${key} ${value}`);
+            text+=' '+`${key}: ${value},`
+          });
           this.$q.notify({
-            message:err.response.data.res,
+            message:text,
             color:'red',
             icon:'error'
           })
         })
+
+
+      // this.$q.loading.show()
+      // this.user.lat=this.center[0]
+      // this.user.lng=this.center[1]
+      // this.$axios.post(process.env.API+'/register',this.user).then(res=>{
+      //   // console.log(res.data)
+      //   this.$q.loading.hide()
+      //   this.$q.notify({
+      //     message:'creado correctamente',
+      //     color:'success',
+      //     icon:'info'
+      //   })
+      //
+      // }).catch(err=>{
+      //   // console.log(err.response.data.errors)
+      //   let text=''
+      //   Object.entries(err.response.data.errors).forEach(([key, value]) => {
+      //     // console.log(`${key} ${value}`);
+      //     text+=' '+`${key}:${value},`
+      //   });
+      //   this.$q.notify({
+      //     message:text,
+      //     color:'red',
+      //     icon:'error'
+      //   })
+      //
+      //   // err.response.data.errors.each(r=>{
+      //   //   // text+=' '+r
+      //   //   console.log(r)
+      //   // })
+      //   this.$q.loading.hide()
+      // })
+    },
+    ubicacion(e){
+      // console.log(e.latlng)
+      if (e.latlng!=undefined)
+        this.center=[e.latlng.lat,e.latlng.lng]
+    },
+    onReady (mapObject) {
+      mapObject.locate();
     },
     onLocationFound(location){
-      console.log(location)
+      // console.log(location)
       let radius = location.accuracy / 2
-      console.log( radius	)
+      // console.log( radius	)
       this.center=[location.latlng.lat,location.latlng.lng]
     },
     log(a) {
       // console.log(a.target._lastCenter.lat)
-      console.log(a)
-      // console.log(a.target._lastCenter.lat);
+      // console.log(a)
+      // console.log(a.target._latlng);
+      this.center=[a.target._latlng.lat,a.target._latlng.lng]
       // console.log(this.center)
     },
     changeIcon() {
@@ -387,6 +451,25 @@ export default {
       if (this.iconWidth > this.iconHeight) {
         this.iconWidth = Math.floor(this.iconHeight / 2);
       }
+    },
+    login () {
+      this.$q.loading.show()
+      // let celular = this.celular
+      // let password = this.password
+      // console.log(this.user)
+      this.$store.dispatch('showcase/login', { celular:this.celular, password:this.password }).then(() =>{
+        this.$q.loading.hide()
+        this.$router.push('/')
+      })
+        .catch(err => {
+          this.$q.loading.hide();
+          console.log(err.response.data.res)
+          this.$q.notify({
+            message:err.response.data.res,
+            color:'red',
+            icon:'error'
+          })
+        })
     },
   },
   // setup () {

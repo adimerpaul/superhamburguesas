@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -13,6 +15,44 @@ class UserController extends Controller
         if (!Auth::attempt($request->only('celular','password'))){
             return response()->json(['res'=>'El numero de celular o password no encontrado'],400);
         }
+        if (User::where('celular',$request->celular)->whereDate('fechalimite','>',now())->get()->count()==0){
+            return response()->json(['res'=>'Su usuario sobre paso el limite de ingreso'],400);
+        }
+        $user=User::where('celular',$request->celular)->firstOrFail();
+        $token=$user->createToken('auth_token')->plainTextToken;
+        return response()->json(['token'=>$token,'user'=>$user],200);;
+    }
+    public function register(Request $request){
+//        if (!Auth::attempt($request->only('celular','password'))){
+//            return response()->json(['res'=>'El numero de celular o password no encontrado'],400);
+//        }
+        $request->validate([
+            'email'=>'required|unique:users|email',
+            'celular'=>'required|unique:users',
+            'cinit'=>'required|string',
+            'direccion'=>'required|string',
+            'lat'=>'required',
+            'lng'=>'required',
+            'password'=>'required',
+        ]);
+//        return $request;
+        $user=new User();
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->password=Hash::make( $request->password);
+        $user->celular=$request->celular;
+        $user->tipo='CLIENTE';
+        $user->save();
+        $cliente=new Cliente();
+        $cliente->cinit=$request->cinit;
+        $cliente->nombre=$request->name;
+        $cliente->telefono=$request->celular;
+        $cliente->direccion=$request->direccion;
+        $cliente->lat=$request->lat;
+        $cliente->lng=$request->lng;
+        $cliente->user_id=$user->id;
+        $cliente->save();
+
         if (User::where('celular',$request->celular)->whereDate('fechalimite','>',now())->get()->count()==0){
             return response()->json(['res'=>'Su usuario sobre paso el limite de ingreso'],400);
         }

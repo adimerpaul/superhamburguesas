@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-<!--          Quasar App-->
+          {{$store.state.showcase.user.name}}
         </q-toolbar-title>
 
         <div>Pedidos {{ 0 }}</div>
@@ -106,7 +106,7 @@
               </q-item-label>
             </q-item-section>
           </q-item>
- 
+
                          <div v-for="agencias in agen" :key="agencias">
           <q-item
             v-if="$store.getters['showcase/isLoggedIn']"
@@ -359,7 +359,7 @@ export default defineComponent({
         //this.$router.go();
 
         //this.store.state.menuagencia=agencia;
-      
+
       }
   }
 

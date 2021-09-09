@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 Route::post('login',[\App\Http\Controllers\UserController::class,'login']);
+Route::post('register',[\App\Http\Controllers\UserController::class,'register']);
+Route::resource('/agencia',\App\Http\Controllers\AgenciaController::class);
+
 Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::post('/logout',[\App\Http\Controllers\UserController::class,'logout']);
     Route::post('/me',[\App\Http\Controllers\UserController::class,'me']);
@@ -27,7 +30,6 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::resource('/producto',\App\Http\Controllers\ProductoController::class);
     Route::resource('/grupo',\App\Http\Controllers\GrupoController::class);
     Route::resource('/ingrediente',\App\Http\Controllers\IngredienteController::class);
-    Route::resource('/agencia',\App\Http\Controllers\AgenciaController::class);
     Route::post('/productadd',[\App\Http\Controllers\ProductoController ::class,'productadd']);
     Route::post('/productsub',[\App\Http\Controllers\ProductoController ::class,'productsub']);
     Route::post('/grupo/{id}',[\App\Http\Controllers\ProductoController ::class,'grupo']);
