@@ -785,10 +785,10 @@ export default {
         else{
           this.dato2.ingrediente=[];
         producto.row.ingredientes.forEach(element => {
-        this.dato2.ingrediente.push({cantidad:element.pivot.cantidad,ingrediente:element.nombre,ingrediente_id:element.ingrediente_id});
+        this.dato2.ingrediente.push({cantidad:element.pivot.cantidad,ingrediente:element.nombre,ingrediente_id:element.pivot.ingrediente_id});
           
         })}
-
+        console.log(this.dato2);
         this.dialog_mod=true;
     },
     editImg(producto){

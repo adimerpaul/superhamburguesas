@@ -14,7 +14,8 @@ class Rubro extends Model
         "activo",
     ];
     protected $hidden = ["created_at", "updated_at"];
+    
     public function productos(){
-        return $this->hasMany(Producto::class)->with('incluyes');
+        return $this->hasMany(Producto::class)->with('incluyes')->with('ingredientes');
     }
 }

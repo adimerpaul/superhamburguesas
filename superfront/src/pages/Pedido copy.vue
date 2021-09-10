@@ -45,7 +45,6 @@
     </template>
 
   </div>
-
   <q-dialog v-model="card">
     <q-card class="my-card" style="width: 700px; max-width: 80vw;">
       <q-form >
@@ -81,60 +80,41 @@
         <div class="col-12">
           <div class="row">
             <div class="col-6 q-pa-xs">
+<!--              <q-input outlined label="Precio"  hint="Precio de venta"   :model-value="producto.precio+' Bs'" />-->
+<!--              <q-input bg="bg-teal text-white" v-model="producto.precio" label="Custom standout"  />-->
               <q-input  label-color="black" bg-color="yellow" filled :model-value="producto.precio+' Bs'" label="Precio" disable/>
             </div>
             <div class="col-6 q-pa-xs">
               <q-select  label-color="black" bg-color="yellow" filled v-model="cantidad" :options="cantidades" label="Cantidad" />
+<!--              <q-select outlined label="Cantidad" v-model="cantidad" :options="cantidades"/>-->
             </div>
           </div>
         </div>
       </div>
+<!--      <q-card-section>-->
+<!--&lt;!&ndash;        <q-btn&ndash;&gt;-->
+<!--&lt;!&ndash;          fab&ndash;&gt;-->
+<!--&lt;!&ndash;          color="primary"&ndash;&gt;-->
+<!--&lt;!&ndash;          icon="place"&ndash;&gt;-->
+<!--&lt;!&ndash;          class="absolute"&ndash;&gt;-->
+<!--&lt;!&ndash;          style="top: 0; right: 12px; transform: translateY(-50%);"&ndash;&gt;-->
+<!--&lt;!&ndash;        />&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;          <div class="col-auto text-grey text-caption q-pt-md row no-wrap items-center">&ndash;&gt;-->
+<!--&lt;!&ndash;            <q-icon name="place"  />&ndash;&gt;-->
+<!--&lt;!&ndash;            250 ft&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <q-rating v-model="stars" :max="5" size="32px" />&ndash;&gt;-->
+<!--      </q-card-section>-->
       <q-separator />
 
       <q-card-actions align="around" class="bg-primary">
+<!--        <q-btn v-close-popup flat label="Reserve" />-->
         <div class="text-h5 text-bold text-yellow-14" >{{subtotal}} Bs</div>
-        <div class="text-h5 text-bold text-white" @click="complement">AGREGAR</div>
-      </q-card-actions>
-      </q-form>
-    </q-card>
-  </q-dialog>
-
-
-  <q-dialog v-model="dialog_comp">
-    <q-card class="my-card" style="width: 700px; max-width: 80vw;">
-      <q-form >
-      <div class="row">
-        <div class="col-12">
-          <div class="row">
-            <div class="col-12">
-              <div class="row  items-center q-pa-md">
-                  <div class="col-12 text-h6 ">
-                    {{cantidad}} {{ producto.descripcion }} {{ producto.precio }} Bs.
-                    <q-toolbar-title>
-                      <!--          Quasar App-->
-                    </q-toolbar-title>
-                    <q-card-section class="q-pt-none">
-                      {{complemento}}
-                      
-                    </q-card-section>
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="row">
-            <div class="col-6 q-pa-xs">
-              <q-input  label-color="black" bg-color="yellow" filled :model-value="producto.precio+' Bs'" label="Precio" disable/>
-            </div>
-          </div>
-        </div>
-      </div>
-      <q-separator />
-
-      <q-card-actions align="around" class="bg-primary">
-        <div class="text-h5 text-bold text-yellow-14" >{{subtotal}} Bs</div>
-        <div class="text-h5 text-bold text-white">AGREGAR</div>
+        <div class="text-h5 text-bold text-white" >AGREGAR</div>
+<!--        <q-btn v-close-popup flat round icon="event" />-->
       </q-card-actions>
       </q-form>
     </q-card>
@@ -159,8 +139,6 @@ export default {
       url:process.env.API,
       rubros:[],
       card:false,
-      dialog_comp:false,
-      complemento:[],
       stars:3,
       producto:{},
       cantidad:1,
@@ -189,12 +167,6 @@ export default {
       console.log(product)
       this.producto=product
       this.card=true
-    },
-    complement(){
-      this.card=false
-      this.dialog_comp=true
-      this.complemento=this.producto.ingredientes
-
     },
     scrollMeTo(refName){
       // console.log(rubro)
