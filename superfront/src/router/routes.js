@@ -4,7 +4,7 @@ import MainLayout from "layouts/MainLayout";
 import Rubro from "pages/Rubro";
 import Producto from "pages/Producto";
 import Venta from "layouts/Venta";
-import Pedido from "pages/Pedido";
+import Pedido2 from "pages/Pedido2";
 const routes = [
   // {path: '/',component: Venta},
   {
@@ -15,7 +15,8 @@ const routes = [
       { path: '/login', component: Login },
       { path: '/rubro', component: Rubro,meta: {requiresAuth: true,}},
       { path: '/producto', component: Producto ,meta: {requiresAuth: true,}},
-      { path: '/pedido', component: Pedido ,meta: {requiresAuth: true,}},
+      { path: '/venta', component: Pedido2 ,meta: {requiresAuth: true,}},
+      // { path: '/pedido/:id/:nombre', component: Pedido ,meta: {requiresAuth: true,}},
     ]
   },
 

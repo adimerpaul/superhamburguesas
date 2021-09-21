@@ -33,5 +33,6 @@ export function   auth_error(state){
       }
 export function salir(state){
         state.status = ''
+  state.user = {}
         state.token = ''
       }

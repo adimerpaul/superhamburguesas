@@ -24,7 +24,7 @@ export default boot(({ app, router, store }) => {
     // api.defaults.headers.common['Authorization'] = 'Bearer '+token
     app.config.globalProperties.$axios.defaults.headers.common['Authorization'] = 'Bearer '+token
     app.config.globalProperties.$axios.post(process.env.API+'/me').then(res=>{
-      console.log(res.data);
+      // console.log(res.data);
       // return false;
       // store.state.user=res.data;
       // store().commit('login/auth_success', {token:token,user:res.data})

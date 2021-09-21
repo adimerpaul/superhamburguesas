@@ -71,7 +71,7 @@
           <q-item
             clickable
             exact
-            to="rubro"
+            to="/rubro"
 
           >
             <q-item-section
@@ -90,7 +90,7 @@
           <q-item
             clickable
             exact
-            to="producto"
+            to="/producto"
             v-if="$store.getters['showcase/isLoggedIn']"
           >
             <q-item-section
@@ -106,28 +106,47 @@
               </q-item-label>
             </q-item-section>
           </q-item>
-
-                         <div v-for="agencias in agen" :key="agencias">
           <q-item
-            v-if="$store.getters['showcase/isLoggedIn']"
             clickable
             exact
-            to="pedido"
-            @click="pedidoagencia(agencias)"
-             >
+            to="/venta"
+            v-if="$store.getters['showcase/isLoggedIn']"
+          >
             <q-item-section
-              avatar >
-              <q-icon name="shopping_cart" />
+              avatar
+            >
+              <q-icon name="shop" />
             </q-item-section>
 
             <q-item-section>
-              <q-item-label>Pedido {{agencias.nombre}}</q-item-label>
+              <q-item-label>Venta</q-item-label>
               <q-item-label caption>
-                Productos para la venta.
+                Administrar productos
               </q-item-label>
             </q-item-section>
           </q-item>
-          </div>
+<!--          <div v-for="agencias in agen" :key="agencias">-->
+<!--          <q-item-->
+<!--            v-if="$store.getters['showcase/isLoggedIn']"-->
+<!--            clickable-->
+<!--            exact-->
+<!--            :to="'/pedido/'+agencias.id+'/'+agencias.nombre"-->
+
+<!--             >-->
+<!--&lt;!&ndash;            @click="pedidoagencia(agencias)"&ndash;&gt;-->
+<!--            <q-item-section-->
+<!--              avatar >-->
+<!--              <q-icon name="shopping_cart" />-->
+<!--            </q-item-section>-->
+
+<!--            <q-item-section>-->
+<!--              <q-item-label>{{agencias.nombre}}</q-item-label>-->
+<!--              <q-item-label caption>-->
+<!--                Pedido a {{agencias.nombre}}-->
+<!--              </q-item-label>-->
+<!--            </q-item-section>-->
+<!--          </q-item>-->
+<!--          </div>-->
 
           <q-item
             v-if="$store.getters['showcase/isLoggedIn']"
@@ -324,7 +343,8 @@ export default defineComponent({
           daysShort: ['Dum', 'Lun', /* and all the rest of days - remember starting with Sunday */],
           months: ['Enero', 'Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre' /* and all the rest of months */],
           monthsShort: ['Ian', 'Feb', /* and all the rest of months */]
-        })
+        }),
+
     }
   },
   created() {
@@ -345,17 +365,17 @@ export default defineComponent({
         },
       agencia(){
         this.$axios.get(process.env.API+'/agencia').then(res=>{
-          console.log(res.data);
+          // console.log(res.data);
           this.agen=res.data;
         })
 
       },
       pedidoagencia(agencia){
-        console.log(agencia);
-        //this.$store.dispatch('showcase/menu',agencia);
-        this.$q.localStorage.remove('menuagencia');
-        this.$q.localStorage.set('menuagencia',agencia);
-        console.log(this.$q.localStorage.getItem('menuagencia'));
+        // console.log(agencia);
+        // //this.$store.dispatch('showcase/menu',agencia);
+        // this.$q.localStorage.remove('menuagencia');
+        // this.$q.localStorage.set('menuagencia',agencia);
+        // console.log(this.$q.localStorage.getItem('menuagencia'));
         //this.$router.go();
 
         //this.store.state.menuagencia=agencia;

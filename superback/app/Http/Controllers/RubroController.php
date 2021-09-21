@@ -12,9 +12,9 @@ class RubroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+//        return $request;
         return Rubro::with('productos')->get();
 
 
@@ -65,13 +65,16 @@ class RubroController extends Controller
      * @param  \App\Models\Rubro  $rubro
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
-        //
-        return Rubro::leftJoin('productos','productos.rubro_id','=','rubro.id')
-        ->where('productos.agencia',$request->id)->get();
-
-
+//        return $id;
+//        return Rubro::leftJoin('productos','productos.rubro_id','=','rubro.id')
+//        ->where('productos.agencia',$request->id)->get();
+        $dato=$id;
+        return Rubro::with(['productos'=>function($query) use ( $dato ){
+            $query->where('agencia_id', $dato);
+        }])->get();
+//        return Rubro::with('productos')->where('agencia_id',$id)->get();
     }
 
 
