@@ -87,7 +87,7 @@
                 <template v-slot:body="props">
                 <q-tr :props="props">
                     <td key='index' :props="props">
-                    {{props.pageIndex}}
+                    {{props.pageIndex+1}}
                     </td>
                     <td key="nombre" :props="props">
                         <input type="text" v-model="props.row.nombre"
@@ -215,6 +215,7 @@
           <q-tab name="Datos" label="Datos" />
           <q-tab name="Descripcion" label="Descripcion" />
           <q-tab name="Ingrediente" label="Ingrediente" />
+          <q-tab name="combo" label="Combo" />
         </q-tabs>
 
 
@@ -274,7 +275,6 @@
             </q-form>
              </q-tab-panel>
             <q-tab-panel name="Descripcion">
-
              <q-table
                 title="Detalle"
                 :columns="detalle2"
@@ -283,7 +283,7 @@
                 <template v-slot:body="props">
                 <q-tr :props="props">
                     <td key='index' :props="props">
-                    {{props.pageIndex}}
+                    {{props.pageIndex+1}}
                     </td>
                     <td key="nombre" :props="props">
                         <input type="text" v-model="props.row.nombre"
@@ -298,8 +298,57 @@
             </template>
                 </q-table>
               <q-btn label="Modificar" type="button" color="positive" icon="add_circle" @click="onModdetalle"/>
-
             </q-tab-panel>
+          <q-tab-panel name="combo">
+            <div class="row">
+              <div class="col-4">
+                <q-select
+                  v-model="ingred2.producto_id2"
+                  label="Seleccionar producto"
+                  :options="data"
+                  option-label="nombre"
+                />
+              </div>
+              <div class="col-4">
+                <q-select
+                  label="Cantidad"
+                  v-model="ingred2.tipo"
+                  :options="['JUGO','AGREGADO']"
+                />
+              </div>
+              <div class="col-4 flex flex-center">
+                <q-btn dense round flat color="green"  @click="agregarcombo" icon="add" label="Agregar"></q-btn>
+              </div>
+
+            </div>
+
+            <q-table
+              title="Ingredientes"
+              :columns="columns4"
+              :rows="dato2.combo"
+              row-key="ingrediente"
+            >
+              <template v-slot:body="props">
+                <q-tr :props="props">
+                  <td key='index' :props="props">
+                    {{props.pageIndex+1}}
+                  </td>
+                  <td key="nombre" :props="props">
+                    {{props.row.nombre}}
+                  </td>
+<!--                  <td key="cantidad" :props="props">-->
+<!--                    {{props.row.cantidad}}-->
+<!--                  </td>-->
+                  <q-td key="opcion" :props="props">
+                    <q-btn dense round flat color="red" @click="quitarcombo(props.row.id)" icon="remove"></q-btn>
+                  </q-td>
+                </q-tr>
+              </template>
+            </q-table>
+            <div>
+              <q-btn label="Modificar" type="button" color="positive" icon="add_circle" @click="onModingrediente"/>
+            </div>
+          </q-tab-panel>
 
             <q-tab-panel name="Ingrediente">
               <div class="row">
@@ -631,6 +680,29 @@ export default {
         }
 
       ],
+      columns4:[
+
+        {
+          name: 'index',
+          label: '#',
+          field: 'index'
+        },
+        {
+          name: 'nombre',
+          label: 'Nombre',
+          align: 'center',
+          required: true,
+          field: 'nombre',
+        },
+        {
+          name: 'opcion',
+          required: true,
+          label: 'opcion',
+          align: 'center',
+          field: 'action',
+        }
+
+      ],
       data: [
       ],
       prod2: [
@@ -652,6 +724,26 @@ export default {
       this.ingrediente=this.ingred.ingrediente['label'];
       this.cantidad=this.ingred.cantidad;
       this.dato.ingrediente.push({ingrediente_id:this.ingrediente_id,ingrediente:this.ingrediente,cantidad:this.cantidad});
+    },
+    agregarcombo(){
+      // console.log(this.ingred2)
+      // console.log(this.dato2)
+      let data={
+        producto_id:this.dato2.id,
+        producto_id2:this.ingred2.producto_id2.id,
+        tipo:this.ingred2.tipo,
+      }
+      // console.log(data)
+      this.$axios.post(process.env.API + '/combo', data).then(res=>{
+        console.log(res.data)
+        this.buscarmicombo()
+      })
+    },
+    quitarcombo(id){
+      this.$axios.delete(process.env.API + '/combo/'+id).then(res=>{
+        // console.log(res.data)
+        this.buscarmicombo()
+      })
     },
     agregaring2(){
       console.log(this.ingred2.ingrediente['value']);
@@ -740,15 +832,15 @@ export default {
     misdatos(){
       this.$q.loading.show();
       this.$axios.get(process.env.API+'/producto').then(res=>{
-          console.log(res.data);
+          // console.log(res.data);
         this.data=res.data;
         this.$q.loading.hide();
       })
-    },    
+    },
     misagencias(){
       this.sucursal=[];
       this.$axios.get(process.env.API+'/agencia').then(res=>{
-        console.log(res.data);
+        // console.log(res.data);
         res.data.forEach(row=>{
           this.sucursal.push({label:row.nombre,value:row.id});
 
@@ -766,16 +858,16 @@ export default {
     misingredientes(){
         this.options=[];
         this.$axios.get(process.env.API+'/ingrediente').then(res=>{
-          console.log(res.data);
+          // console.log(res.data);
             res.data.forEach(row => {
                 this.opingrediente.push({label:row.nombre,value:row.id});
             });
         })
     },
     editRow(producto){
-        console.log(producto.row);
+        // console.log(producto.row);
         this.dato2= producto.row;
-        console.log(this.dato2);
+        // console.log(this.dato2);
         if(producto.row.incluyes.length==0)
         this.dato2.detalle=[{nombre:''}];
         else
@@ -786,10 +878,21 @@ export default {
           this.dato2.ingrediente=[];
         producto.row.ingredientes.forEach(element => {
         this.dato2.ingrediente.push({cantidad:element.pivot.cantidad,ingrediente:element.nombre,ingrediente_id:element.pivot.ingrediente_id});
-          
+
         })}
-        console.log(this.dato2);
+        // console.log(this.dato2);
+      this.buscarmicombo()
         this.dialog_mod=true;
+    },
+    buscarmicombo(){
+      this.dato2.combo=[]
+      this.$axios.get(process.env.API+'/combo/'+this.dato2.id).then(res=>{
+        // console.log(res.data)
+        res.data.forEach(r=>{
+          this.dato2.combo.push(r)
+        })
+        // console.log(this.dato2);
+      })
     },
     editImg(producto){
       // console.log(producto.row);

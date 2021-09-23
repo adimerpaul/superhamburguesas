@@ -29,6 +29,9 @@ class Producto extends Model
     public function incluyes(){
         return $this->hasMany(Incluye::class);
     }
+//    public function combos(){
+//        return $this->hasMany(Combo::class);
+//    }
 
     public function ingredienteproducto(){
         return $this->belongsTo(IngredienteProducto::class);

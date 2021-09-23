@@ -19,7 +19,7 @@ class CreateProductosTable extends Migration
             $table->string('descripcion')->default('')->nullable();
             $table->double('precio',11,2)->default(20)->nullable();
             $table->integer('stock')->default(100)->nullable();
-//            $table->boolean('extra')->default(false);
+            $table->integer('star')->default(5);
 //            $table->boolean('postre')->default(false);
 //            $table->boolean('acompanamiento')->default(false);
 //            $table->boolean('gaseoso')->default(false);
