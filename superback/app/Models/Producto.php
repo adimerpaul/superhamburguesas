@@ -25,6 +25,9 @@ class Producto extends Model
     public function rubro(){
         return $this->belongsTo(Rubro::class);
     }
+    public function agencia(){
+        return $this->belongsTo(Agencia::class);
+    }
 
     public function incluyes(){
         return $this->hasMany(Incluye::class);

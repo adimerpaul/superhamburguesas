@@ -24,6 +24,16 @@ export function login({commit}, user) {
             })
         })
       }
+export function mipedido({commit}, data) {
+    commit('mipedido',data)
+}
+
+export function borrar({commit}, i) {
+  commit('borrar',i)
+}
+export function limpiar({commit}, i) {
+  commit('limpiar',i)
+}
 
 export function register({commit}, user) {
   return new Promise((resolve, reject) => {

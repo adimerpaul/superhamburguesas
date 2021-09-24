@@ -17,7 +17,13 @@ class RubroController extends Controller
 //        return $request;
         return Rubro::with('productos')->get();
 
-
+    }
+    public function misproductos(Request $request){
+        $agencia_id=$request->agencia_id;
+//        return $agencia_id;
+        return Rubro::with(['productos'=>function($query) use ($agencia_id) {
+            $query->where('agencia_id',$agencia_id);
+        }])->get();
     }
 
     /**

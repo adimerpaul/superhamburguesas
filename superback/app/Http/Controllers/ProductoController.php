@@ -18,7 +18,7 @@ class ProductoController extends Controller
     public function index()
     {
         //
-        return Producto::with('incluyes')->with('rubro')->with('ingredientes')->get();
+        return Producto::with('incluyes')->with('rubro')->with('ingredientes')->with('agencia')->get();
 
         //return DB::table('productos')
         //->join('rubros','productos.rubro_id','=','rubros.id')

@@ -15,7 +15,7 @@
           {{$store.state.showcase.user.name}}
         </q-toolbar-title>
 
-        <div>Pedidos {{ 0 }}</div>
+        <div> <q-btn to="mipedido" color="accent" icon="shop" :label="total+' Bs Pedidos '+ $store.state.showcase.mipedido.length"/>   </div>
       </q-toolbar>
       <div class="q-px-lg q-pt-xs q-mb-md">
         <div class="text-h5 text-bold">Super Hamburguesas</div>
@@ -72,7 +72,7 @@
             clickable
             exact
             to="/rubro"
-
+            v-if="$store.getters['showcase/isLoggedIn']"
           >
             <q-item-section
               avatar
@@ -119,10 +119,89 @@
             </q-item-section>
 
             <q-item-section>
-              <q-item-label>Venta</q-item-label>
+              <q-item-label>Super hamburguesas</q-item-label>
               <q-item-label caption>
-                Administrar productos
+                Calle x
               </q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            exact
+            to="/venta2"
+            v-if="$store.getters['showcase/isLoggedIn']"
+          >
+            <q-item-section
+              avatar
+            >
+              <q-icon name="shop" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>Super 6 de octubre</q-item-label>
+              <q-item-label caption>
+                Calle x
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            exact
+            to="/venta3"
+            v-if="$store.getters['showcase/isLoggedIn']"
+          >
+            <q-item-section
+              avatar
+            >
+              <q-icon name="shop" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>Super pagador</q-item-label>
+              <q-item-label caption>
+                Calle x
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            exact
+            to="/venta4"
+            v-if="$store.getters['showcase/isLoggedIn']"
+          >
+            <q-item-section
+              avatar
+            >
+              <q-icon name="shop" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>Super sud</q-item-label>
+              <q-item-label caption>
+                Calle x
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item
+            clickable
+            exact
+            to="/mipedido"
+            v-if="$store.getters['showcase/isLoggedIn']"
+          >
+            <q-item-section
+              avatar
+            >
+              <q-icon name="local_mall" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>Mi pedido</q-item-label>
+<!--              <q-item-label caption>-->
+<!--                Calle x-->
+<!--              </q-item-label>-->
             </q-item-section>
           </q-item>
 <!--          <div v-for="agencias in agen" :key="agencias">-->
@@ -167,45 +246,6 @@
             </q-item-section>
           </q-item>
 
-<!--          <q-item clickable v-ripple>-->
-<!--            <q-item-section avatar>-->
-<!--              <q-icon name="inbox" />-->
-<!--            </q-item-section>-->
-
-<!--            <q-item-section>-->
-<!--              Inbox-->
-<!--            </q-item-section>-->
-<!--          </q-item>-->
-
-<!--          <q-item active clickable v-ripple>-->
-<!--            <q-item-section avatar>-->
-<!--              <q-icon name="star" />-->
-<!--            </q-item-section>-->
-
-<!--            <q-item-section>-->
-<!--              Star-->
-<!--            </q-item-section>-->
-<!--          </q-item>-->
-
-<!--          <q-item clickable v-ripple>-->
-<!--            <q-item-section avatar>-->
-<!--              <q-icon name="send" />-->
-<!--            </q-item-section>-->
-
-<!--            <q-item-section>-->
-<!--              Send-->
-<!--            </q-item-section>-->
-<!--          </q-item>-->
-
-<!--          <q-item clickable v-ripple>-->
-<!--            <q-item-section avatar>-->
-<!--              <q-icon name="drafts" />-->
-<!--            </q-item-section>-->
-
-<!--            <q-item-section>-->
-<!--              Drafts-->
-<!--            </q-item-section>-->
-<!--          </q-item>-->
         </q-list>
       </q-scroll-area>
 
@@ -219,97 +259,6 @@
         </div>
       </q-img>
     </q-drawer>
-<!--    <q-drawer-->
-<!--      v-model="leftDrawerOpen"-->
-<!--      show-if-above-->
-<!--      bordered-->
-<!--      class="bg-grey-1"-->
-<!--    >-->
-<!--      <q-list>-->
-<!--        <q-item-label-->
-<!--          header-->
-<!--          class="text-grey-8"-->
-<!--        >-->
-<!--          Essential Links-->
-<!--        </q-item-label>-->
-
-<!--        <q-item-->
-<!--          clickable-->
-<!--          to="/menu"-->
-<!--          exact-->
-<!--        >-->
-<!--          <q-item-section-->
-<!--            avatar-->
-<!--          >-->
-<!--            <q-icon name="home" />-->
-<!--          </q-item-section>-->
-
-<!--          <q-item-section>-->
-<!--            <q-item-label>Home</q-item-label>-->
-<!--            <q-item-label caption>-->
-<!--              Ingreso al sistema-->
-<!--            </q-item-label>-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-<!--        <q-item-->
-<!--          v-if="!$store.getters.isLoggedIn"-->
-<!--          clickable-->
-<!--          exact-->
-<!--          to="/login"-->
-<!--        >-->
-<!--          <q-item-section-->
-<!--            avatar-->
-<!--          >-->
-<!--            <q-icon name="login" />-->
-<!--          </q-item-section>-->
-
-<!--          <q-item-section>-->
-<!--            <q-item-label>Login</q-item-label>-->
-<!--            <q-item-label caption>-->
-<!--              Ingreso al sistema-->
-<!--            </q-item-label>-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-
-<!--        <q-item-->
-<!--          clickable-->
-<!--          to="/cliente"-->
-<!--          exact-->
-<!--          v-if="$store.state.boolcontribuyente"-->
-<!--        >-->
-<!--          <q-item-section-->
-<!--            avatar-->
-<!--          >-->
-<!--            <q-icon name="person" />-->
-<!--          </q-item-section>-->
-
-<!--          <q-item-section>-->
-<!--            <q-item-label>Contribuyente</q-item-label>-->
-<!--            <q-item-label caption>-->
-<!--              Datos Contribuyente-->
-<!--            </q-item-label>-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-<!--        <q-item-->
-<!--          v-if="$store.getters.isLoggedIn"-->
-<!--          clickable-->
-<!--          @click="logout"-->
-<!--        >-->
-<!--          <q-item-section-->
-<!--            avatar-->
-<!--          >-->
-<!--            <q-icon name="logout" />-->
-<!--          </q-item-section>-->
-
-<!--          <q-item-section>-->
-<!--            <q-item-label>Salir</q-item-label>-->
-<!--            <q-item-label caption>-->
-<!--              Salir del sistema-->
-<!--            </q-item-label>-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-<!--      </q-list>-->
-<!--    </q-drawer>-->
 
     <q-page-container>
       <router-view />
@@ -318,24 +267,25 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import { useQuasar } from 'quasar'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
+// import { defineComponent, ref } from 'vue'
+// import { useQuasar } from 'quasar'
+// import { useStore } from 'vuex'
+// import { useRouter } from 'vue-router'
 import {date} from 'quasar'
 
-export default defineComponent({
+export default {
   name: 'Venta',
   components: {
     // EssentialLink
   },
   data(){
     return{
-        $store : useStore(),
-        $q : useQuasar(),
-        $router : useRouter(),
+        // $store : useStore(),
+        // $q : useQuasar(),
+        // $router : useRouter(),
         //$agencia:0,
         agen:[],
+      modalpedido:false,
         leftDrawerOpen : false,
         // timeStamp : Date.now(),
         now :date.formatDate(Date.now(), 'dddd D  MMMM', {
@@ -344,12 +294,10 @@ export default defineComponent({
           months: ['Enero', 'Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre' /* and all the rest of months */],
           monthsShort: ['Ian', 'Feb', /* and all the rest of months */]
         }),
-
     }
   },
   created() {
-    // console.log(this.$store)
-    this.agencia();
+    // this.agencia();
   },
   methods:{
         toggleLeftDrawer () {
@@ -368,7 +316,6 @@ export default defineComponent({
           // console.log(res.data);
           this.agen=res.data;
         })
-
       },
       pedidoagencia(agencia){
         // console.log(agencia);
@@ -381,6 +328,16 @@ export default defineComponent({
         //this.store.state.menuagencia=agencia;
 
       }
+  },
+  computed:{
+    total(){
+      let t=0
+      this.$store.state.showcase.mipedido.forEach(r=>{
+        // console.log(r)
+        t+=r.subtotal
+      })
+      return t;
+    }
   }
 
   // setup () {
@@ -412,7 +369,7 @@ export default defineComponent({
   //     }
   //   }
   // }
-})
+}
 </script>
 <style lang="scss">
 .header-image{

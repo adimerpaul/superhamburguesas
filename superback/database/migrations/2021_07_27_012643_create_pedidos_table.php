@@ -24,14 +24,14 @@ class CreatePedidosTable extends Migration
             $table->string("lng");
             $table->string("telefono");
             $table->string("factura");
-            $table->string("nombrefactura");
+//            $table->string("nombrefactura");
             $table->double("total",11,2);
-            $table->unsignedBigInteger('agencia_id')->default(1);
-            $table->foreign('agencia_id')->references('id')->on('agencias');
+//            $table->unsignedBigInteger('agencia_id')->default(1);
+//            $table->foreign('agencia_id')->references('id')->on('agencias');
             $table->unsignedBigInteger('user_id')->default(1);
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('cliente_id')->default(1);
-            $table->foreign('cliente_id')->references('id')->on('clientes');
+//            $table->unsignedBigInteger('cliente_id')->default(1);
+//            $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->timestamps();
         });
     }

@@ -184,10 +184,13 @@
           <q-td key="rubro" :props="props">
             <div class="text-h6">{{ props.row.rubro.nombre }}</div>
           </q-td>
+          <q-td key="agencia_id" :props="props">
+            <div class="text-h6"> <q-select @update:model-value="cambio"  outlined label="Agencia" v-model="props.row.agencia" option-value="id" :options="sucursales"   option-label="nombre"/> </div>
+          </q-td>
           <q-td key="opcion" :props="props">
-            <q-btn dense round flat color="green" @click="addRow(props)" icon="add"></q-btn>
-            <q-btn dense round flat color="red" @click="substractRow(props)" icon="remove"></q-btn>
-            <q-btn dense round flat color="yellow" @click="verRow(props)" icon="list"></q-btn>
+<!--            <q-btn dense round flat color="green" @click="addRow(props)" icon="add"></q-btn>-->
+<!--            <q-btn dense round flat color="red" @click="substractRow(props)" icon="remove"></q-btn>-->
+<!--            <q-btn dense round flat color="yellow" @click="verRow(props)" icon="list"></q-btn>-->
             <q-btn dense round flat color="yellow" @click="editRow(props)" icon="edit"></q-btn>
             <q-btn dense round flat color="ingo" @click="editImg(props)" icon="photo"></q-btn>
             <q-btn dense round flat color="red" @click="deleteRow(props)" icon="delete"></q-btn>
@@ -632,6 +635,7 @@ export default {
         { name: 'stock', align: 'right', label: 'Stock', field: 'stock', sortable: true },
         { name: 'precio', align: 'right', label: 'Precio', field: 'precio', sortable: true },
         { name: 'rubro', align: 'center', label: 'Rubro', field: 'rubro', sortable: true },
+        { name: 'agencia_id', align: 'center', label: 'Agencia', field: 'agencia_id', sortable: true },
         { name: 'opcion', label: 'Opcion', field:'action',  sortable: false },
 
       ],
@@ -707,7 +711,8 @@ export default {
       ],
       prod2: [
       ],
-      sucursal:[]
+      sucursal:[],
+      sucursales:[]
     }
   },
   created() {
@@ -735,7 +740,7 @@ export default {
       }
       // console.log(data)
       this.$axios.post(process.env.API + '/combo', data).then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
         this.buscarmicombo()
       })
     },
@@ -832,8 +837,16 @@ export default {
     misdatos(){
       this.$q.loading.show();
       this.$axios.get(process.env.API+'/producto').then(res=>{
-          // console.log(res.data);
-        this.data=res.data;
+        // res.data.forEach(r=>{
+        //   let a=r.agencia
+        //   a.producto_id=r.id
+        //   console.log(a)
+        //   r.agencia=a
+        //   console.log(r)
+        //   this.data.push(r)
+        // })
+
+        this.data=res.data
         this.$q.loading.hide();
       })
     },
@@ -841,9 +854,9 @@ export default {
       this.sucursal=[];
       this.$axios.get(process.env.API+'/agencia').then(res=>{
         // console.log(res.data);
+        this.sucursales=res.data
         res.data.forEach(row=>{
           this.sucursal.push({label:row.nombre,value:row.id});
-
         })
       })
     },
@@ -863,6 +876,10 @@ export default {
                 this.opingrediente.push({label:row.nombre,value:row.id});
             });
         })
+    },
+    cambio(value,dos){
+      console.log(value)
+      console.log(dos)
     },
     editRow(producto){
         // console.log(producto.row);

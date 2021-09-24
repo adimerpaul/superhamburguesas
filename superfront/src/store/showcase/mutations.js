@@ -28,6 +28,16 @@ export function auth_success(state, data){
         state.token = data.token
         state.user = data.user
       }
+export function mipedido(state, data){
+  state.mipedido.push(data)
+}
+export function borrar(state, i){
+  state.mipedido.splice(i, 1)
+}
+export function limpiar(state, i){
+  state.mipedido=[]
+}
+
 export function   auth_error(state){
         state.status = 'error'
       }

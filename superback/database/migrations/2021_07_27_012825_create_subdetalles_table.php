@@ -18,7 +18,7 @@ class CreateSubdetallesTable extends Migration
             $table->string("nombre");
             $table->string("tipo");
             $table->string("cantidad");
-            $table->string("detalle");
+//            $table->string("detalle");
             $table->unsignedBigInteger('detalle_id')->default(1);
             $table->foreign('detalle_id')->references('id')->on('detalles');
             $table->timestamps();
