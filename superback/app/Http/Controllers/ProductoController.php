@@ -120,7 +120,7 @@ class ProductoController extends Controller
     }
     public function update(Request $request, Producto $producto)
     {
-        //
+
         $producto->update($request->all());
         return $producto;
     }

@@ -185,7 +185,7 @@
             <div class="text-h6">{{ props.row.rubro.nombre }}</div>
           </q-td>
           <q-td key="agencia_id" :props="props">
-            <div class="text-h6"> <q-select @update:model-value="cambio"  outlined label="Agencia" v-model="props.row.agencia" option-value="id" :options="sucursales"   option-label="nombre"/> </div>
+            <div class="text-h6"> <q-select @update:model-value="cambio($event,props.row)"  outlined label="Agencia" v-model="props.row.agencia" option-value="id" :options="sucursales"   option-label="nombre"/> </div>
           </q-td>
           <q-td key="opcion" :props="props">
 <!--            <q-btn dense round flat color="green" @click="addRow(props)" icon="add"></q-btn>-->
@@ -877,9 +877,13 @@ export default {
             });
         })
     },
-    cambio(value,dos){
-      console.log(value)
-      console.log(dos)
+    cambio(agencia,producto){
+      // console.log(value.nombre)
+      // console.log(producto)
+      let agencia_id=agencia.id
+      let id=producto.id
+      // console.log(agencia_id+' '+id)
+      this.$axios.put(process.env.API+'/producto/'+id,{agencia_id})
     },
     editRow(producto){
         // console.log(producto.row);
