@@ -19,4 +19,7 @@ class Pedido extends Model
     public function incluyes(){
         return $this->hasMany(Incluye::class);
     }
+    public function detalles(){
+        return $this->hasMany(Detalle::class)->with('subdetalles');
+    }
 }

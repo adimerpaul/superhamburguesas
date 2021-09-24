@@ -204,6 +204,26 @@
 <!--              </q-item-label>-->
             </q-item-section>
           </q-item>
+
+          <q-item
+            clickable
+            exact
+            to="/pedidosrealizados"
+            v-if="$store.getters['showcase/isLoggedIn']"
+          >
+            <q-item-section
+              avatar
+            >
+              <q-icon name="list" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>Pedidos realizados</q-item-label>
+              <!--              <q-item-label caption>-->
+              <!--                Calle x-->
+              <!--              </q-item-label>-->
+            </q-item-section>
+          </q-item>
 <!--          <div v-for="agencias in agen" :key="agencias">-->
 <!--          <q-item-->
 <!--            v-if="$store.getters['showcase/isLoggedIn']"-->

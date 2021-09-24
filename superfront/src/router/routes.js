@@ -9,6 +9,7 @@ import Mipedido from "pages/Mipedido";
 import Pedido3 from "pages/Pedido3";
 import Pedido4 from "pages/Pedido4";
 import Pedido5 from "pages/Pedido5";
+import Pedidosrealizados from "pages/Pedidosrealizados";
 const routes = [
   // {path: '/',component: Venta},
   {
@@ -24,6 +25,7 @@ const routes = [
       { path: '/venta3', component: Pedido4 ,meta: {requiresAuth: true,}},
       { path: '/venta4', component: Pedido5 ,meta: {requiresAuth: true,}},
       { path: '/mipedido', component: Mipedido ,meta: {requiresAuth: true,}},
+      { path: '/pedidosrealizados', component: Pedidosrealizados ,meta: {requiresAuth: true,}},
       // { path: '/pedido/:id/:nombre', component: Pedido ,meta: {requiresAuth: true,}},
     ]
   },

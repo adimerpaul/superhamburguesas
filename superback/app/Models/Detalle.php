@@ -19,4 +19,7 @@ class Detalle extends Model
         'producto_id',
         'pedido_id',
     ];
+    public function subdetalles(){
+        return $this->hasMany(Subdetalle::class);
+    }
 }

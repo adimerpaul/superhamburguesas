@@ -17,7 +17,7 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //
+        return Pedido::with('detalles')->whereDate('fecha',now())->get();
     }
 
     /**
