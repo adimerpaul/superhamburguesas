@@ -130,4 +130,58 @@ class PedidoController extends Controller
     {
         //
     }
+
+    public function printpedido($id){
+        $pedido=Pedido::with('detalles')->where('id',$id)->get();
+        // $cadena = '
+        //     <style>.margen{padding: 0px 15px 0px 15px;}
+        //     .textoimp{ font-size: small; text-align: center;}
+        //     .textor{ font-size: small; text-align: right;}
+        //     .textmed{ font-size: small; text-align: left;}
+        //     table{border: 0px solid #000; text-align:center; align:center; width: 100% }
+        //     th,td{font-size: small;}
+        //     hr{border: 1px dashed ;}</style>
+        //     <div class="textoimp margen">
+        //     <span>'.$sale->dosage->empresa->nombre.'</span><br>
+        //     <span>'.$sale->dosage->empresa->direccion.'</span><br>
+        //     <span>Tel: '.$sale->dosage->empresa->telefono.'</span><br>
+        //     <span>ORURO - BOLIVIA</span><br>
+        //     <hr>
+        //     <span>COMANDA #'.$comanda.'</span><br>
+        //     <hr>';
+
+        // $cadena.='<div class="textmed">Fecha hora: '.$sale->created_at.'<br><hr></div>';
+        // $cadena.='<div class="textmed">Usuario: '.$sale->user->name.'<br><hr></div>';
+        // $cadena.='<table><thead><tr>
+        //         <th>DESC</th>              <th>CANT</th>     <th>P.U.</th>           <th>IMP</th><tr></thead>
+        //         <tbody>';
+        // $details=Detail::where('sale_id',$sale->id)->get();
+        // foreach ($details as $row){
+        //     $nombrep=$row->nombreproducto;
+        //     $precio=$row->precio;
+        //     $cantidad=$row->cantidad;
+        //     $subtotal=$row->subtotal;
+        //     $cadena.="<tr><td>$nombrep</td><td>$cantidad</td><td>$precio</td><td>$subtotal</td></tr>";
+
+        // }
+        // $cadena.="</tbody></table>";
+
+        // $total=number_format($sale->total,2);
+
+        // $d = explode('.',$total);
+        // $entero=$d[0];
+        // $decimal=$d[1];
+        // $formatter = new NumeroALetras();
+
+        // $cadena.=("<div class='textor'>SUBTOTAL: $sale->total Bs.<br>");
+        // $cadena.=("TOTAL: $sale->total Bs.</div>");
+
+        // $entero=str_replace(',','',$entero);
+        // $cadena.="<div class='textmed'>SON: ".$formatter->toWords($entero)." $decimal/100 Bolivianos</div>
+        // <hr>";
+        // $user=User::where('id',$sale->user_id)->firstOrFail();
+        // $cadena.='<div class="textmed"> <span> PUNTO: '.gethostname().'</span></div>';
+        // $cadena.='<div class="textmed"> <span> NUMERO: '.$sale->id.'</span></div>';
+        // return $cadena;    
+    }
 }
