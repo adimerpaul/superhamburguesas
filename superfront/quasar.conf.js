@@ -71,7 +71,7 @@ module.exports = configure(function (ctx) {
           .use(ESLintPlugin, [{ extensions: [ 'js', 'vue' ] }])
       },
       env: {
-        API: ctx.dev ? 'http://localhost:8000/api' : 'http://64.227.115.116:81/api'
+        API: ctx.dev ? 'http://localhost:8000/api' : 'http://165.227.143.191:92/api'
       }
     },
 
