@@ -7,7 +7,7 @@ export function login({commit}, user) {
         return new Promise((resolve, reject) => {
           commit('auth_request')
           // axios({url: 'http://localhost:8000/axios/login', data: user, method: 'POST' })
-          axios.post(process.env.API+'/login', user)
+          axios.post('http://64.227.115.116:81/api'+'/login', user)
             .then(resp => {
               // console.log(resp.data)
               // resolve(resp)
