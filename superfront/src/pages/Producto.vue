@@ -172,8 +172,7 @@
             {{ props.row.nombre }}
           </q-td>
           <q-td key="imagen" :props="props"  width='200'>
-              <img :src="url+'/../imagenes/'+props.row.imagen"  width="100" height="100">
-
+              <img :src="url+'/../imagenes/'+props.row.imagen"  width="50" >
           </q-td>
           <q-td key="stock" :props="props">
             {{ props.row.stock }}

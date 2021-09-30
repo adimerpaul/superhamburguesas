@@ -10,6 +10,7 @@ import Pedido3 from "pages/Pedido3";
 import Pedido4 from "pages/Pedido4";
 import Pedido5 from "pages/Pedido5";
 import Pedidosrealizados from "pages/Pedidosrealizados";
+import Producto2 from "pages/Producto2";
 const routes = [
   // {path: '/',component: Venta},
   {

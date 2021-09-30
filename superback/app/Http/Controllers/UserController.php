@@ -12,9 +12,11 @@ class UserController extends Controller
 {
 
     public function login(Request $request){
+//        return $request->only('celular','password');
         if (!Auth::attempt($request->only('celular','password'))){
             return response()->json(['res'=>'El numero de celular o password no encontrado'],400);
         }
+//        return 'a';
         if (User::where('celular',$request->celular)->whereDate('fechalimite','>',now())->get()->count()==0){
             return response()->json(['res'=>'Su usuario sobre paso el limite de ingreso'],400);
         }
@@ -29,22 +31,24 @@ class UserController extends Controller
         $request->validate([
             'email'=>'required|unique:users|email',
             'celular'=>'required|unique:users',
-            'cinit'=>'required|string',
+            'carnet'=>'required|unique:users',
+//            'cinit'=>'required|string',
             'direccion'=>'required|string',
             'lat'=>'required',
             'lng'=>'required',
-            'password'=>'required',
+//            'password'=>'required',
         ]);
 //        return $request;
         $user=new User();
         $user->name=$request->name;
         $user->email=$request->email;
-        $user->password=Hash::make( $request->password);
+        $user->password=Hash::make( $request->carnet);
         $user->celular=$request->celular;
+        $user->carnet=$request->carnet;
         $user->tipo='CLIENTE';
         $user->save();
         $cliente=new Cliente();
-        $cliente->cinit=$request->cinit;
+        $cliente->cinit=$request->carnet;
         $cliente->nombre=$request->name;
         $cliente->telefono=$request->celular;
         $cliente->direccion=$request->direccion;

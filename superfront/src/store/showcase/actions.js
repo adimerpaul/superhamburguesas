@@ -10,6 +10,8 @@ export function login({commit}, user) {
           axios.post(process.env.API+'/login', user)
             .then(resp => {
               // console.log(resp.data)
+              // resolve(resp)
+              // return false
               const token = resp.data.token
               const user = resp.data.user
               localStorage.setItem('tokensu', token)

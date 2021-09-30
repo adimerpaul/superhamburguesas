@@ -25,8 +25,10 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::post('/logout',[\App\Http\Controllers\UserController::class,'logout']);
     Route::post('/me',[\App\Http\Controllers\UserController::class,'me']);
     Route::post('/upload',[\App\Http\Controllers\RubroController::class,'upload']);
+
     Route::post('/updateimg',[\App\Http\Controllers\ProductoController::class,'updateimg']);
     Route::resource('/rubro',\App\Http\Controllers\RubroController::class);
+    Route::get('/rubroproductos/{rubro}',[\App\Http\Controllers\RubroController::class,'rubroproductos']);
     Route::post('/misproductos',[\App\Http\Controllers\RubroController::class,'misproductos']);
     Route::resource('/producto',\App\Http\Controllers\ProductoController::class);
     Route::resource('/grupo',\App\Http\Controllers\GrupoController::class);

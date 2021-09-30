@@ -56,7 +56,7 @@
           <q-td key="imagen" :props="props"  width='200'>
             <!--            <q-badge color="purple">-->
             <div :style="'background: '+props.row.color" style="border-radius: 25px;" v-if="props.row.imagen!=''">
-              <img :src="url+'/../imagenes/'+props.row.imagen"  width="100" height="100">
+              <img :src="url+'/../imagenes/'+props.row.imagen"  width="50" >
             </div>
 <!--            </q-badge>-->
           </q-td>

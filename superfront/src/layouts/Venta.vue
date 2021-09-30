@@ -15,7 +15,7 @@
           {{$store.state.showcase.user.name}}
         </q-toolbar-title>
 
-        <div> <q-btn to="mipedido" color="accent" icon="shop" :label="total+' Bs Pedidos '+ $store.state.showcase.mipedido.length"/>   </div>
+        <div> <q-btn v-if="$store.state.showcase.boolcliente" to="mipedido" color="accent" icon="shop" :label="total+' Bs ('+ $store.state.showcase.mipedido.length+')'"/>   </div>
       </q-toolbar>
       <div class="q-px-lg q-pt-xs q-mb-md">
         <div class="text-h5 text-bold">Super Hamburguesas</div>
@@ -72,7 +72,7 @@
             clickable
             exact
             to="/rubro"
-            v-if="$store.getters['showcase/isLoggedIn']"
+            v-if="$store.state.showcase.booladmin"
           >
             <q-item-section
               avatar
@@ -91,7 +91,7 @@
             clickable
             exact
             to="/producto"
-            v-if="$store.getters['showcase/isLoggedIn']"
+            v-if="$store.state.showcase.booladmin"
           >
             <q-item-section
               avatar
@@ -109,107 +109,8 @@
           <q-item
             clickable
             exact
-            to="/venta"
-            v-if="$store.getters['showcase/isLoggedIn']"
-          >
-            <q-item-section
-              avatar
-            >
-              <q-icon name="shop" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label>Super hamburguesas</q-item-label>
-              <q-item-label caption>
-                Calle x
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-item
-            clickable
-            exact
-            to="/venta2"
-            v-if="$store.getters['showcase/isLoggedIn']"
-          >
-            <q-item-section
-              avatar
-            >
-              <q-icon name="shop" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label>Super 6 de octubre</q-item-label>
-              <q-item-label caption>
-                Calle x
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-item
-            clickable
-            exact
-            to="/venta3"
-            v-if="$store.getters['showcase/isLoggedIn']"
-          >
-            <q-item-section
-              avatar
-            >
-              <q-icon name="shop" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label>Super pagador</q-item-label>
-              <q-item-label caption>
-                Calle x
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-item
-            clickable
-            exact
-            to="/venta4"
-            v-if="$store.getters['showcase/isLoggedIn']"
-          >
-            <q-item-section
-              avatar
-            >
-              <q-icon name="shop" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label>Super sud</q-item-label>
-              <q-item-label caption>
-                Calle x
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item
-            clickable
-            exact
-            to="/mipedido"
-            v-if="$store.getters['showcase/isLoggedIn']"
-          >
-            <q-item-section
-              avatar
-            >
-              <q-icon name="local_mall" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label>Mi pedido</q-item-label>
-<!--              <q-item-label caption>-->
-<!--                Calle x-->
-<!--              </q-item-label>-->
-            </q-item-section>
-          </q-item>
-
-          <q-item
-            clickable
-            exact
             to="/pedidosrealizados"
-            v-if="$store.getters['showcase/isLoggedIn']"
+            v-if="$store.state.showcase.booladmin"
           >
             <q-item-section
               avatar
@@ -219,9 +120,50 @@
 
             <q-item-section>
               <q-item-label>Pedidos realizados</q-item-label>
-              <!--              <q-item-label caption>-->
-              <!--                Calle x-->
-              <!--              </q-item-label>-->
+              <q-item-label caption>
+                Administrar pediddos realizados
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item
+            clickable
+            exact
+            to="/venta"
+            v-if="$store.state.showcase.boolcliente"
+          >
+            <q-item-section
+              avatar
+            >
+              <q-icon name="shop" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>Realizar pedidos</q-item-label>
+              <q-item-label caption>
+                Aca puedes realizar tus pedidos
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+
+
+          <q-item
+            clickable
+            exact
+            to="/mipedido"
+            v-if="$store.state.showcase.boolcliente"
+
+          >
+            <q-item-section
+              avatar
+            >
+              <q-icon name="list" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>Mi Pedido</q-item-label>
+                            <q-item-label caption>
+                              El pedido que acabo de realizar
+                            </q-item-label>
             </q-item-section>
           </q-item>
 <!--          <div v-for="agencias in agen" :key="agencias">-->

@@ -5,5 +5,7 @@ export default function () {
     user : {},
     mipedido:[],
     menuagencia:{},
+    booladmin:false,
+    boolcliente:false,
   }
 }

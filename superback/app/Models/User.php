@@ -23,7 +23,8 @@ class User extends Authenticatable
         'password',
         'fechalimite',
         'celular',
-        'tipo'
+        'tipo',
+        'carnet',
     ];
     protected $table = 'users';
 

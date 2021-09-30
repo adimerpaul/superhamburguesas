@@ -32,9 +32,9 @@
                       </template>
                     </q-input>
                   </div>
-                  <div class="col-12">
+                  <div class="col-12 q-pt-md">
                     <!--                    color="purple-12"-->
-                    <q-input outlined v-model="password" label="Password*" :type="isPwd ? 'password' : 'text'" hint="Porfavor ingresar contraseña" :rules="rule">
+                    <q-input outlined v-model="carnet" label="Carnet de identidad*" :type="isPwd ? 'password' : 'text'" hint="Porfavor ingresar carnet de identidad" :rules="rule">
                       <template v-slot:prepend>
                         <q-icon name="lock" />
                       </template>
@@ -80,7 +80,7 @@
                     </q-input>
                   </div>
                   <div class="col-12">
-                    <q-input outlined v-model="user.cinit" label="Carnet o NIT*" hint="Porfavor ingresar carnet o nit" :rules="rule">
+                    <q-input outlined v-model="user.carnet" label="Carnet o NIT*" hint="Porfavor ingresar carnet o nit" :rules="rule">
                       <template v-slot:prepend>
                         <q-icon name="credit_card" />
                       </template>
@@ -93,20 +93,20 @@
                       </template>
                     </q-input>
                   </div>
-                  <div class="col-12">
-                    <q-input outlined v-model="user.password" label="Password*" :type="isPwd ? 'password' : 'text'" hint="Porfavor ingresar contraseña" :rules="rule">
-                      <template v-slot:prepend>
-                        <q-icon name="lock" />
-                      </template>
-                      <template v-slot:append>
-                        <q-icon
-                          :name="isPwd ? 'visibility_off' : 'visibility'"
-                          class="cursor-pointer"
-                          @click="isPwd = !isPwd"
-                        />
-                      </template>
-                    </q-input>
-                  </div>
+<!--                  <div class="col-12">-->
+<!--                    <q-input outlined v-model="user.password" label="Password*" :type="isPwd ? 'password' : 'text'" hint="Porfavor ingresar contraseña" :rules="rule">-->
+<!--                      <template v-slot:prepend>-->
+<!--                        <q-icon name="lock" />-->
+<!--                      </template>-->
+<!--                      <template v-slot:append>-->
+<!--                        <q-icon-->
+<!--                          :name="isPwd ? 'visibility_off' : 'visibility'"-->
+<!--                          class="cursor-pointer"-->
+<!--                          @click="isPwd = !isPwd"-->
+<!--                        />-->
+<!--                      </template>-->
+<!--                    </q-input>-->
+<!--                  </div>-->
                   <div class="col-12">
                     <q-input outlined v-model="user.direccion" label="Direccion*" hint="Direccion de donde vives" :rules="rule">
                       <template v-slot:prepend>
@@ -340,8 +340,8 @@ export default {
       center:[-17.970371, -67.112303],
       iconWidth: 25,
       iconHeight: 40,
-      celular:'69603027',
-      password:'admin',
+      celular:'',
+      carnet:'',
       tab:'login',
       user:{},
       isPwd:true,
@@ -369,8 +369,8 @@ export default {
 
       this.$q.loading.show()
       // let celular = this.celular
-      // let password = this.password
-      console.log(this.user)
+      // let carnet = this.carnet
+      // console.log(this.user)
       this.user.lat=this.center[0]
       this.user.lng=this.center[1]
       this.$store.dispatch('showcase/register', this.user).then(() =>{
@@ -455,9 +455,9 @@ export default {
     login () {
       this.$q.loading.show()
       // let celular = this.celular
-      // let password = this.password
+      // let carnet = this.carnet
       // console.log(this.user)
-      this.$store.dispatch('showcase/login', { celular:this.celular, password:this.password }).then(() =>{
+      this.$store.dispatch('showcase/login', { celular:this.celular, password:this.carnet }).then(() =>{
         this.$q.loading.hide()
         this.$router.push('/')
       })
@@ -477,18 +477,18 @@ export default {
   //   const $q = useQuasar()
   //   const $router = useRouter()
   //   const celular = ref("69603027")
-  //   const password = ref("admin")
+  //   const carnet = ref("admin")
   //   return {
   //     tab: ref('registro'),
   //     isPwd: ref(true),
   //     celular,
-  //     password,
+  //     carnet,
   //     login () {
   //       $q.loading.show()
   //       // let celular = this.celular
-  //       // let password = this.password
+  //       // let carnet = this.carnet
   //       // console.log(celular.value)
-  //       $store.dispatch('showcase/login', { celular:celular.value, password:password.value })
+  //       $store.dispatch('showcase/login', { celular:celular.value, carnet:carnet.value })
   //         .then(() =>{
   //           $q.loading.hide()
   //           $router.push('/')
@@ -505,7 +505,7 @@ export default {
   //     },
   //     onReset(){
   //       this.celular=null;
-  //       this.password=null;
+  //       this.carnet=null;
   //     }
   //   }
   // }
@@ -515,15 +515,15 @@ export default {
 //   data(){
 //     return {
 //       celular : "admin@test.com",
-//       password : "admin"
+//       carnet : "admin"
 //     }
 //   },
 //   methods: {
 //     login: function () {
 //       this.$q.loading.show()
 //       let celular = this.celular
-//       let password = this.password
-//       this.$store.dispatch('login', { celular, password })
+//       let carnet = this.carnet
+//       this.$store.dispatch('login', { celular, carnet })
 //         .then(() =>{
 //           this.$q.loading.hide()
 //           this.$router.push('/')
@@ -540,7 +540,7 @@ export default {
 //     },
 //     onReset(){
 //       this.celular=null;
-//       this.password=null;
+//       this.carnet=null;
 //     }
 //   },
 // }

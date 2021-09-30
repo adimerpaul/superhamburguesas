@@ -19,9 +19,10 @@ class UserSeeder extends Seeder
            [
                'email'=>'admin@test.com',
                'name'=>'admin',
-               'password'=>Hash::make('admin'),
+               'password'=>Hash::make('7336199'),
                'fechalimite'=>'2021-12-31',
-               'celular'=>'69603027'
+               'celular'=>'69603027',
+                'carnet'=>'7336199'
            ]
         ]);
     }
