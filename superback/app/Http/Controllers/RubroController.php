@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Producto;
 use App\Models\Rubro;
 use Illuminate\Http\Request;
 
@@ -29,8 +30,12 @@ class RubroController extends Controller
         $agencia_id=$request->agencia_id;
 //        return $agencia_id;
         return Rubro::with(['productos'=>function($query) use ($agencia_id) {
-            $query->where('agencia_id',$agencia_id);
+            $query->where('agencia_id',$agencia_id)->where('mostrar',true);
         }])->get();
+    }
+
+    public function misproductosrubros($rubro_id){
+        return Producto::where('rubro_id',$rubro_id)->with('ingredientes')->with('incluyes')->with('combos')->with('subproductos')->get();
     }
 
     /**
@@ -61,6 +66,21 @@ class RubroController extends Controller
             return $nombreArchivo;
         }
 
+    }
+    public function upload5(Request $request){
+        $this->validate($request, [
+            'imagen'=>'required'
+        ]);
+        if ($request->hasFile('imagen')) {
+            $file=$request->file('imagen');
+            $nombreArchivo = time().".".$file->getClientOriginalExtension();
+            $file->move(\public_path('imagenes'), $nombreArchivo);
+
+            $producto=Producto::find($request->id);
+            $producto->imagen=$nombreArchivo;
+            $producto->save();
+//            return $nombreArchivo;
+        }
     }
 
 

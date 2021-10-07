@@ -17,13 +17,14 @@ class CreatePedidosTable extends Migration
             $table->id();
             $table->date("fecha");
             $table->time("hora");
-            $table->string("ci");
-            $table->string("nombre");
-            $table->string("direccion");
-            $table->string("lat");
-            $table->string("lng");
-            $table->string("telefono");
-            $table->string("factura");
+            $table->string("ci")->nullable()->default('');
+            $table->string("nombre")->nullable()->default('');
+            $table->string("direccion")->nullable()->default('');
+            $table->string("lat")->nullable()->default('');
+            $table->string("lng")->nullable()->default('');
+            $table->string("telefono")->nullable()->default('');
+            $table->string("factura")->nullable()->default('');
+
 //            $table->string("nombrefactura");
             $table->double("total",11,2);
 //            $table->unsignedBigInteger('agencia_id')->default(1);

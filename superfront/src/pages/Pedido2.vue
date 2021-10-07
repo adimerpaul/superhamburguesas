@@ -22,7 +22,7 @@
 <!--          <div class="text-h6">{{ r.nombre }}</div>-->
           <div class="row">
             <div class=" q-pa-xs col-12 col-md-4"  v-for="(p,j) in r.productos" :key="j">
-              <q-card class=" my-card"  >
+              <q-card class=" my-card" @click="showpedido(p)" >
                 <q-img :src="url+'/../imagenes/'+p.imagen" />
                 <q-card-section>
                   <q-btn
@@ -31,8 +31,9 @@
                     icon="add_shopping_cart"
                     class="absolute"
                     style="top: 0; right: 12px; transform: translateY(-50%);"
-                    @click="showpedido(p)"
+
                   />
+<!--                  @click="showpedido(p)"-->
                   <div class="row no-wrap items-center">
                     <div class="col text-h6 ellipsis">
                       {{p.nombre}}
@@ -42,7 +43,7 @@
                       {{p.precio}} Bs
                     </div>
                   </div>
-                  <q-rating v-model="stars" :max="5" size="32px" />
+                  <q-rating v-model="p.star" :max="5" size="32px" />
                 </q-card-section>
 
                 <q-card-section class="q-pt-none">
@@ -95,14 +96,14 @@
           <q-card >
             <q-img :src="url+'/../imagenes/'+producto.imagen" />
             <q-card-section>
-              <q-btn
-                fab
-                color="primary"
-                icon="add_shopping_cart"
-                class="absolute"
-                style="top: 0; right: 12px; transform: translateY(-50%);"
-                @click="showpedido(p)"
-              />
+<!--              <q-btn-->
+<!--                fab-->
+<!--                color="primary"-->
+<!--                icon="add_shopping_cart"-->
+<!--                class="absolute"-->
+<!--                style="top: 0; right: 12px; transform: translateY(-50%);"-->
+<!--                @click="showpedido(p)"-->
+<!--              />-->
               <div class="row no-wrap items-center">
                 <div class="col text-h6 ellipsis">
                   {{producto.nombre}}
@@ -112,7 +113,7 @@
                   {{producto.precio}} Bs
                 </div>
               </div>
-              <q-rating v-model="stars" :max="5" size="32px" />
+              <q-rating v-model="producto.star" :max="5" size="32px" />
             </q-card-section>
 
             <q-card-section class="q-pt-none">
@@ -124,7 +125,19 @@
               </div>
               <div class="row">
                 <div class="col-12">
-                  <q-select :options="cantidades" v-model="cantidad" label="Cuanto deseas" outlined />
+                  <template v-for="s in subproductos" :key="s.id">
+                    <q-radio v-model="subproducto" :val="s" :label="s.precio+'Bs '+s.nombre" @click="producto.precio=s.precio;precio=s.precio;producto.nombre=s.nombre" />
+                  </template>
+                </div>
+                <div class="col-12">
+                  <div class="row q-pb-xs">
+                    <div class="col-2"><q-btn class="full-width full-height" icon="remove_circle_outline" color="negative" @click="cantidad--"/></div>
+                    <div class="col-8"><q-banner class=" text-center full-width full-height" >Cuantos deseas? <br>{{cantidad}}</q-banner></div>
+                    <div class="col-2"><q-btn class="full-width full-height" icon="add_circle_outline" color="positive" @click="cantidad++"/></div>
+                  </div>
+                </div>
+                <div class="col-12 q-pa-xs">
+                  <q-input outlined label="Alguna peticion al pedido?" v-model="peticion"/>
                 </div>
                 <div class="col-12">
                   <q-badge color="primary" label="Selecionar Jugo" v-if="jugos.length>0" class="full-width"/>
@@ -141,7 +154,7 @@
 <!--                  </q-badge>-->
                   <q-banner class="text-center bg-red text-bold text-white" >
                     Subtotal <br>
-                    {{subtotal}}
+                    <div class="text-h6">{{subtotal}}</div>
                   </q-banner>
                 </div>
                 <div class="col-12 q-pt-xs">
@@ -188,6 +201,9 @@ export default {
       cantidades:[],
       cantidad:1,
       precio:0,
+      peticion:'',
+      subproductos:[],
+      subproducto:{},
     }
   },
   created() {
@@ -252,7 +268,8 @@ export default {
         subtotal:this.subtotal,
         agencia_id:this.agencia_id,
         producto_id:this.producto.id,
-        subdetalle:subdetalle
+        subdetalle:subdetalle,
+        peticion:this.peticion,
       })
       this.modalpedido=false
       this.$q.notify({
@@ -268,12 +285,25 @@ export default {
       this.modalpedido=true
       this.jugo=''
       this.jugos=[]
+      this.subproducto=''
+      this.subproductos=[]
       this.agregado=''
       this.agregados=[]
       this.$q.loading.show()
       this.$axios.get(process.env.API+'/combo/'+p.id).then(res=>{
-        // console.log(res.data)
-        this.$q.loading.hide()
+          this.$axios.get(process.env.API+'/subproducto/'+p.id).then(res=>{
+            // console.log(res.data)
+            this.subproductos.push({
+              nombre:p.nombre,
+              precio:p.precio,
+            })
+            this.subproducto=this.subproductos[0]
+            res.data.forEach(r=>{
+              this.subproductos.push(r)
+            })
+
+            this.$q.loading.hide()
+          })
         res.data.forEach(r=>{
           // console.log(r)
           r.label=r.nombre

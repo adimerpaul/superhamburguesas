@@ -35,7 +35,7 @@ class IncluyeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Incluye::create($request->all());
     }
 
     /**
@@ -80,6 +80,6 @@ class IncluyeController extends Controller
      */
     public function destroy(Incluye $incluye)
     {
-        //
+        $incluye->delete();
     }
 }

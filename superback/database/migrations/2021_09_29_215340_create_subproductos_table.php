@@ -16,7 +16,8 @@ class CreateSubproductosTable extends Migration
         Schema::create('subproductos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('precio');
+            $table->double('precio',11,2);
+            $table->integer('cantidad');
             $table->unsignedBigInteger('producto_id');
             $table->foreign('producto_id')->references('id')->on('productos');
             $table->timestamps();

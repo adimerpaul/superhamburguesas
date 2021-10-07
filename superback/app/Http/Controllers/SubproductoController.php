@@ -35,7 +35,7 @@ class SubproductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Subproducto::create($request->all());
     }
 
     /**
@@ -44,9 +44,9 @@ class SubproductoController extends Controller
      * @param  \App\Models\Subproducto  $subproducto
      * @return \Illuminate\Http\Response
      */
-    public function show(Subproducto $subproducto)
+    public function show($producto_id)
     {
-        //
+        return Subproducto::where('producto_id',$producto_id)->get();
     }
 
     /**
@@ -80,6 +80,6 @@ class SubproductoController extends Controller
      */
     public function destroy(Subproducto $subproducto)
     {
-        //
+        $subproducto->delete();
     }
 }

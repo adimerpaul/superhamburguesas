@@ -71,6 +71,7 @@ class PedidoController extends Controller
             $pedido->user_id=$request->user()->id;
             $detalle->agencia_id=$d['agencia_id'];
             $detalle->producto_id=$d['producto_id'];
+            $detalle->peticion=$d['peticion'];
             $detalle->pedido_id=$pedido->id;
             $detalle->save();
             foreach ($d['subdetalle'] as $s){
@@ -182,6 +183,6 @@ class PedidoController extends Controller
         // $user=User::where('id',$sale->user_id)->firstOrFail();
         // $cadena.='<div class="textmed"> <span> PUNTO: '.gethostname().'</span></div>';
         // $cadena.='<div class="textmed"> <span> NUMERO: '.$sale->id.'</span></div>';
-        // return $cadena;    
+        // return $cadena;
     }
 }

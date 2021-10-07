@@ -17,7 +17,7 @@
 
         <div> <q-btn v-if="$store.state.showcase.boolcliente" to="mipedido" color="accent" icon="shop" :label="total+' Bs ('+ $store.state.showcase.mipedido.length+')'"/>   </div>
       </q-toolbar>
-      <div class="q-px-lg q-pt-xs q-mb-md">
+      <div class="q-px-lg q-pt-xs q-mb-md" @click="$router.push('/venta')">
         <div class="text-h5 text-bold">Super Hamburguesas</div>
         <div class="text-subtitle1">{{ now }}</div>
       </div>

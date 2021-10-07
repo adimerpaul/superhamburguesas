@@ -16,6 +16,7 @@ class CreateCombosTable extends Migration
         Schema::create('combos', function (Blueprint $table) {
             $table->id();
             $table->string('tipo');
+            $table->string('nombre');
             $table->unsignedBigInteger('producto_id');
             $table->foreign('producto_id')->references('id')->on('productos');
             $table->unsignedBigInteger('producto_id2');

@@ -20,7 +20,7 @@ const routes = [
       { path: '', component: Index },
       { path: '/login', component: Login },
       { path: '/rubro', component: Rubro,meta: {requiresAuth: true,}},
-      { path: '/producto', component: Producto ,meta: {requiresAuth: true,}},
+      { path: '/producto', component: Producto2 ,meta: {requiresAuth: true,}},
       { path: '/venta', component: Pedido2 ,meta: {requiresAuth: true,}},
       { path: '/venta2', component: Pedido3 ,meta: {requiresAuth: true,}},
       { path: '/venta3', component: Pedido4 ,meta: {requiresAuth: true,}},

@@ -19,6 +19,7 @@ class CreateDetallesTable extends Migration
             $table->double("precio",11,2);
             $table->integer("cantidad");
             $table->double("subtotal",11,2);
+            $table->string("peticion")->nullable()->default('');
 //            $table->unsignedBigInteger('cliente_id')->default(1);
 //            $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->unsignedBigInteger('user_id')->default(1);

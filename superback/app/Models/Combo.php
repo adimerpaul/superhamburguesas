@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Combo extends Model
 {
     use HasFactory;
-    protected $fillable=['producto_id','producto_id2','tipo'];
+    protected $fillable=['producto_id','producto_id2','tipo','nombre'];
     public function producto(){
         return $this->belongsTo(Producto::class);
     }

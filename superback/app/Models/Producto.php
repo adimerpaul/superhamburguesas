@@ -19,6 +19,8 @@ class Producto extends Model
         "activo",
         "agencia_id",
         "rubro_id",
+        'star',
+        'mostrar'
     ];
     protected $hidden = ["created_at", "updated_at"];
 
@@ -42,6 +44,12 @@ class Producto extends Model
 
     public function ingredientes(){
         return $this->belongsToMany(Ingrediente::class)->withPivot('cantidad');
+    }
+    public function combos(){
+        return$this->hasMany(Combo::class);
+    }
+    public function subproductos(){
+        return$this->hasMany(Subproducto::class);
     }
 
 }

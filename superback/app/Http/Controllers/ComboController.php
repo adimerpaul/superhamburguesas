@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Combo;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -36,10 +37,13 @@ class ComboController extends Controller
      */
     public function store(Request $request)
     {
+        $producto=Producto::find($request->producto_id2);
+
         $combo=new Combo();
         $combo->producto_id=$request->producto_id;
         $combo->producto_id2=$request->producto_id2;
         $combo->tipo=$request->tipo;
+        $combo->nombre=$producto->nombre;
         $combo->save();
         return $combo;
     }

@@ -146,7 +146,7 @@
             </div>
 
             <div class="col-12 q-py-md">
-              <q-btn label="Enviar mi pedido" color="accent" icon="login" class="full-width" type="submit"/>
+              <q-btn label="Enviar mi pedido" color="accent" icon="login" class="full-width" size="lg" type="submit"/>
 <!--              <q-btn label="Ingresa" color="secondary" icon="how_to_reg" @click="tab='login'" class="full-width q-mt-xs" />-->
 <!--              <div class="text-caption q-py-xs">-->
 <!--                <a href="#">Olvidate tu contraseña?</a>-->
@@ -228,10 +228,15 @@ export default {
         detalles:this.$store.state.showcase.mipedido
       }).then(res=>{
         this.$q.loading.hide()
-        this.$q.notify({
-          message:'Su pedioo fue enviado',
-          color:'green',
-          icon:'shop'
+        // this.$q.notify({
+        //   message:'Su pedioo fue enviado',
+        //   color:'green',
+        //   icon:'shop'
+        // })
+        this.$q.dialog({
+          title:'Enviado correctamente',
+          message:'Pedido enviado!',
+          color:'green'
         })
         this.$store.dispatch("showcase/limpiar")
         // console.log(res.data)

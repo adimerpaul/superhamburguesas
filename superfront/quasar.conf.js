@@ -71,7 +71,7 @@ module.exports = configure(function (ctx) {
           .use(ESLintPlugin, [{ extensions: [ 'js', 'vue' ] }])
       },
       env: {
-        API: ctx.dev ? 'http://localhost:8000/api' : 'http://165.227.143.191:92/api'
+        API: ctx.dev ? 'http://localhost:8000/api' : 'https://back.superhamburguesas.com.bo/api'
       }
     },
 
@@ -100,7 +100,8 @@ module.exports = configure(function (ctx) {
       plugins: [
         'LocalStorage',
         'Loading',
-        'Notify'
+        'Notify',
+        'Dialog'
       ]
     },
 

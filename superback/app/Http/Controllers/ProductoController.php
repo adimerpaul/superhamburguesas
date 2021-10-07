@@ -36,6 +36,9 @@ class ProductoController extends Controller
     {
         //
     }
+    public function crearproducto(Request $request){
+        Producto::create($request->all());
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -120,7 +123,6 @@ class ProductoController extends Controller
     }
     public function update(Request $request, Producto $producto)
     {
-
         $producto->update($request->all());
         return $producto;
     }
@@ -161,7 +163,6 @@ class ProductoController extends Controller
         //
         $producto = Producto::find($producto->id);
         $producto->save();
-
         return true;
     }
     /**
