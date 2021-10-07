@@ -1,5 +1,5 @@
 {
-  "appId": "org.capacitor.adimer.super",
+  "appId": "adimer.capacitor.quasar.app",
   "appName": "Super Hamburguesas",
   "bundledWebRuntime": false,
   "npmClient": "npm",

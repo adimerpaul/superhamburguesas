@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">Super Hamburguesas</string>
     <string name="title_activity_main">Super Hamburguesas</string>
-    <string name="package_name">org.capacitor.adimer.super</string>
-    <string name="custom_url_scheme">org.capacitor.adimer.super</string>
+    <string name="package_name">adimer.capacitor.quasar.app</string>
+    <string name="custom_url_scheme">adimer.capacitor.quasar.app</string>
 </resources>

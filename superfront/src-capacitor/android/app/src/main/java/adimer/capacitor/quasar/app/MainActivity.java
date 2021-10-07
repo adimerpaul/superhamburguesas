@@ -1,4 +1,4 @@
-package org.capacitor.adimer.super;
+package adimer.capacitor.quasar.app;
 
 import android.os.Bundle;
 
