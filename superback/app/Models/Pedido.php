@@ -12,6 +12,7 @@ class Pedido extends Model
         "fecha",
         "hora",
         "total",
+        "estado",
         'agencia_id',
         'user_id',
         'cliente_id',

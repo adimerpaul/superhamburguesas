@@ -9,6 +9,7 @@
         <th>Fecha </th>
         <th>Pedido</th>
         <th>Total</th>
+        <th>Estado</th>
         <th>Imprimir</th>
       </tr>
       </thead>
@@ -31,8 +32,9 @@
           </ul>
         </td>
         <th>{{p.total}} Bs</th>
+        <th>{{p.estado}}</th>
         <td>
-          <q-btn label="imprimir" icon="print"  color="teal" size="xs"/>
+          <q-btn label="imprimir" icon="print"  color="teal" size="xs" @click="imprimir(p.id)"/>
         </td>
       </tr>
       </tbody>
@@ -51,6 +53,20 @@ export default {
     this.mispedidos();
   },
   methods:{
+    imprimir(id){
+      this.$axios.post(process.env.API+'/printpedido/'+id).then(res=>{
+        let myWindow = window.open("", "Imprimir", "width=200,height=100");
+        myWindow.document.write(res.data);
+        myWindow.document.close();
+        myWindow.focus();
+        setTimeout(function(){
+          myWindow.print();
+          myWindow.close();
+          // this.comanda(sale_id);
+          //    impAniv(response);
+        },500);
+      })
+    },
     mispedidos(){
       this.$q.loading.show();
       this.$axios.get(process.env.API+'/pedido').then(res=>{

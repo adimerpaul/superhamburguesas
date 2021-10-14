@@ -42,6 +42,7 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::resource('/combo',\App\Http\Controllers\ComboController::class);
     Route::resource('/cliente',\App\Http\Controllers\ClienteController::class);
     Route::resource('/pedido',\App\Http\Controllers\PedidoController::class);
+    Route::post('/printpedido/{id}',[\App\Http\Controllers\PedidoController::class,'printpedido']);
     Route::resource('/incluye',\App\Http\Controllers\IncluyeController::class);
     Route::post('/productadd',[\App\Http\Controllers\ProductoController ::class,'productadd']);
     Route::post('/productsub',[\App\Http\Controllers\ProductoController ::class,'productsub']);

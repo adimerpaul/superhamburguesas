@@ -7,6 +7,7 @@ use App\Models\Detalle;
 use App\Models\Pedido;
 use App\Models\Subdetalle;
 use Illuminate\Http\Request;
+use Luecano\NumeroALetras\NumeroALetras;
 
 class PedidoController extends Controller
 {
@@ -17,7 +18,7 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        return Pedido::with('detalles')->whereDate('fecha',now())->get();
+        return Pedido::with('detalles')->whereDate('fecha',now())->orderBy('estado','desc')->get();
     }
 
     /**
@@ -133,56 +134,56 @@ class PedidoController extends Controller
     }
 
     public function printpedido($id){
-        $pedido=Pedido::with('detalles')->where('id',$id)->get();
-        // $cadena = '
-        //     <style>.margen{padding: 0px 15px 0px 15px;}
-        //     .textoimp{ font-size: small; text-align: center;}
-        //     .textor{ font-size: small; text-align: right;}
-        //     .textmed{ font-size: small; text-align: left;}
-        //     table{border: 0px solid #000; text-align:center; align:center; width: 100% }
-        //     th,td{font-size: small;}
-        //     hr{border: 1px dashed ;}</style>
-        //     <div class="textoimp margen">
-        //     <span>'.$sale->dosage->empresa->nombre.'</span><br>
-        //     <span>'.$sale->dosage->empresa->direccion.'</span><br>
-        //     <span>Tel: '.$sale->dosage->empresa->telefono.'</span><br>
-        //     <span>ORURO - BOLIVIA</span><br>
-        //     <hr>
-        //     <span>COMANDA #'.$comanda.'</span><br>
-        //     <hr>';
+        $ped=Pedido::find($id);
+        $ped->estado="IMPRESO";
+        $ped->save();
 
-        // $cadena.='<div class="textmed">Fecha hora: '.$sale->created_at.'<br><hr></div>';
-        // $cadena.='<div class="textmed">Usuario: '.$sale->user->name.'<br><hr></div>';
-        // $cadena.='<table><thead><tr>
-        //         <th>DESC</th>              <th>CANT</th>     <th>P.U.</th>           <th>IMP</th><tr></thead>
-        //         <tbody>';
-        // $details=Detail::where('sale_id',$sale->id)->get();
-        // foreach ($details as $row){
-        //     $nombrep=$row->nombreproducto;
-        //     $precio=$row->precio;
-        //     $cantidad=$row->cantidad;
+        $pedido=Pedido::with('detalles')->where('id',$id)->get()[0];
+         $cadena = '
+             <style>.margen{padding: 0px 15px 0px 15px;}
+            .textoimp{ font-size: small; text-align: center;}
+             .textor{ font-size: small; text-align: right;}
+             .textmed{ font-size: small; text-align: left;}
+             table{border: 0px solid #000; text-align:center; align:center; width: 100% }
+             th,td{font-size: small;}
+             hr{border: 1px dashed ;}</style>
+             <div class="textoimp margen">
+             <span>COMANDA #'.$id.'</span><br>
+             <hr>';
+
+         $cadena.='<div class="textmed">Fecha : '.$pedido->fecha.' hora: '.$pedido->hora.'<br></div>';
+         $cadena.='<div class="textmed">CI: '.$pedido->ci.' Cliente: '.$pedido->nombre.'<br></div>';
+         $cadena.='<div class="textmed">Telefono: '.$pedido->telefono.' Direccion: '.$pedido->direccion.'<br><hr></div>';
+         $cadena.='<table><thead><tr>
+                 <th>DESC</th>              <th>CANT</th>     <th>P.U.</th>      <th>cont</th>       <tr></thead>
+                 <tbody>';
+         foreach ($pedido->detalles as $row){
+               $nombre=$row->nombre;
+               $precio=$row->precio;
+               $cantidad=$row->cantidad;
+               $subdet='';
+               foreach($row->subdetalles as $sub){ $subdet.="$sub->tipo: $sub->nombre; ";}
         //     $subtotal=$row->subtotal;
-        //     $cadena.="<tr><td>$nombrep</td><td>$cantidad</td><td>$precio</td><td>$subtotal</td></tr>";
+             $cadena.="<tr><td>$nombre</td><td>$cantidad</td><td>$precio</td><td>$subdet</td></tr>";
 
-        // }
-        // $cadena.="</tbody></table>";
+        }
+         $cadena.="</tbody></table>";
 
-        // $total=number_format($sale->total,2);
+         $total=number_format($pedido->total,2);
 
-        // $d = explode('.',$total);
-        // $entero=$d[0];
-        // $decimal=$d[1];
-        // $formatter = new NumeroALetras();
+         $d = explode('.',$total);
+         $entero=$d[0];
+         $decimal=$d[1];
+         $formatter = new NumeroALetras();
+         
+         $cadena.=("<div class='textor'>TOTAL: $pedido->total Bs.</div>");
 
-        // $cadena.=("<div class='textor'>SUBTOTAL: $sale->total Bs.<br>");
-        // $cadena.=("TOTAL: $sale->total Bs.</div>");
-
-        // $entero=str_replace(',','',$entero);
-        // $cadena.="<div class='textmed'>SON: ".$formatter->toWords($entero)." $decimal/100 Bolivianos</div>
+         $entero=str_replace(',','',$entero);
+         $cadena.="<div class='textmed'>SON: ".$formatter->toWords($entero)." $decimal/100 Bolivianos</div>";
         // <hr>";
         // $user=User::where('id',$sale->user_id)->firstOrFail();
         // $cadena.='<div class="textmed"> <span> PUNTO: '.gethostname().'</span></div>';
         // $cadena.='<div class="textmed"> <span> NUMERO: '.$sale->id.'</span></div>';
-        // return $cadena;
+         return $cadena;
     }
 }

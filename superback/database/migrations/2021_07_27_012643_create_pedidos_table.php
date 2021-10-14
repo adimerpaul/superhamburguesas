@@ -22,6 +22,7 @@ class CreatePedidosTable extends Migration
             $table->string("direccion")->nullable()->default('');
             $table->string("lat")->nullable()->default('');
             $table->string("lng")->nullable()->default('');
+            $table->string("estado")->default('ACTIVO');
             $table->string("telefono")->nullable()->default('');
             $table->string("factura")->nullable()->default('');
 
