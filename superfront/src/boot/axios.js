@@ -29,6 +29,9 @@ export default boot(({ app, router, store }) => {
       // store.state.user=res.data;
       // store().commit('login/auth_success', {token:token,user:res.data})
       store.commit('showcase/auth_success',{token:token,user:res.data})
+    }).catch(err=>{
+      store.commit('showcase/salir')
+      localStorage.removeItem('tokensu')
     })
   }
 
