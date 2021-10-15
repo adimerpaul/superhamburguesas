@@ -189,6 +189,10 @@ export default {
     }
   },
   created() {
+                     if(!this.$store.state.showcase.booladmin )
+      {location.href='/';
+        return false;
+      }
     this.misdatos();
     // this.$q.notify({
     //   color: 'green-4',

@@ -7,5 +7,6 @@ export default function () {
     menuagencia:{},
     booladmin:false,
     boolcliente:false,
+    boolcajero:false,
   }
 }

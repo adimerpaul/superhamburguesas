@@ -82,6 +82,38 @@ class UserController extends Controller
 //        $user->permisos()->attach($permiso);
 
     }
+
+    public function regempleado(Request $request){
+        $usuario= new User;
+        $usuario->name=$request->name;
+        $usuario->email=$request->email;
+        $usuario->password=Hash::make($request->password);
+        $usuario->celular=$request->celular;
+        $usuario->carnet=$request->carnet;
+        $usuario->tipo=$request->tipo;
+        $usuario->fechalimite=$request->fechalimite;
+        return $usuario->save();
+       }
+       public function modempleado(Request $request){
+        $usuario= User::find($request->id);
+        $usuario->name=$request->name;
+        $usuario->celular=$request->celular;
+        $usuario->tipo=$request->tipo;
+        $usuario->fechalimite=$request->fechalimite;
+        return $usuario->save();
+       }
+
+       public function passempleado(Request $request){
+        $usuario= User::find($request->id);
+        $usuario->password=Hash::make($request->password);
+        return $usuario->save();
+       }
+       public function delempleado(Request $request){
+        $usuario= User::find($request->id);
+        return $usuario->delete();
+       }
+
+
     public function update(Request $request,User $user){
         $user->update($request->all());
         return $user;
@@ -115,5 +147,9 @@ class UserController extends Controller
         $user=User::where('id',$request->user()->id)->firstOrFail();
         return $user;
 //        return User::where('id',1)->with('unid')->get();
+    }
+
+    public function listuser(){
+        return User::where('id','!=','1')->where('tipo','ADMIN')->orWhere('tipo','CAJERO')->get();
     }
 }

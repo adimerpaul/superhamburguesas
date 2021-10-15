@@ -106,11 +106,33 @@
               </q-item-label>
             </q-item-section>
           </q-item>
+
+
+          <q-item
+            clickable
+            exact
+            to="/usuario"
+            v-if=" $store.state.showcase.booladmin"
+          >
+            <q-item-section
+              avatar
+            >
+              <q-icon name="people" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>Usuarios</q-item-label>
+              <q-item-label caption>
+                Administrar Usuarios
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+
           <q-item
             clickable
             exact
             to="/pedidosrealizados"
-            v-if="$store.state.showcase.booladmin"
+            v-if=" $store.state.showcase.booladmin || $store.state.showcase.boolcajero"
           >
             <q-item-section
               avatar
@@ -125,6 +147,7 @@
               </q-item-label>
             </q-item-section>
           </q-item>
+
           <q-item
             clickable
             exact

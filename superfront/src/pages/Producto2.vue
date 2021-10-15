@@ -207,6 +207,10 @@ export default {
     }
   },
   created() {
+                     if(!this.$store.state.showcase.booladmin )
+      {location.href='/';
+        return false;
+      }
     this.misrubros();
     this.misproductoscombo();
   },

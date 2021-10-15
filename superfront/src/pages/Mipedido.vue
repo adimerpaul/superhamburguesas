@@ -198,7 +198,14 @@ export default {
       center:[-17.970371, -67.112303],
     }
   },
+  mounted() {
+         if(!this.$store.state.showcase.boolcliente )
+      {location.href='/';
+        return false;
+      }
+  },
   created() {
+
     this.$q.loading.show()
     this.$axios.get(process.env.API+'/cliente').then(res=>{
       // console.log(res.data)

@@ -1,4 +1,4 @@
-import Index from 'pages/Index'
+import Index from 'pages/Index';
 import Login from "pages/Login";
 import MainLayout from "layouts/MainLayout";
 import Rubro from "pages/Rubro";
@@ -11,6 +11,7 @@ import Pedido4 from "pages/Pedido4";
 import Pedido5 from "pages/Pedido5";
 import Pedidosrealizados from "pages/Pedidosrealizados";
 import Producto2 from "pages/Producto2";
+import Usuario from "pages/Usuario";
 const routes = [
   // {path: '/',component: Venta},
   {
@@ -27,6 +28,7 @@ const routes = [
       { path: '/venta4', component: Pedido5 ,meta: {requiresAuth: true,}},
       { path: '/mipedido', component: Mipedido ,meta: {requiresAuth: true,}},
       { path: '/pedidosrealizados', component: Pedidosrealizados ,meta: {requiresAuth: true,}},
+      { path: '/usuario', component: Usuario ,meta: {requiresAuth: true,}},
       // { path: '/pedido/:id/:nombre', component: Pedido ,meta: {requiresAuth: true,}},
     ]
   },

@@ -1,7 +1,7 @@
-/*
-export function someMutation (state) {
-}
-*/
+
+//export function someMutation (state) {
+//}
+
 // module.exports = {
 //       auth_request(state){
 //         state.status = 'loading'
@@ -34,6 +34,10 @@ export function auth_success(state, data){
   if (data.user.tipo=='ADMIN'){
     state.booladmin=true;
   }
+  if (data.user.tipo=='CAJERO'){
+    state.boolcajero=true;
+  }
+
 
 }
 export function mipedido(state, data){
@@ -55,4 +59,5 @@ export function salir(state){
   state.token = ''
   state.booladmin=false
   state.boolcliente=false
+  state.boolcajero=false
 }

@@ -49,5 +49,11 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::post('/grupo/{id}',[\App\Http\Controllers\ProductoController ::class,'grupo']);
     Route::post('/upincluye',[\App\Http\Controllers\ProductoController ::class,'upincluye']);
     Route::post('/upingrediente',[\App\Http\Controllers\ProductoController ::class,'upingrediente']);
+    
+    Route::post('listuser',[\App\Http\Controllers\UserController::class,'listuser']);
+    Route::post('regempleado',[\App\Http\Controllers\UserController::class,'regempleado']);
+    Route::post('modempleado',[\App\Http\Controllers\UserController::class,'modempleado']);
+    Route::post('passempleado',[\App\Http\Controllers\UserController::class,'passempleado']);
+    Route::post('delempleado',[\App\Http\Controllers\UserController::class,'delempleado']);
 });
 

@@ -35,10 +35,28 @@
         <th>{{p.estado}}</th>
         <td>
           <q-btn label="imprimir" icon="print"  color="teal" size="xs" @click="imprimir(p.id)"/>
+          <q-btn label="Ver" icon="list"  color="green" size="xs" @click="ver(p)"/>
         </td>
       </tr>
       </tbody>
     </table>
+        <q-dialog v-model="alert">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Detalle</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <div v-for="row in detalle.detalles" :key="row">
+            {{row.nombre}}
+          </div>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -46,13 +64,24 @@
 export default {
   data () {
     return {
-      pedidos:[]
+      pedidos:[],
+      alert:false,
+      detalle:{}
     }
   },
   created() {
+             if(!this.$store.state.showcase.booladmin && !this.$store.state.showcase.boolcajero)
+      {location.href='/';
+        return false;
+      }
     this.mispedidos();
   },
   methods:{
+    ver(pedido){
+      this.alert=true;
+      this.detalle=pedido;
+
+    },
     imprimir(id){
       this.$axios.post(process.env.API+'/printpedido/'+id).then(res=>{
         let myWindow = window.open("", "Imprimir", "width=200,height=100");
