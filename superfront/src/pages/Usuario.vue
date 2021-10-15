@@ -120,6 +120,9 @@
           <q-td key="fechalimite" :props="props">
             {{props.row.fechalimite}}
           </q-td>
+                    <q-td key="tipo" :props="props">
+            {{props.row.tipo}}
+          </q-td>
           <q-td key="opcion" :props="props">
           <q-btn
               dense
@@ -274,7 +277,8 @@ export default {
         {name: "name", align: "left", label: "Nombre ", field: "name", sortable: true,},
         {name: "email", align: "left", label: "Email", field: "email", sortable: true,},
         {name: "celular", align: "left", label: "celular", field: "celular", sortable: true,},
-        {name: "fechalimite", align: "left", label: "Fecha limite", field: "fechalimite", sortable: true,
+        {name: "fechalimite", align: "left", label: "Fecha limite", field: "fechalimite", sortable: true,},
+        {name: "tipo", align: "left", label: "Tipo", field: "tipo", sortable: true,
         },
 
         { name: "opcion", label: "Opcion", field: "action", sortable: false },

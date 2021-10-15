@@ -47,9 +47,12 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          <div v-for="row in detalle.detalles" :key="row">
-            {{row.nombre}}
-          </div>
+                            <li v-for="(d,i) in detalle.detalles" :key="i">
+              {{d.cantidad}} {{d.nombre}} {{d.precio}} Bs
+              <ul v-for="(s,i) in d.subdetalles" :key="i">
+                <li>{{s.cantidad}} {{s.nombre}} </li>
+              </ul>
+            </li>
         </q-card-section>
 
         <q-card-actions align="right">
