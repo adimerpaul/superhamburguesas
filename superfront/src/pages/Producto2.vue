@@ -5,7 +5,7 @@
       <q-form @submit.prevent="agregarproducto">
         <div class="row">
           <div class="col-3 q-pa-xs"><q-input label="Nombre" outlined v-model="dato.nombre" required/></div>
-          <div class="col-3 q-pa-xs"><q-input label="Precio" type="number" outlined v-model="dato.precio" required/></div>
+          <div class="col-3 q-pa-xs"><q-input label="Precio" type="number" step="0.01" outlined v-model="dato.precio" required/></div>
           <div class="col-3 q-pa-xs"><q-input label="Descripcion" outlined v-model="dato.descripcion" required/></div>
 <!--          <div class="col-3 q-pa-xs">-->
 <!--            <q-select outlined label="Rubro" :options="rubros" option-label="nombre" v-model="dato.rubro" required/>-->
@@ -83,7 +83,7 @@
 
                   <q-card-section class="q-pt-none">
                     <div class="text-subtitle1">
-                      <q-input outlined v-model="p.precio" label="Precio producto BS" @keyup="mistart(p)"/>
+                      <q-input outlined v-model="p.precio" step="0.01" label="Precio producto BS" @keyup="mistart(p)"/>
                     </div>
                     <div class="text-caption text-grey">
 <!--                      {{p.descripcion}}-->
@@ -125,7 +125,7 @@
                         <input v-model="p.nombresubproducto" placeholder="Nombre Subproducto" style="width: 100%"/>
                       </div>
                       <div class="col-3 ">
-                        <input v-model="p.preciosubproducto" placeholder="Precio" style="width: 100%" type="number"/>
+                        <input v-model="p.preciosubproducto" placeholder="Precio" step="0.01" style="width: 100%" type="number"/>
                       </div>
                       <div class="col-2 ">
                         <input v-model="p.cantidadsubproducto" placeholder="Cantidad" style="width: 100%" type="number"/>
@@ -216,7 +216,7 @@ export default {
   },
   methods:{
     agregarproducto(){
-      this.dato.rubro_id=this.rubro.id
+      this.dato.rubro_id=this.tab
       this.$q.loading.show()
       this.$axios.post(process.env.API+'/crearproducto',this.dato).then(res=>{
         // this.productoscombo=res.data

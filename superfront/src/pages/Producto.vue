@@ -51,6 +51,7 @@
               v-model="dato.precio"
               label="Precio"
               type="number"
+              step="0.01"
               hint="Ingresar precio"
               lazy-rules
               :rules="[ val => val>0 && val < 500 || 'Por favor Valor']"
@@ -250,6 +251,7 @@
               v-model="dato2.precio"
               label="Precio"
               type="number"
+              step="0.01"
               hint="Ingresar precio"
               lazy-rules
               :rules="[ val => val>0 && val < 500 || 'Por favor Valor']"
