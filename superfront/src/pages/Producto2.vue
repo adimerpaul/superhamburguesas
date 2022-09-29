@@ -83,7 +83,7 @@
 
                   <q-card-section class="q-pt-none">
                     <div class="text-subtitle1">
-                      <q-input outlined v-model="p.precio" step="0.01" label="Precio producto BS" @keyup="mistart(p)"/>
+                      <q-input outlined v-model="p.precio" type="number" step="0.01" label="Precio producto BS" @keyup="mistart(p)"/>
                     </div>
                     <div class="text-caption text-grey">
 <!--                      {{p.descripcion}}-->
