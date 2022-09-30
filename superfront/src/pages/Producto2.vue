@@ -98,7 +98,7 @@
                         <q-btn size="xs" @click="insertincluye(p)" color="green"><q-icon name="send"/>  </q-btn>
                       </div>
                       <div class="col-12">
-                        <template v-for="(inc,k) in p.incluyes" :key="k"> {{inc.nombre}} <q-icon @click="borrarincluye(inc,k,p)" color="red" name="delete"/>, </template>
+                        <template v-for="(inc,k) in p.incluyes" :key="k" > {{inc.nombre}} <q-icon @click="borrarincluye(inc,k,p)" color="red" name="delete"/>, </template>
                       </div>
                     </div>
                     <div class="row">
